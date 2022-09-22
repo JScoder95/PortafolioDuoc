@@ -1,0 +1,12 @@
+.brand__link {
+    font-size: 28px;
+    margin-right: 20px;
+    font-weight: 600;
+}
+.navbar__page {
+    z-index: 0;
+    height: 100px;
+}
+.navbar-collapse {
+    font-size: 20px;
+}
