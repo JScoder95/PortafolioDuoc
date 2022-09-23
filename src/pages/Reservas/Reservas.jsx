@@ -17,7 +17,7 @@ const Reservas = () => {
       <Tab eventKey="reservas" title="Reservas">
       </Tab>
       {
-        auth?.rol === "Administrador" ? <Tab eventKey="transporte" title="Asignar Transporte"></Tab> : null
+        auth?.usuario?.rol === "Administrador" ? <Tab eventKey="transporte" title="Asignar Transporte"></Tab> : null
       }
       
     </Tabs>

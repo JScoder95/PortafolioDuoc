@@ -7,7 +7,6 @@ import 'antd/dist/antd.css';
 const Clients = () => {
   const { auth } = useAuth(); 
   const [key, setKey] = useState('usuarios');
-  console.log(auth);
   return (
     <Tabs
       id="controlled-tab-example"

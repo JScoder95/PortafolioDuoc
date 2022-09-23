@@ -5,6 +5,7 @@ import Modal from 'react-bootstrap/Modal';
 import useAuth from '../../hooks/useAuth';
 import axios from '../../api/axios';
 import { message } from 'antd';
+import { useNavigate } from "react-router-dom";
 import './Login.css';
 import 'antd/dist/antd.css';
 const LOGIN_URL = '/user/login';
@@ -13,7 +14,7 @@ const GET_USERS = '/user/';
 function Login(props) {
     const { setAuth } = useAuth(); 
     const { setModalShow, show } = props;
-
+    const navigate = useNavigate();
     const [rut, setRut] = useState('');
     const [password, setPwd] = useState('');
     const [errMsg, setErrMsg] = useState('');
@@ -51,8 +52,6 @@ function Login(props) {
                 },
               };
             const response = await axios.post(LOGIN_URL, body, config);
-            console.log("Datos: ", rut, password)
-            console.log(response?.data.ok);
             if( response?.data.ok === true){
                 success()
                 const accessToken = response?.data?.token; 
@@ -64,10 +63,14 @@ function Login(props) {
                     headers: {
                       'x-token': accessToken,
                     },
-                  };
+                };
                 const response2 = await axios.get(GET_USERS, token);
-                console.log(response2.data);
-                setAuth(response2.data.usuario)
+                const dataInfo = {
+                    usuario: response2.data.usuario,
+                    token: accessToken
+                }
+                setAuth(dataInfo);
+                navigate("/reservas")
             } else {
                 error();
                 setModalShow(false); 

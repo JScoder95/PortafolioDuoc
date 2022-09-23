@@ -6,13 +6,16 @@ import Button from 'react-bootstrap/Button';
 import Login from '../../pages/Login/Login';
 import useAuth from '../../hooks/useAuth';
 import { NavLink } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import './Header.css';
 
 const NavScrollExample = () => {
   const { auth, setAuth } = useAuth();
     const [modalShow, setModalShow] = React.useState(false);
+    const navigate = useNavigate();
     const handleLogOut = () => {
       setAuth(null);
+      navigate("/reservas")
     }
   return (
     <Navbar className='navbar__page' sticky="top" bg="light" expand="lg">
@@ -25,8 +28,8 @@ const NavScrollExample = () => {
             style={{ maxHeight: '100px' }}
             navbarScroll
           >
-            { auth?.rol === "Funcionario" ? <Nav.Link as={NavLink} to="reservas">Reservas</Nav.Link>  
-              : auth?.rol === "Administrador" ? 
+            { auth?.usuario?.rol === "Funcionario" ? <Nav.Link as={NavLink} to="reservas">Reservas</Nav.Link>  
+              : auth?.usuario?.rol === "Administrador" ? 
                 <Fragment>
                   <Nav.Link as={NavLink} to="reservas">Reservas</Nav.Link>
                   <Nav.Link as={NavLink} to="clients">Usuarios</Nav.Link>
@@ -41,10 +44,10 @@ const NavScrollExample = () => {
             }
           </Nav>
         </Navbar.Collapse>
-        { auth?._id ? 
+        { auth?.usuario?._id ? 
           <Fragment>
             <Navbar.Text className='me-4'>
-              {`Bienvenido ${auth?.nombre}`}
+              { auth ? `Bienvenido ${auth?.usuario?.nombre}` : null}
             </Navbar.Text>
             <Button variant="primary" onClick={handleLogOut}>
               Cerrar Sesion
