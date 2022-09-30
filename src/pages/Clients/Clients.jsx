@@ -50,8 +50,18 @@ const Clients = () => {
       <Tab eventKey="usuarios" title="Usuarios">
       { !isLoading ? 
             <Fragment>
-              <TablaUsuarios array={usuarios} handleOpenPopUp={handleOpenPopUp} setSelectedUsuario={setSelectedUsuario}/>
-              <EditarUsuarioModal show={modalUsuario} handleClose={handleClose} setSelectedUsuario={setSelectedUsuario} selectedUsuario={selectedUsuario} setIsLoading={setIsLoading} />
+              <TablaUsuarios 
+                array={usuarios} 
+                handleOpenPopUp={handleOpenPopUp} 
+                setSelectedUsuario={setSelectedUsuario}
+              />
+              <EditarUsuarioModal 
+                show={modalUsuario} 
+                handleClose={handleClose} 
+                selectedUsuario={selectedUsuario} 
+                setIsLoading={setIsLoading} 
+                setSelectedUsuario={setSelectedUsuario}
+              />
             </Fragment>  
             : <Spiner /> 
         }

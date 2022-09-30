@@ -1,18 +1,25 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import { updateUser } from '../../actions/users';
 import useAuth from '../../hooks/useAuth';
-import './EditarUsuarioModal.css';
 
 
-const EditarUsuarioModal = ({ show, handleClose, selectedUsuario, setIsLoading }) => {
-    const { auth, setAuth } = useAuth();
-    const [nombre, setNombre] = useState('');
-    const [rut, setRut] = useState('');
-    const [telefono, setTelefono] = useState('');
-    const [correo, setCorreo] = useState('');
+const EditarUsuarioModal = ({ show, handleClose, selectedUsuario, setIsLoading, setSelectedUsuario }) => {
+    const { auth } = useAuth();
+    const [nombre, setNombre] = useState();
+    const [rut, setRut] = useState();
+    const [telefono, setTelefono] = useState();
+    const [correo, setCorreo] = useState();
+    const [id, setId] = useState('');
+    
+    useEffect(() => {
+        if(selectedUsuario){
+            setId(selectedUsuario._id);
+        }
+    }, [selectedUsuario])
+    
 
     const handleSetNombre = (event) => {
         setNombre(event.target.value)
@@ -33,9 +40,10 @@ const EditarUsuarioModal = ({ show, handleClose, selectedUsuario, setIsLoading }
     const handleSubmit = (e) => {
         e.preventDefault();
         setIsLoading(true);
-        updateUser(nombre, rut, telefono, correo, auth?.token).then((res) => {
+        updateUser(nombre, rut, telefono, correo, id, auth?.token).then((res) => {
             setIsLoading(false);
             handleClose();
+            setSelectedUsuario('');
             console.log(res);
         }).catch((err) => {
             console.log(err.response);

@@ -23,11 +23,28 @@ import axios from "../api/axios";
     return axios.delete(`/reservas/${dptoId}`, token);
   };
   
-  export const doCheckIn = (id, xtoken) => {
+  export const doCheckIn = (idReserva, xtoken) => {
+    const body = { 
+      id: idReserva,
+      checkIn: true,
+     };
     const token = {
       headers: {
         'x-token': xtoken,
       },
     };
-    return axios.post(`/checkin/${id}`, token);
+    return axios.post(`/reservas/update`, body, token);
+  };
+  export const doCheckOut = (idReserva, xtoken) => {
+    const body = { 
+      id: idReserva,
+      checkIn: false,
+      checkOut: true
+     };
+    const token = {
+      headers: {
+        'x-token': xtoken,
+      },
+    };
+    return axios.post(`/reservas/update`, body, token);
   };

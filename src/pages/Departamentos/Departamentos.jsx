@@ -35,7 +35,6 @@ const Departamentos = () => {
       };
       const response = await axios.get(GET_DEPARTAMENTOS_URL, token, { data : { "rol" : auth?.usuario?.rol } });
       setdepartamentos(response?.data.postDepto);
-      console.log(auth);
       setIsLoading(false)
       }
       fetchDepartamentos();

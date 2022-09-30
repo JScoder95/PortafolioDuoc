@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
-import { cancelReserve, doCheckIn } from '../../actions/departamentos';
+import { cancelReserve, doCheckIn, doCheckOut } from '../../actions/departamentos';
 import useAuth from '../../hooks/useAuth';
 import './TablaReservas.css';
 
@@ -32,6 +32,19 @@ function TablaReservas({ array, setIsLoading }) {
             console.log('NOPE')
         })
   }
+  const handleClickCheckOut = (e, id) => { 
+    e.preventDefault();
+        setIsLoading(true);
+        console.log(auth?.token);
+        doCheckOut(id, auth?.token).then((res) => {
+            setIsLoading(false);
+            console.log(res);
+            console.log('CHECKOUT HECHO')
+        }).catch((err) => {
+            console.log(err.response);
+            console.log('NOPE')
+        })
+  }
 
   return (
     <Table striped bordered hover>
@@ -51,8 +64,10 @@ function TablaReservas({ array, setIsLoading }) {
                 <td className='action__section'>
                   <div className='action__container'>
                     { auth?.usuario?.rol === 'Funcionario' 
-                        ?  <Button onClick={ (e) => handleClickCheckIn(e, item._id)} variant="primary">Check In</Button> 
-                        :  <Button onClick={ (e) => handleClickCancelarReserva(e, item._id)} variant="primary">Cancelar</Button>
+                      ?  
+                       !item?.checkIn ? <Button onClick={ (e) => handleClickCheckIn(e, item?._id)} variant="primary">Check In</Button> :   <Button onClick={ (e) => handleClickCheckOut(e, item?._id)} variant="primary">Check Out</Button>
+                      :  
+                      <Button onClick={ (e) => handleClickCancelarReserva(e, item?._id)} variant="primary">Cancelar</Button>
                     }
                   </div>
                 </td> 

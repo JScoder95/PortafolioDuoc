@@ -8,9 +8,9 @@ function TablaUsuarios({ array, setIsLoading, handleOpenPopUp, setSelectedUsuari
   
     const { auth } = useAuth(); 
 
-    const handleClickEditarUsuario = (e, id) => { 
+    const handleClickEditarUsuario = (e, item) => { 
         e.preventDefault();
-        setSelectedUsuario(id);
+        setSelectedUsuario(item);
         handleOpenPopUp();
     }
 
@@ -35,7 +35,7 @@ function TablaUsuarios({ array, setIsLoading, handleOpenPopUp, setSelectedUsuari
                 <td>{(item.correo)}</td>
                 <td className='action__section'>
                   <div className='action__container'>
-                    <Button onClick={ (e) => handleClickEditarUsuario(e, item._id)} variant="primary">Editar</Button>
+                    <Button onClick={ (e) => handleClickEditarUsuario(e, item)} variant="primary">Editar</Button>
                   </div>
                 </td> 
               </tr>
