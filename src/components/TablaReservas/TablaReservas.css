@@ -1,0 +1,8 @@
+.action__section {
+   height: 50px;
+   width: 150px;
+}
+.action__container {
+    display: flex;
+    justify-content: center;
+}

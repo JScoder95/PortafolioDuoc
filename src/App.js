@@ -14,7 +14,6 @@ import './App.css';
 
 function App() {
   return (
-    
     <BrowserRouter>
       <AuthProvider>
         <Header />
@@ -27,7 +26,6 @@ function App() {
         <Footer />
       </AuthProvider>
     </BrowserRouter>
-    
   );
 }
 
