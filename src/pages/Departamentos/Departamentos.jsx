@@ -5,7 +5,6 @@ import Tabs from 'react-bootstrap/Tabs';
 import axios from '../../api/axios';
 import TablaDepartamentos from '../../components/TablaDepartamentos/TablaDepartamentos';
 import Spiner from '../../components/Spiner/Spiner'
-import 'antd/dist/antd.css';
 import ReservarModal from '../ReservarModal/ReservarModal';
 const GET_DEPARTAMENTOS_URL = '/depto/'
 
