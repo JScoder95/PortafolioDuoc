@@ -25,11 +25,10 @@ const Reservas = () => {
       const response = await axios.get(GET_RESERVAS_URL, token);
       setReservas(response?.data?.reservas);
       setIsLoading(false)
-      console.log(response?.data);
       }
       fetchReservas();
     }
-  }, [key, isLoading === false]);
+  }, [key, isLoading]);
 
   return (
     <Tabs
@@ -39,15 +38,13 @@ const Reservas = () => {
       className="mb-2"
     >
       <Tab eventKey="reservas" title="Reservas">
-      { !isLoading ? 
-              <TablaReservas array={reservas} setIsLoading={setIsLoading} />
-            : <Spiner /> 
-        }
+      { !isLoading ? <TablaReservas array={reservas} setIsLoading={setIsLoading} />
+        : <Spiner /> 
+      }
       </Tab>
       {
         auth?.usuario?.rol === "Administrador" ? <Tab eventKey="transporte" title="Asignar Transporte"></Tab> : null
       }
-      
     </Tabs>
   )
 }

@@ -2,15 +2,23 @@ import React, { Fragment } from 'react'
 import Table from 'react-bootstrap/Table';
 import { capitalizeFirstLetter, formatDate, MoneyFormatter } from '../../common/utils';
 import Button from 'react-bootstrap/Button';
+import useAuth from '../../hooks/useAuth';
 import './TablaDepartamentos.css';
 
+
 function TablaDepartamentos({ array, handleOpenPopUp, setSelectedDepto }) {
+  const { auth } = useAuth(); 
 
   const handleClickReservar = (e, id, price) => {
     handleOpenPopUp();
     setSelectedDepto(id);
     console.log(id, price); 
     e.preventDefault();
+  }
+
+  const handleClickEditarReserva = (e, id) => { 
+    e.preventDefault();
+    console.log(id);
   }
 
   return (
@@ -45,7 +53,13 @@ function TablaDepartamentos({ array, handleOpenPopUp, setSelectedDepto }) {
                 </td>
                 <td className='action__section'>
                   <div className='action__container'>
-                  <Button onClick={ (e) => handleClickReservar(e, item)} variant="primary">Reservar</Button>
+                    { auth?.usuario?.rol === 'Administrador' 
+                      ? 
+                      <Button onClick={ (e) => handleClickEditarReserva(e, item._id)} variant="primary">Editar</Button>
+                      :
+                      <Button onClick={ (e) => handleClickReservar(e, item)} variant="primary">Reservar</Button>
+                    }
+                  
                   </div>
                 </td> 
               </tr>

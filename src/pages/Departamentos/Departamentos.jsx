@@ -24,8 +24,6 @@ const Departamentos = () => {
     setModalReservas(true);
   }
 
-  //const useReserveDepartment = (id)
-
   React.useEffect(() => {
     if( key === 'departamentos'){
       async function fetchDepartamentos() {
@@ -37,6 +35,7 @@ const Departamentos = () => {
       };
       const response = await axios.get(GET_DEPARTAMENTOS_URL, token, { data : { "rol" : auth?.usuario?.rol } });
       setdepartamentos(response?.data.postDepto);
+      console.log(auth);
       setIsLoading(false)
       }
       fetchDepartamentos();

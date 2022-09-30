@@ -1,12 +1,13 @@
 import React, { Fragment } from 'react'
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
-import { cancelReserve } from '../../actions/departamentos';
+import { cancelReserve, doCheckIn } from '../../actions/departamentos';
 import useAuth from '../../hooks/useAuth';
 import './TablaReservas.css';
 
 function TablaReservas({ array, setIsLoading }) {
-    const { auth } = useAuth(); 
+  
+  const { auth } = useAuth(); 
 
   const handleClickCancelarReserva = (e, id) => { 
     e.preventDefault();
@@ -16,6 +17,19 @@ function TablaReservas({ array, setIsLoading }) {
             console.log(res);
         }).catch((err) => {
             console.log(err);
+        })
+  }
+  const handleClickCheckIn = (e, id) => { 
+    e.preventDefault();
+        setIsLoading(true);
+        console.log(auth?.token);
+        doCheckIn(id, auth?.token).then((res) => {
+            setIsLoading(false);
+            console.log(res);
+            console.log('CHECKIN HECHO')
+        }).catch((err) => {
+            console.log(err.response);
+            console.log('NOPE')
         })
   }
 
@@ -32,11 +46,14 @@ function TablaReservas({ array, setIsLoading }) {
           { array?.map((item, index) => (
             <Fragment key={`item-${index}`}>
               <tr>
-                <td>{(item.departamento.nombre)}</td>
-                <td>{(item.usuario.nombre)}</td>
+                <td>{(item?.departamento?.nombre)}</td>
+                <td>{(item?.usuario?.nombre)}</td>
                 <td className='action__section'>
                   <div className='action__container'>
-                  <Button onClick={ (e) => handleClickCancelarReserva(e, item._id)} variant="primary">Cancelar</Button>
+                    { auth?.usuario?.rol === 'Funcionario' 
+                        ?  <Button onClick={ (e) => handleClickCheckIn(e, item._id)} variant="primary">Check In</Button> 
+                        :  <Button onClick={ (e) => handleClickCancelarReserva(e, item._id)} variant="primary">Cancelar</Button>
+                    }
                   </div>
                 </td> 
               </tr>

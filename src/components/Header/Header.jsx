@@ -15,7 +15,7 @@ const NavScrollExample = () => {
     const navigate = useNavigate();
     const handleLogOut = () => {
       setAuth(null);
-      navigate("/reservas")
+      navigate("/departamentos")
     }
   return (
     <Navbar className='navbar__page' sticky="top" bg="light" expand="lg">

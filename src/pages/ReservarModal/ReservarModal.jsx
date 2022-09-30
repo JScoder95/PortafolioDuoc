@@ -24,7 +24,8 @@ const ReservarModal = ({ show, handleClose, selectedDepto, setIsLoading }) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         setIsLoading(true);
-        reserveDepartment(selectedDepto._id, auth?.token).then((res) => {
+        const valorFinal = dias * selectedDepto.valorArriendo;
+        reserveDepartment(selectedDepto._id, auth?.token, valorFinal, dias).then((res) => {
             setIsLoading(false);
             handleClose();
             console.log(res);
