@@ -18,6 +18,8 @@ function TablaDepartamentos({ array, handleOpenPopUp, setSelectedDepto }) {
 
   const handleClickEditarReserva = (e, id) => { 
     e.preventDefault();
+    handleOpenPopUp();
+    setSelectedDepto(id);
     console.log(id);
   }
 
@@ -55,7 +57,7 @@ function TablaDepartamentos({ array, handleOpenPopUp, setSelectedDepto }) {
                   <div className='action__container'>
                     { auth?.usuario?.rol === 'Administrador' 
                       ? 
-                      <Button onClick={ (e) => handleClickEditarReserva(e, item._id)} variant="primary">Editar</Button>
+                      <Button onClick={ (e) => handleClickEditarReserva(e, item)} variant="primary">Editar</Button>
                       :
                       <Button onClick={ (e) => handleClickReservar(e, item)} variant="primary">Reservar</Button>
                     }

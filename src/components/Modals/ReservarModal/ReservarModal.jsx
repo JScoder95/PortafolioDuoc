@@ -2,9 +2,9 @@ import React, { useState } from 'react'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
-import useAuth from '../../hooks/useAuth';
-import { MoneyFormatter } from '../../common/utils';
-import { reserveDepartment } from '../../actions/departamentos';
+import useAuth from '../../../hooks/useAuth';
+import { MoneyFormatter } from '../../../common/utils';
+import { reserveDepartment } from '../../../actions/departamentos';
 import './ReservarModal.css';
 
 

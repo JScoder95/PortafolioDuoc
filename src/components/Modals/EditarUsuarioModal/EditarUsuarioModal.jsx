@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
-import { updateUser } from '../../actions/users';
-import useAuth from '../../hooks/useAuth';
+import { updateUser } from '../../../actions/users';
+import useAuth from '../../../hooks/useAuth';
 
 
 const EditarUsuarioModal = ({ show, handleClose, selectedUsuario, setIsLoading, setSelectedUsuario }) => {
@@ -17,6 +17,10 @@ const EditarUsuarioModal = ({ show, handleClose, selectedUsuario, setIsLoading, 
     useEffect(() => {
         if(selectedUsuario){
             setId(selectedUsuario._id);
+            setNombre(selectedUsuario.nombre);
+            setRut(selectedUsuario.rut);
+            setTelefono(selectedUsuario.telefono);
+            setCorreo(selectedUsuario.correo)
         }
     }, [selectedUsuario])
     

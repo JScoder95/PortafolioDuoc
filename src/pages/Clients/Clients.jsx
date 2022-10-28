@@ -4,7 +4,7 @@ import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import axios from '../../api/axios';
 import TablaUsuarios from '../../components/TablaUsuarios/TablaUsuarios';
-import EditarUsuarioModal from '../EditarUsuarioModal/EditarUsuarioModal';
+import EditarUsuarioModal from '../../components/Modals/EditarUsuarioModal/EditarUsuarioModal';
 import Spiner from '../../components/Spiner/Spiner';
 const GET_USUARIOS_URL = '/user/usuariosCreados'
 
@@ -22,6 +22,11 @@ const Clients = () => {
   const handleOpenPopUp = () => {
     setModalUsuario(true);
   }
+
+  React.useEffect(() => {
+    console.log(selectedUsuario);
+  })
+  
 
   React.useEffect(() => {
     if( key === 'usuarios'){

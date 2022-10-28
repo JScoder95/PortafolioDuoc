@@ -5,7 +5,8 @@ import Tabs from 'react-bootstrap/Tabs';
 import axios from '../../api/axios';
 import TablaDepartamentos from '../../components/TablaDepartamentos/TablaDepartamentos';
 import Spiner from '../../components/Spiner/Spiner'
-import ReservarModal from '../ReservarModal/ReservarModal';
+import ReservarModal from '../../components/Modals/ReservarModal/ReservarModal';
+import EditarDepartamentoModal from '../../components/Modals/EditarDepartamentoModal/EditarDepartamentoModal';
 const GET_DEPARTAMENTOS_URL = '/depto/'
 
 const Departamentos = () => {
@@ -14,13 +15,16 @@ const Departamentos = () => {
   const [departamentos, setdepartamentos] = useState([])
   const [isLoading, setIsLoading] = useState(true);
   const [modalReservas, setModalReservas] = React.useState(false);
+  const [modalEditar, setModalEditar] = React.useState(false);
   const [selectedDepto, setSelectedDepto] = React.useState("");
 
   const handleClose = () => {
     setModalReservas(false);
+    setModalEditar(false)
   }
   const handleOpenPopUp = () => {
     setModalReservas(true);
+    setModalEditar(true)
   }
 
   React.useEffect(() => {
@@ -38,8 +42,8 @@ const Departamentos = () => {
       }
       fetchDepartamentos();
     }
-  }, [key, isLoading]);
-
+  }, [key, isLoading, auth]);
+  
   return (
     <Tabs
       id="controlled-tab-example"
@@ -52,6 +56,7 @@ const Departamentos = () => {
             <Fragment>
               <TablaDepartamentos array={departamentos} handleOpenPopUp={handleOpenPopUp} setSelectedDepto={setSelectedDepto}/>
               <ReservarModal show={modalReservas} handleClose={handleClose} selectedDepto={selectedDepto} setIsLoading={setIsLoading} />
+              <EditarDepartamentoModal show={modalEditar} handleClose={handleClose} selectedDepto={selectedDepto} setIsLoading={setIsLoading} />
             </Fragment>  
             : <Spiner /> 
         }
