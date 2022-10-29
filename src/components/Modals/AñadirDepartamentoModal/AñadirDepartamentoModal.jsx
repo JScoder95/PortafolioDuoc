@@ -2,38 +2,20 @@ import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
-import { editDepartment } from "../../../actions/departamentos";
+import { addDepartment } from "../../../actions/departamentos";
 import useAuth from "../../../hooks/useAuth";
-import "./EditarDepartamentoModal.css";
 
-const EditarDepartamentoModal = ({
-  show,
-  handleClose,
-  selectedDepto,
-  setIsLoading,
-}) => {
-  const [nombre, setNombre] = useState(0);
-  const [direccion, setDireccion] = useState(0);
-  const [ubicacion, setUbicacion] = useState(0);
-  const [baños, setBaños] = useState(0);
-  const [habitaciones, setHabitaciones] = useState(0);
-  const [valorArriendo, setValorArriendo] = useState(0);
-  const [fechaPublicacion, setFechaPublicacion] = useState(0);
-  const [disponible, setDisponible] = useState(0);
-  const { auth, setAuth } = useAuth();
+const AñadirDepartamentoModal = ({ show, handleClose, setIsLoading }) => {
+  const [nombre, setNombre] = useState(null);
+  const [direccion, setDireccion] = useState(null);
+  const [ubicacion, setUbicacion] = useState(null);
+  const [baños, setBaños] = useState(null);
+  const [habitaciones, setHabitaciones] = useState(null);
+  const [valorArriendo, setValorArriendo] = useState(null);
+  const [disponible, setDisponible] = useState(null);
+  const { auth } = useAuth();
 
-  React.useEffect(() => {
-    if (selectedDepto) {
-      setNombre(selectedDepto.nombre);
-      setDireccion(selectedDepto.direccion);
-      setUbicacion(selectedDepto.ubicacion);
-      setBaños(selectedDepto.banos);
-      setHabitaciones(selectedDepto.habitaciones);
-      setValorArriendo(selectedDepto.valorArriendo);
-      setFechaPublicacion(selectedDepto.fechaPublicacion);
-      setDisponible(selectedDepto.disponible);
-    }
-  }, [selectedDepto]);
+  React.useEffect(() => {}, []);
 
   const handleSetNombre = (event) => {
     setNombre(event.target.value);
@@ -53,18 +35,14 @@ const EditarDepartamentoModal = ({
   const handleSetValorArriendo = (event) => {
     setValorArriendo(event.target.value);
   };
-  const handleSetFechaPublicacion = (event) => {
-    setFechaPublicacion(event.target.value);
-  };
   const handleSetDisponibilidad = (event) => {
     setDisponible(event.target.value);
   };
 
-  const handleClickEditar = (e) => {
+  const handleClickAddDepartment = (e) => {
     e.preventDefault();
     setIsLoading(true);
-    editDepartment(
-      selectedDepto._id,
+    addDepartment(
       auth?.token,
       nombre,
       direccion,
@@ -72,7 +50,6 @@ const EditarDepartamentoModal = ({
       baños,
       habitaciones,
       valorArriendo,
-      fechaPublicacion,
       disponible
     )
       .then((res) => {
@@ -94,9 +71,9 @@ const EditarDepartamentoModal = ({
       centered
     >
       <Modal.Header closeButton>
-        <Modal.Title>Editar Departamento</Modal.Title>
+        <Modal.Title>Añadir Departamento</Modal.Title>
       </Modal.Header>
-      <Form className="reservar__form" onSubmit={handleClickEditar}>
+      <Form className="reservar__form" onSubmit={handleClickAddDepartment}>
         <Form.Group className="mb-3">
           <Form.Label htmlFor="nombre">Nombre</Form.Label>
           <Form.Control
@@ -105,14 +82,14 @@ const EditarDepartamentoModal = ({
             onChange={handleSetNombre}
             value={nombre}
             required
-            placeholder="Ingresa un nuevo nombre"
+            placeholder="Nombre"
           />
         </Form.Group>
         <Form.Group className="mb-3">
           <Form.Label htmlFor="direccion">Direccion</Form.Label>
           <Form.Control
             type="input"
-            placeholder="Ingresa nueva direccion"
+            placeholder="Direccion"
             id="direccion"
             onChange={handleSetDireccion}
             value={direccion}
@@ -123,7 +100,7 @@ const EditarDepartamentoModal = ({
           <Form.Label htmlFor="ubicacion">Ubicacion</Form.Label>
           <Form.Control
             type="input"
-            placeholder="Ingresa nueva ubicacion"
+            placeholder="Ubicacion"
             id="ubicacion"
             onChange={handleSetUbicacion}
             value={ubicacion}
@@ -134,7 +111,7 @@ const EditarDepartamentoModal = ({
           <Form.Label htmlFor="baños">Cantidad de Baños</Form.Label>
           <Form.Control
             type="input"
-            placeholder="Ingresa la nueva cantidad de baños"
+            placeholder="Cantidad de baños"
             id="baños"
             onChange={handleSetBaños}
             value={baños}
@@ -145,7 +122,7 @@ const EditarDepartamentoModal = ({
           <Form.Label htmlFor="habitaciones">Habitaciones</Form.Label>
           <Form.Control
             type="input"
-            placeholder="Ingresa la nueva cantidad de habitaciones"
+            placeholder="Cantidad de habitaciones"
             id="habitaciones"
             onChange={handleSetHabitaciones}
             value={habitaciones}
@@ -156,7 +133,7 @@ const EditarDepartamentoModal = ({
           <Form.Label htmlFor="arriendo">Valor Arriendo</Form.Label>
           <Form.Control
             type="input"
-            placeholder="Ingresa el valor de arriendo"
+            placeholder="Valor de arriendo"
             id="arriendo"
             onChange={handleSetValorArriendo}
             value={valorArriendo}
@@ -164,21 +141,10 @@ const EditarDepartamentoModal = ({
           />
         </Form.Group>
         <Form.Group className="mb-3">
-          <Form.Label htmlFor="fecha">Fecha Publicacion</Form.Label>
-          <Form.Control
-            type="input"
-            placeholder="Ingresa la fecha"
-            id="fecha"
-            onChange={handleSetFechaPublicacion}
-            value={fechaPublicacion}
-            required
-          />
-        </Form.Group>
-        <Form.Group className="mb-3">
           <Form.Label htmlFor="disponibilidad">Disponibilidad</Form.Label>
           <Form.Control
             type="input"
-            placeholder="Ingresa la disponibilidad"
+            placeholder="Disponibilidad"
             id="disponibilidad"
             onChange={handleSetDisponibilidad}
             value={disponible}
@@ -187,11 +153,11 @@ const EditarDepartamentoModal = ({
         </Form.Group>
 
         <Button variant="primary" type="submit">
-          Editar
+          Crear
         </Button>
       </Form>
     </Modal>
   );
 };
 
-export default EditarDepartamentoModal;
+export default AñadirDepartamentoModal;
