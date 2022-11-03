@@ -7,6 +7,7 @@ import TablaDepartamentos from "../../components/TablaDepartamentos/TablaDeparta
 import Spiner from "../../components/Spiner/Spiner";
 import ReservarModal from "../../components/Modals/ReservarModal/ReservarModal";
 import EditarDepartamentoModal from "../../components/Modals/EditarDepartamentoModal/EditarDepartamentoModal";
+import EditarInventarioDepartamentoModal from '../../components/Modals/EditarInventarioDepartamentoModal/EditarInventarioDepartamentoModal'
 import Button from "react-bootstrap/Button";
 import AñadirDepartamentoModal from "../../components/Modals/AñadirDepartamentoModal/AñadirDepartamentoModal";
 const GET_DEPARTAMENTOS_URL = "/depto/";
@@ -18,6 +19,7 @@ const Departamentos = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [modalReservas, setModalReservas] = React.useState(false);
   const [modalEditar, setModalEditar] = React.useState(false);
+  const [modalEditarInventario, setModalEditarInventario] = React.useState(false);
   const [modalAñadir, setModalAñadir] = React.useState(false);
   const [selectedDepto, setSelectedDepto] = React.useState("");
 
@@ -31,6 +33,9 @@ const Departamentos = () => {
   };
   const handleOpenEdit = () => {
     setModalEditar(true);
+  };
+  const handleOpenEditInventory = () => {
+    setModalEditarInventario(true);
   };
 
   const handleClickAddDepartment = () => {
@@ -77,6 +82,7 @@ const Departamentos = () => {
               <TablaDepartamentos
                 array={departamentos}
                 handleOpenEdit={handleOpenEdit}
+                handleOpenEditInventory={handleOpenEditInventory}
                 handleOpenReserve={handleOpenReserve}
                 setSelectedDepto={setSelectedDepto}
                 setIsLoading={setIsLoading}
@@ -94,6 +100,12 @@ const Departamentos = () => {
               />
               <EditarDepartamentoModal
                 show={modalEditar}
+                handleClose={handleClose}
+                selectedDepto={selectedDepto}
+                setIsLoading={setIsLoading}
+              />
+              <EditarInventarioDepartamentoModal
+                show={modalEditarInventario}
                 handleClose={handleClose}
                 selectedDepto={selectedDepto}
                 setIsLoading={setIsLoading}

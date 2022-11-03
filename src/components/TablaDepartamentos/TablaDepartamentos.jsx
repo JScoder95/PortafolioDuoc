@@ -15,6 +15,7 @@ function TablaDepartamentos({
   setSelectedDepto,
   setIsLoading,
   handleOpenEdit,
+  handleOpenEditInventory,
   handleOpenReserve,
 }) {
   const { auth } = useAuth();
@@ -29,6 +30,12 @@ function TablaDepartamentos({
   const handleClickEditDepartment = (e, id) => {
     e.preventDefault();
     handleOpenEdit();
+    setSelectedDepto(id);
+    console.log(id);
+  };
+  const handleClickEditInventoryDepartment = (e, id) => {
+    e.preventDefault();
+    handleOpenEditInventory();
     setSelectedDepto(id);
     console.log(id);
   };
@@ -92,6 +99,13 @@ function TablaDepartamentos({
                         variant="primary"
                       >
                         Editar
+                      </Button>
+                      <Button
+                        className="me-4"
+                        onClick={(e) => handleClickEditInventoryDepartment(e, item)}
+                        variant="primary"
+                      >
+                        Inventario
                       </Button>
                       <Button
                         onClick={(e) => handleClickDeleteDepartment(e, item)}

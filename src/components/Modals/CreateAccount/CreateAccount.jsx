@@ -8,21 +8,24 @@ import { message } from "antd";
 import { useNavigate } from "react-router-dom";
 import "./CreateAccount.css";
 import "antd/dist/antd.css";
-const LOGIN_URL = "/user/login";
+const CREATE_URL = "/user/create";
 const GET_USERS = "/user/";
 
 function CreateAccount(props) {
   const { setAuth } = useAuth();
   const { setModalCreateAccount, show } = props;
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
+  const [correo, setCorreo] = useState("");
   const [password, setPwd] = useState("");
   const [nombre, setNombre] = useState("");
   const [rut, setRut] = useState("");
+  const [rol, setRol] = useState("Cliente");
   const [telefono, setTelefono] = useState("");
+  const [errMsg, setErrMsg] = useState("");
+  const [isValid, setIsValid] = useState(false);
 
-  const handleSetEmail = (event) => {
-    setEmail(event.target.value);
+  const handleSetCorreo = (event) => {
+    setCorreo(event.target.value);
   };
 
   const handleSetPw = (event) => {
@@ -52,48 +55,50 @@ function CreateAccount(props) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // try {
-    //   const body = JSON.stringify({ rut, password });
-    //   const config = {
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //   };
-    //   const response = await axios.post(LOGIN_URL, body, config);
-    //   if (response?.data.ok === true) {
-    //     success();
-    //     const accessToken = response?.data?.token;
-    //     setRut("");
-    //     setPwd("");
-    //     setIsValid(true);
-    //     setModalShow(false);
-    //     const token = {
-    //       headers: {
-    //         "x-token": accessToken,
-    //       },
-    //     };
-    //     const response2 = await axios.get(GET_USERS, token);
-    //     const dataInfo = {
-    //       usuario: response2.data.usuario,
-    //       token: accessToken,
-    //     };
-    //     setAuth(dataInfo);
-    //     navigate("/reservas");
-    //   } else {
-    //     error();
-    //     setModalShow(false);
-    //   }
-    // } catch (err) {
-    //   if (!err?.response) {
-    //     setErrMsg("No Server Response");
-    //   } else if (err.response?.status === 400) {
-    //     setErrMsg("Missing Username or Password");
-    //   } else if (err.response?.status === 401) {
-    //     setErrMsg("Unauthorized");
-    //   } else {
-    //     setErrMsg("Login Failed");
-    //   }
-    // }
+    try {
+      const body = JSON.stringify({ rut, password, nombre, correo, telefono, rol });
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+      console.log(body)
+      const response = await axios.post(CREATE_URL, body, config);
+      console.log(response)
+      if (response?.data.ok === true) {
+        success();
+        const accessToken = response?.data?.token;
+        setRut("");
+        setPwd("");
+        setIsValid(true);
+        setModalCreateAccount(false);
+        const token = {
+          headers: {
+            "x-token": accessToken,
+          },
+        };
+        const response2 = await axios.get(GET_USERS, token);
+        const dataInfo = {
+          usuario: response2.data.usuario,
+          token: accessToken,
+        };
+        setAuth(dataInfo);
+        navigate("/reservas");
+      } else {
+        error();
+        setModalCreateAccount(false);
+      }
+    } catch (err) {
+      if (!err?.response) {
+        setErrMsg("No Server Response");
+      } else if (err.response?.status === 400) {
+        setErrMsg("Missing Username or Password");
+      } else if (err.response?.status === 401) {
+        setErrMsg("Unauthorized");
+      } else {
+        setErrMsg("Login Failed");
+      }
+    }
   };
 
   return (
@@ -116,8 +121,8 @@ function CreateAccount(props) {
             type="email"
             id="email"
             autoComplete="off"
-            onChange={handleSetEmail}
-            value={email}
+            onChange={handleSetCorreo}
+            value={correo}
             required
             placeholder="Ingresa tu Correo"
           />
