@@ -27,6 +27,7 @@ const Departamentos = () => {
     setModalReservas(false);
     setModalEditar(false);
     setModalAñadir(false);
+    setModalEditarInventario(false);
   };
   const handleOpenReserve = () => {
     setModalReservas(true);
