@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import Table from "react-bootstrap/Table";
 import {
   capitalizeFirstLetter,
@@ -17,6 +17,8 @@ function TablaDepartamentos({
   handleOpenEdit,
   handleOpenEditInventory,
   handleOpenReserve,
+  disponible,
+  window
 }) {
   const { auth } = useAuth();
 
@@ -70,7 +72,7 @@ function TablaDepartamentos({
         </tr>
       </thead>
       <tbody>
-        {array?.map((item, index) => (
+        {array?.filter(item =>  item.disponible === disponible).map((item, index) => (
           <Fragment key={`item-${index}`}>
             <tr>
               <td>{capitalizeFirstLetter(item.nombre)}</td>
@@ -100,13 +102,17 @@ function TablaDepartamentos({
                       >
                         Editar
                       </Button>
-                      <Button
-                        className="me-4"
-                        onClick={(e) => handleClickEditInventoryDepartment(e, item)}
-                        variant="primary"
+                      {
+                        window === "departamentos" && 
+                        <Button
+                          className="me-4"
+                          onClick={(e) => handleClickEditInventoryDepartment(e, item)}
+                          variant="primary"
                       >
                         Inventario
                       </Button>
+                      }
+                      
                       <Button
                         onClick={(e) => handleClickDeleteDepartment(e, item)}
                         variant="primary"

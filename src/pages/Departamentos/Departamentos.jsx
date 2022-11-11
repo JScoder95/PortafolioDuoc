@@ -87,6 +87,8 @@ const Departamentos = () => {
                 handleOpenReserve={handleOpenReserve}
                 setSelectedDepto={setSelectedDepto}
                 setIsLoading={setIsLoading}
+                window="departamentos"
+                disponible="si"
               />
               <ReservarModal
                 show={modalReservas}
@@ -118,7 +120,48 @@ const Departamentos = () => {
         </Tab>
       ) : null}
       {auth?.usuario?.rol === "Administrador" ? (
-        <Tab eventKey="mantenciones" title="Mantenciones"></Tab>
+        <Tab eventKey="mantenciones" title="Mantenciones">
+           {!isLoading ? (
+            <Fragment>
+              <TablaDepartamentos
+                array={departamentos}
+                handleOpenEdit={handleOpenEdit}
+                handleOpenEditInventory={handleOpenEditInventory}
+                handleOpenReserve={handleOpenReserve}
+                setSelectedDepto={setSelectedDepto}
+                setIsLoading={setIsLoading}
+                window="mantenciones"
+                disponible="no"
+              />
+              <ReservarModal
+                show={modalReservas}
+                handleClose={handleClose}
+                selectedDepto={selectedDepto}
+                setIsLoading={setIsLoading}
+              />
+              <AñadirDepartamentoModal
+                show={modalAñadir}
+                handleClose={handleClose}
+                setIsLoading={setIsLoading}
+              />
+              <EditarDepartamentoModal
+                show={modalEditar}
+                handleClose={handleClose}
+                selectedDepto={selectedDepto}
+                setIsLoading={setIsLoading}
+                setKey={setKey}
+              />
+              <EditarInventarioDepartamentoModal
+                show={modalEditarInventario}
+                handleClose={handleClose}
+                selectedDepto={selectedDepto}
+                setIsLoading={setIsLoading}
+              />
+            </Fragment>
+          ) : (
+            <Spiner />
+          )}
+        </Tab>
       ) : null}
     </Tabs>
   );

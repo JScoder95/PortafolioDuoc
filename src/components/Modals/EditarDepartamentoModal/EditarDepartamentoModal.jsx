@@ -11,6 +11,7 @@ const EditarDepartamentoModal = ({
   handleClose,
   selectedDepto,
   setIsLoading,
+  setKey
 }) => {
   const [nombre, setNombre] = useState(0);
   const [direccion, setDireccion] = useState(0);
@@ -78,6 +79,7 @@ const EditarDepartamentoModal = ({
       .then((res) => {
         setIsLoading(false);
         handleClose();
+        setKey("departamentos")
         console.log(res);
       })
       .catch((err) => {

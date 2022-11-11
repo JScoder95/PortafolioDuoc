@@ -72,6 +72,23 @@ export const editDepartment = (
   return axios.post(`/depto/update`, body, token);
 };
 
+export const editInventoryDepartment = (
+  dptoId,
+  xtoken,
+  inventario
+) => {
+  const body = {
+    id: dptoId,
+    inventario: inventario,
+  };
+  const token = {
+    headers: {
+      "x-token": xtoken,
+    },
+  };
+  return axios.post(`/depto/update/inventario`, body, token);
+};
+
 export const deleteDepartment = (dptoId, xtoken) => {
   return axios.delete(`/depto/${dptoId}`);
 };

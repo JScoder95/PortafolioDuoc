@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
-import { editDepartment } from "../../../actions/departamentos";
+import { editDepartment, editInventoryDepartment } from "../../../actions/departamentos";
 import useAuth from "../../../hooks/useAuth";
 import "./EditarInventarioDepartamentoModal.css";
 
@@ -25,12 +25,11 @@ const EditarInventarioDepartamentoModal = ({
   const handleSetInventario = (event) => {
     setInventario(event.target.value);
   };
-  
 
   const handleClickEditar = (e) => {
     e.preventDefault();
     setIsLoading(true);
-    editDepartment(
+    editInventoryDepartment(
       selectedDepto._id,
       auth?.token,
       inventario,
