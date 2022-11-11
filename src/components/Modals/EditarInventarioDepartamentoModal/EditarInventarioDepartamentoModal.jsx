@@ -4,7 +4,9 @@ import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 import { editDepartment, editInventoryDepartment } from "../../../actions/departamentos";
 import useAuth from "../../../hooks/useAuth";
+import { Checkbox } from 'antd';
 import "./EditarInventarioDepartamentoModal.css";
+import 'antd/dist/antd.css';
 
 const EditarInventarioDepartamentoModal = ({
   show,
@@ -13,8 +15,23 @@ const EditarInventarioDepartamentoModal = ({
   setIsLoading,
 }) => {
   const [inventario, setInventario] = useState([]);
+  const [Mesas, setMesas] = useState(false);
+  const [Sillas, setSillas] = useState(false);
   
   const { auth, setAuth } = useAuth();
+
+  React.useEffect(() => {
+   if(inventario.includes("Mesas")){
+    setMesas(true);
+   } else {
+    setMesas(false)
+   }
+   if(inventario.includes("Sillas")){
+    setSillas(true);
+   } else {
+    setSillas(false)
+   }
+  }, [inventario]);
 
   React.useEffect(() => {
     if (selectedDepto) {
@@ -22,8 +39,29 @@ const EditarInventarioDepartamentoModal = ({
     }
   }, [selectedDepto]);
 
-  const handleSetInventario = (event) => {
-    setInventario(event.target.value);
+  const handleAddMesas = (e) => {
+    if(!inventario.includes("Mesas")) {
+      inventario.push("Mesas")
+      setMesas(true);
+      console.log(inventario)
+    } else {
+      let arr = inventario.filter(e => e !== "Mesas");
+      setInventario(arr)
+      console.log("nuevo inventario", arr);
+    }
+    console.log(e.target.checked);
+  };
+  const handleAddSillas = (e) => {
+    if(!inventario.includes("Sillas")) {
+      inventario.push("Sillas")
+      setSillas(true);
+      console.log(inventario)
+    } else {
+      let arr = inventario.filter(e => e !== "Sillas");
+      setInventario(arr)
+      console.log("nuevo inventario", arr);
+    }
+    console.log(e.target.checked);
   };
 
   const handleClickEditar = (e) => {
@@ -59,14 +97,11 @@ const EditarInventarioDepartamentoModal = ({
       <Form className="reservar__form" onSubmit={handleClickEditar}>
         <Form.Group className="mb-3">
           <Form.Label htmlFor="inventario">Inventario</Form.Label>
-          <Form.Control
-            type="input"
-            id="inventario"
-            onChange={handleSetInventario}
-            value={inventario}
-            required
-            placeholder="Ingresa un nuevo nombre"
-          />
+          <div className="inventory">
+            <Checkbox checked={Mesas} onChange={handleAddMesas}>Mesas</Checkbox>
+            <Checkbox checked={Sillas} onChange={handleAddSillas}>Sillas</Checkbox>
+          </div>
+          <Form.Label htmlFor="inventario">{inventario}</Form.Label>
         </Form.Group>
         <Button variant="primary" type="submit">
           Editar
