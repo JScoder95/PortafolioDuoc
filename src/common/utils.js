@@ -25,3 +25,13 @@ export function formatDate(fecha) {
 
 return formattedDate;
 }
+export function formatDateInventory(fecha) {
+  const date = new Date(fecha)
+  const formattedDate = date.toLocaleDateString("en-US", {
+    day: "numeric",
+    month: "long",
+    year: "numeric"
+  })
+
+return formattedDate;
+}

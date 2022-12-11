@@ -3,6 +3,7 @@ import useAuth from "../../hooks/useAuth";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import "antd/dist/antd.css";
+import { TablaGanancias } from "../../components/TablaGanancias/TablaGanancias";
 
 const Informes = () => {
   const { auth } = useAuth();
@@ -12,10 +13,14 @@ const Informes = () => {
       id="controlled-tab-example"
       activeKey={key}
       onSelect={(k) => setKey(k)}
-      className="mb-3"
+      className="mb-1"
     >
-      <Tab eventKey="informes" title="Informes"></Tab>
-      <Tab eventKey="estadisticas" title="Estadisticas"></Tab>
+      <Tab eventKey="informes" title="Informes">
+      
+      </Tab>
+      <Tab eventKey="estadisticas" title="Estadisticas">
+        <TablaGanancias/>
+      </Tab>
       <Tab eventKey="pagos" title="Pagos"></Tab>
     </Tabs>
   );
