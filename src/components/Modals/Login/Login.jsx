@@ -8,8 +8,12 @@ import { message } from "antd";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
 import "antd/dist/antd.css";
+import Spiner from "../../Spiner/Spiner";
+
 const LOGIN_URL = "/user/login";
 const GET_USERS = "/user/";
+
+
 
 function Login(props) {
   const { setAuth } = useAuth();
@@ -19,6 +23,7 @@ function Login(props) {
   const [password, setPwd] = useState("");
   const [errMsg, setErrMsg] = useState("");
   const [isValid, setIsValid] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     setErrMsg("");
@@ -51,6 +56,7 @@ function Login(props) {
           "Content-Type": "application/json",
         },
       };
+      setIsLoading(true);
       const response = await axios.post(LOGIN_URL, body, config);
       if (response?.data.ok === true) {
         success();
@@ -58,6 +64,7 @@ function Login(props) {
         setRut("");
         setPwd("");
         setIsValid(true);
+        setIsLoading(false);
         setModalShow(false);
         const token = {
           headers: {
@@ -99,6 +106,9 @@ function Login(props) {
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">Ingresar</Modal.Title>
       </Modal.Header>
+      {isLoading ? <Spiner /> : (
+
+
       <Form className="login__form" onSubmit={handleSubmit}>
         <Form.Group className="mb-3">
           <Form.Label htmlFor="username">Usuario</Form.Label>
@@ -138,6 +148,7 @@ function Login(props) {
           </span>
         </p>
       </Form>
+    )}
     </Modal>
   );
 }

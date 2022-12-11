@@ -1,13 +1,12 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment } from "react";
 import Tab from "react-bootstrap/Tab";
 import Col from "react-bootstrap/Col";
 import Nav from "react-bootstrap/Nav";
 import Row from "react-bootstrap/Row";
-import Tabs from "react-bootstrap/Tabs";
+
 import Table from "react-bootstrap/Table";
 import {
   capitalizeFirstLetter,
-  formatDate,
   MoneyFormatter,
 } from "../../common/utils";
 
@@ -45,7 +44,7 @@ export const GananciasSemanales = ({ arrayZona, arrayDepto }) => {
                         <td style={{ justifyItems: "center" }}>
                           {item.fecha}{" "}
                         </td>
-                        <td> {item.deptoInfo} </td>
+                        <td> {capitalizeFirstLetter (item.deptoInfo)} </td>
                         <td> {item.TotalReservas} </td>
                         <td> {MoneyFormatter(item.valor)} </td>
                       </tr>
@@ -71,7 +70,7 @@ export const GananciasSemanales = ({ arrayZona, arrayDepto }) => {
                         <td style={{ justifyItems: "center" }}>
                           {item.fecha}{" "}
                         </td>
-                        <td> {item.zona} </td>
+                        <td> {capitalizeFirstLetter( item.zona)} </td>
                         <td> {item.TotalReservas} </td>
                         <td> {MoneyFormatter(item.valor)} </td>
                       </tr>

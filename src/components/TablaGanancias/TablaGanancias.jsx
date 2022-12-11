@@ -1,4 +1,4 @@
-import React, { Fragment, useState,useEffect } from "react";
+import React, {  useState } from "react";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 
@@ -7,9 +7,7 @@ import Tabs from "react-bootstrap/Tabs";
 import useAuth from "../../hooks/useAuth";
 import axios from "../../api/axios";
 import {
-  capitalizeFirstLetter,
   formatDateInventory,
-  MoneyFormatter,
 } from "../../common/utils";
 import { GananciasDiarias } from "../Ganancias/GananciasDiarias";
 import { GananciasSemanales } from "../Ganancias/GananciasSemanales";
@@ -80,7 +78,7 @@ export const TablaGanancias = () => {
       
          // Inicializamos a 0 el valor de cada key
          Object.keys(value).forEach(function(key) {
-             if(key != 'fecha' && key != 'deptoInfo'){
+             if(key !== 'fecha' && key !== 'deptoInfo'){
                  res[`${dia}/${mes}/${depto}`][key] = 0;
                  
              }
@@ -91,7 +89,7 @@ export const TablaGanancias = () => {
       
       // Sumamos el valor de cada clave dentro de un bucle
       Object.keys(value).forEach(function(key) {
-        if(key != 'fecha' && key != 'deptoInfo'){
+        if(key !== 'fecha' && key !== 'deptoInfo'){
             res[`${dia}/${mes}/${depto}`][key] += value[key];
         }
       })
@@ -112,7 +110,7 @@ export const TablaGanancias = () => {
        
           // Inicializamos a 0 el valor de cada key
           Object.keys(value).forEach(function(key) {
-              if(key != 'fecha' && key != 'zona' ){
+              if(key !== 'fecha' && key !== 'zona' ){
                   res[`${dia}/${mes}/${zona}`][key] = 0;
               }
         })
@@ -122,7 +120,7 @@ export const TablaGanancias = () => {
        
        // Sumamos el valor de cada clave dentro de un bucle
        Object.keys(value).forEach(function(key) {
-         if(key != 'fecha' && key != 'zona' ){
+         if(key !== 'fecha' && key !== 'zona' ){
              res[`${dia}/${mes}/${zona}`][key] += value[key];
          }
        })
@@ -144,7 +142,7 @@ export const TablaGanancias = () => {
        
           // Inicializamos a 0 el valor de cada key
           Object.keys(value).forEach(function(key) {
-              if(key != 'fecha' && key != 'deptoInfo'){
+              if(key !== 'fecha' && key !== 'deptoInfo'){
                   res[`${semana}/${mes}/${depto}`][key] = 0;
               }
         })
@@ -154,7 +152,7 @@ export const TablaGanancias = () => {
        
        // Sumamos el valor de cada clave dentro de un bucle
        Object.keys(value).forEach(function(key) {
-         if(key != 'fecha' && key != 'deptoInfo'){
+         if(key !== 'fecha' && key !== 'deptoInfo'){
              res[`${semana}/${mes}/${depto}`][key] += value[key];
          }
        })
@@ -176,7 +174,7 @@ export const TablaGanancias = () => {
        
           // Inicializamos a 0 el valor de cada key
           Object.keys(value).forEach(function(key) {
-              if(key != 'fecha' && key != 'zona'){
+              if(key !== 'fecha' && key !== 'zona'){
                   res[`${semana}/${mes}/${zona}`][key] = 0;
               }
         })
@@ -185,7 +183,7 @@ export const TablaGanancias = () => {
        }
       // Sumamos el valor de cada clave dentro de un bucle
       Object.keys(value).forEach(function(key) {
-        if(key != 'fecha' && key != 'zona'){
+        if(key !== 'fecha' && key !== 'zona'){
             res[`${semana}/${mes}/${zona}`][key] += value[key];
         }
       })
@@ -198,7 +196,6 @@ export const TablaGanancias = () => {
   reservaDiaDepto.reduce(function(res, value) {
   
       // Creamos la posición del array para cada mes
-      let dia = new Date(value.fecha).getDate();
       let mes = new Date(value.fecha).getMonth()+1;
       let depto = value.deptoInfo;
       if (!res[`${mes}/${depto}`]) {
@@ -206,7 +203,7 @@ export const TablaGanancias = () => {
       
          // Inicializamos a 0 el valor de cada key
          Object.keys(value).forEach(function(key) {
-             if(key != 'fecha' && key != 'deptoInfo'){
+             if(key !== 'fecha' && key !== 'deptoInfo'){
                  res[`${mes}/${depto}`][key] = 0;
              }
        })
@@ -216,7 +213,7 @@ export const TablaGanancias = () => {
       
       // Sumamos el valor de cada clave dentro de un bucle
       Object.keys(value).forEach(function(key) {
-        if(key != 'fecha' && key != 'deptoInfo'){
+        if(key !== 'fecha' && key !== 'deptoInfo'){
             res[`${mes}/${depto}`][key] += value[key];
         }
       })
@@ -236,7 +233,7 @@ export const TablaGanancias = () => {
       
          // Inicializamos a 0 el valor de cada key
          Object.keys(value).forEach(function(key) {
-             if(key != 'fecha' && key != 'zona'){
+             if(key !== 'fecha' && key !== 'zona'){
                  res[`${mes}/${zona}`][key] = 0;
              }
        })
@@ -246,7 +243,7 @@ export const TablaGanancias = () => {
      
       // Sumamos el valor de cada clave dentro de un bucle
       Object.keys(value).forEach(function(key) {
-        if(key != 'fecha' && key != 'zona'){
+        if(key !== 'fecha' && key !== 'zona'){
             res[`${mes}/${zona}`][key] += value[key];
         }
       })
@@ -265,7 +262,7 @@ export const TablaGanancias = () => {
       
          // Inicializamos a 0 el valor de cada key
          Object.keys(value).forEach(function(key) {
-             if(key != 'fecha' && key != 'deptoInfo'){
+             if(key !== 'fecha' && key !== 'deptoInfo'){
                  res[`${anio}/${depto}`][key] = 0;
              }
        })
@@ -275,7 +272,7 @@ export const TablaGanancias = () => {
       
       // Sumamos el valor de cada clave dentro de un bucle
       Object.keys(value).forEach(function(key) {
-        if(key != 'fecha' && key != 'deptoInfo'){
+        if(key !== 'fecha' && key !== 'deptoInfo'){
             res[`${anio}/${depto}`][key] += value[key];
         }
       })
@@ -296,7 +293,7 @@ export const TablaGanancias = () => {
       
          // Inicializamos a 0 el valor de cada key
          Object.keys(value).forEach(function(key) {
-             if(key != 'fecha' && key != 'zona'){
+             if(key !== 'fecha' && key !== 'zona'){
                  res[`${anio}/${zona}`][key] = 0;
              }
        })
@@ -306,7 +303,7 @@ export const TablaGanancias = () => {
      
       // Sumamos el valor de cada clave dentro de un bucle
       Object.keys(value).forEach(function(key) {
-        if(key != 'fecha' && key != 'zona'){
+        if(key !== 'fecha' && key !== 'zona'){
             res[`${anio}/${zona}`][key] += value[key];
         }
       })
@@ -314,10 +311,7 @@ export const TablaGanancias = () => {
       return res;
   }, {});
 
-   console.log('resultadoZona', resultadoSemanaZona)
 
-
-  console.log('resultadoDepto', resultadoSemanaDepto)
   return (
     <Tabs activeKey={key} onSelect={(k) => setKey(k)} className="mb-1">
       <Tab eventKey="gananciaDiaria" title="Ganancia Diaria">
