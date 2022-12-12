@@ -11,6 +11,7 @@ import Departamentos from "./pages/Departamentos/Departamentos";
 import Reservas from "./pages/Reservas/Reservas";
 import Informes from "./pages/Informes/Informes";
 import './App.css';
+import { RespuestaPago } from "./pages/RespuestaPago/RespuestaPago";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path="/departamentos" element={<Departamentos />} />
           <Route path="/reservas" element={<Reservas />} />
           <Route path="/informes" element={<Informes />} />
+          <Route path='/webpay_plus/commit' element={<RespuestaPago />} />
         </Routes>
         <Footer />
       </AuthProvider>

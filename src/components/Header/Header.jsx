@@ -17,8 +17,11 @@ const NavScrollExample = () => {
   const navigate = useNavigate();
   const handleLogOut = () => {
     setAuth(null);
+    localStorage.removeItem("auth");
+    localStorage.removeItem("reservaID");
     navigate("/departamentos");
   };
+  const localAuth = JSON.parse(localStorage.getItem("auth"));
   return (
     <Navbar className="navbar__page" sticky="top" bg="light" expand="lg">
       <Container fluid>
@@ -72,7 +75,16 @@ const NavScrollExample = () => {
               Cerrar Sesion
             </Button>
           </Fragment>
-        ) : (
+        )  : localAuth?.usuario?._id ?(
+          <Fragment>
+            <Navbar.Text className="me-4">
+              {localAuth ? `Bienvenido ${localAuth?.usuario?.nombre}` : null}
+            </Navbar.Text>
+            <Button variant="primary" onClick={handleLogOut}>
+              Cerrar Sesion
+            </Button>
+          </Fragment>
+        ): (
           <Fragment>
             <Button
               className="me-2"
