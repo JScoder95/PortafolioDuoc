@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
-import DatePicker, { registerLocale } from "react-datepicker";
+import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 import useAuth from "../../../hooks/useAuth";
@@ -130,17 +130,7 @@ const ReservarModal = ({ show, handleClose, selectedDepto, setIsLoading }) => {
             placeholder="Ingresa la Cantidad de Personas"
           />
         </Form.Group>
-        <Form.Group className="mb-3">
-          <Form.Label htmlFor="dias">Cantidad de Dias</Form.Label>
-          <Form.Control
-            type="input"
-            placeholder="Ingresa la Cantidad de Días"
-            id="dias"
-            onChange={handleSetDias}
-            value={dias}
-            required
-          />
-        </Form.Group>
+        
         <Form.Group className="mb-3">
           <Form.Label htmlFor="dias">Fechas</Form.Label>
           <DatePicker
@@ -150,13 +140,10 @@ const ReservarModal = ({ show, handleClose, selectedDepto, setIsLoading }) => {
             endDate={endDate}
             minDate={new Date()}
             excludeDateIntervals={fechasReservadas}
-            //  selectsRange
             locale={es}
             dateFormat={"dd/MM/yyyy"}
             selectsRange={true}
             placeholderText="Selecciona las fechas"
-            // // selectsDisabledDaysInRange
-            // // inline
             isClearable={true}
           >
             <p style={{ color: "red", textAlign: "center" }}>
@@ -166,6 +153,17 @@ const ReservarModal = ({ show, handleClose, selectedDepto, setIsLoading }) => {
               </b>{" "}
             </p>
           </DatePicker>
+        </Form.Group>
+        <Form.Group className="mb-3">
+          <Form.Label htmlFor="dias">Cantidad de Dias</Form.Label>
+          <Form.Control
+            type="input"
+            placeholder="Ingresa la Cantidad de Días"
+            id="dias"
+            onChange={handleSetDias}
+            value={dias}
+            disabled
+          />
         </Form.Group>
 
         <Form.Group className="mb-3">
