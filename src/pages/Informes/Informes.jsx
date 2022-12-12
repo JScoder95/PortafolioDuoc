@@ -15,10 +15,7 @@ const Informes = () => {
       onSelect={(k) => setKey(k)}
       className="mb-1"
     >
-      <Tab eventKey="informes" title="Informes">
-      
-      </Tab>
-      <Tab eventKey="estadisticas" title="Estadisticas">
+      <Tab eventKey="estadisticas" title="Informes y Estadisticas">
         <TablaGanancias/>
       </Tab>
       <Tab eventKey="pagos" title="Pagos"></Tab>
