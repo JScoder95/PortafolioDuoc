@@ -22,6 +22,8 @@ const ReservarModal = ({ show, handleClose, selectedDepto, setIsLoading }) => {
 
   const [valorFinal, setValorFinal] = useState(0);
   const [reservas, setReservas] = useState([]);
+  const [webpayResponse, setWebpayResponse] = useState();
+  const [confirmarReserva, setConfirmarReserva] = useState(false);
 
   let fechasReservadas = [];
 
@@ -52,7 +54,7 @@ const ReservarModal = ({ show, handleClose, selectedDepto, setIsLoading }) => {
   };
   useEffect(() => {
     setValorFinal(0);
-
+    setConfirmarReserva(false);
     setDateRange([null, null]);
     setDias(0);
   }, [handleClose]);
@@ -84,10 +86,11 @@ const ReservarModal = ({ show, handleClose, selectedDepto, setIsLoading }) => {
       return [];
     }
   });
+  console.log(fechasReservadas);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setIsLoading(true);
+    // setIsLoading(true);
 
     reserveDepartment(
       selectedDepto._id,
@@ -95,18 +98,30 @@ const ReservarModal = ({ show, handleClose, selectedDepto, setIsLoading }) => {
       valorFinal,
       dias,
       startDate,
-      endDate
+      (endDate===null)?startDate:endDate,
     )
       .then((res) => {
         setIsLoading(false);
-        handleClose();
+        setConfirmarReserva(true);
+        // handleClose();
         console.log(res);
+        localStorage.setItem("reservaID",res.data?.reserva?._id);
       })
       .catch((err) => {
         console.log(err);
       });
   };
-
+  useEffect(() => {
+    async function fetchWebpay(){
+      const responseWP = await axios.get(
+        `/webpay_plus/pay/${valorFinal}`
+      )
+      console.log(responseWP)
+      setWebpayResponse(responseWP?.data);
+    }
+    fetchWebpay();
+  },[valorFinal])
+console.log(webpayResponse)
   return (
     <Modal
       show={show}
@@ -118,7 +133,7 @@ const ReservarModal = ({ show, handleClose, selectedDepto, setIsLoading }) => {
       <Modal.Header closeButton>
         <Modal.Title>Reservar Departamento</Modal.Title>
       </Modal.Header>
-      <Form className="reservar__form" onSubmit={handleSubmit}>
+      <Form className="reservar__form" /* onSubmit={handleSubmit} */>
         <Form.Group className="mb-3">
           <Form.Label htmlFor="personas">Cantidad de Personas</Form.Label>
           <Form.Control
@@ -178,9 +193,18 @@ const ReservarModal = ({ show, handleClose, selectedDepto, setIsLoading }) => {
             disabled
           />
         </Form.Group>
-        <Button variant="primary" type="submit">
-          Pagar
+        {!confirmarReserva?(
+
+        <Button variant="primary" onClick={handleSubmit}>
+          Confirmar Reserva
         </Button>
+        ):(
+
+        <form action={webpayResponse?.url} method="POST">
+          <input type="hidden" name="token_ws" value={webpayResponse?.token} />
+          <input type="submit" className="btn btn-success" value="Pagar" />
+        </form>
+        )}
       </Form>
     </Modal>
   );

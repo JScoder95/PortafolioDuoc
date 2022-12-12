@@ -76,6 +76,7 @@ function Login(props) {
           usuario: response2.data.usuario,
           token: accessToken,
         };
+        localStorage.setItem("auth", JSON.stringify(dataInfo));
         setAuth(dataInfo);
         navigate("/reservas");
       } else {
