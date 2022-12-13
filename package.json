@@ -15,8 +15,10 @@
     "react-bootstrap": "^2.5.0",
     "react-datepicker": "^4.8.0",
     "react-dom": "^18.2.0",
+    "react-inner-image-zoom": "^3.0.2",
     "react-router-dom": "^6.4.1",
     "react-scripts": "5.0.1",
+    "sweetalert2": "^11.6.15",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

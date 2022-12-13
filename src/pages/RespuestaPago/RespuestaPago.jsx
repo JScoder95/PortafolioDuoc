@@ -15,6 +15,8 @@ const ws_token = queryParams.get("token_ws");
 export const RespuestaPago = () => {
   const [webpayResonse, setWebpayResonse] = useState();
   const [reserva, setReserva] = useState([]);
+  const [statusCompra, setStatusCompra] = useState("");
+  const [mensajeStatusCompra, setMensajeStatusCompra] = useState("");
   const { auth, setAuth } = useAuth();
   const authLocal = JSON.parse(localStorage.getItem("auth"));
   useEffect(() => {
@@ -39,13 +41,21 @@ export const RespuestaPago = () => {
     async function fetchWebpay() {
       if (ws_token != null) {
         const response = await axios
-          .get(`http://localhost:8000/webpay_plus/commit?token_ws=${ws_token}`)
+          .get(`/webpay_plus/commit?token_ws=${ws_token}`)
           .then((res) => {
             setWebpayResonse(res.data);
+            if(res.data?.viewData?.commitResponse?.status === "FAILED"){
+            setStatusCompra('Pago Fallido')
+            setMensajeStatusCompra('Su pago no se ha realizado correctamente, por favor intente nuevamente')
+            }else{
+            setStatusCompra('Pago Exitoso');
+            setMensajeStatusCompra('Su pago se ha realizado correctamente, puede revisar su estado en el historial de reservas')
+            }
             const body = {
               id: localStorage.getItem("reservaID"),
-              statusPago: res.data?.pago,
+              statusPago: res.data?.viewData?.commitRespone?.status,
             };
+
             const config = {
               headers: {
                 "Content-Type": "application/json",
@@ -58,10 +68,14 @@ export const RespuestaPago = () => {
       } else {
         const response = await axios
           .get(
-            `http://localhost:8000/webpay_plus/commit?TBK_TOKEN=${tbk_token}&TBK_ORDEN_COMPRA=${tbk_orden_compra}&TBK_ORDEN_COMPRA${tbk_id_sesion}`
+            `/webpay_plus/commit?TBK_TOKEN=${tbk_token}&TBK_ORDEN_COMPRA=${tbk_orden_compra}&TBK_ORDEN_COMPRA${tbk_id_sesion}`
           )
           .then((res) => {
             setWebpayResonse(res.data);
+            if(res.data?.pago === "Pago Fallido"){
+              setStatusCompra('Pago Fallido')
+              setMensajeStatusCompra('Usted a cancelado el pago, por favor intente nuevamente')
+              }
             const body = {
               id: localStorage.getItem("reservaID"),
               statusPago: res.data?.pago,
@@ -87,8 +101,8 @@ export const RespuestaPago = () => {
     <div className="maincontainer">
       <div className="container">
         <div className="py-3 text-center">
-          <h2>{webpayResonse?.pago}</h2>
-          <p className="lead">{webpayResonse?.step}</p>
+          <h2>{statusCompra}</h2>
+          <p className="lead">{mensajeStatusCompra}</p>
         </div>
         <div className="transfer-card shadow-none border mb-12">
           <h3 className="col-md-12 order-md-12 mb-12 transfer-card-title">
@@ -136,14 +150,14 @@ export const RespuestaPago = () => {
             <span className="text-muted mb-2" style={{ marginRight: "5px" }}>
               {"Status:"}
             </span>
-            <h3> {webpayResonse?.pago} </h3>
+            <h3> {statusCompra} </h3>
           </div>
         </div>
 
         <div className="row mt-3">
           <div className="col-md-12 order-md-12 mb-12">
             <div className="text-sm-center">
-              <Link to='/reservas' className="btn btn-success">
+              <Link to="/reservas" className="btn btn-success">
                 <i className="mdi mdi-truck-fast me-1" /> {`Volver al inicio`}{" "}
               </Link>
             </div>
