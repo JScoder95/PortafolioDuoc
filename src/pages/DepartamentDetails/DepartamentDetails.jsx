@@ -195,10 +195,10 @@ const DepartamentDetails = () => {
                         <div className="d-flex">
                           <span
                             className="text-muted mb-1"
-                            style={{ marginRight: "35px" }}
+                            style={{ marginRight: "40px" }}
                           > <i className="bx bx-location-plus" ></i>
                             {"Ubicacion: "}{" "}
-                            <p>
+                            <p style={{paddingLeft:'14px'}} >
                               {" "}
                               {departamento?.direccion}{" "}
                               {departamento?.ubicacion}{" "}
@@ -207,15 +207,15 @@ const DepartamentDetails = () => {
                           <span
                             className="text-muted mb-1"
                             style={{ marginRight: "35px" }}
-                          >
-                            {"Disponible: "} <p> {departamento?.disponible} </p>
+                          ><i className="bx bx-check-circle" ></i>
+                            {"Disponible: "} <p style={{paddingLeft:'14px'}}> {departamento?.disponible} </p>
                           </span>
                           <span
                             className="text-muted mb-1"
                             style={{ marginRight: "15px" }}
                           > <i className="bx bx-calendar" ></i>
                             {"Fecha de Publicacion: "}{" "}
-                            <p>
+                            <p style={{paddingLeft:'14px'}}>
                               {" "}
                               {formatDate(departamento?.fechaPublicacion)}{" "}
                             </p>
