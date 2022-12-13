@@ -4,6 +4,7 @@ import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import axios from "../../api/axios";
 import TablaDepartamentos from "../../components/TablaDepartamentos/TablaDepartamentos";
+import TablaDepartamentosCliente from "../../components/TablaDepartamentosCliente/TablaDepartamentosClientes";
 import Spiner from "../../components/Spiner/Spiner";
 import ReservarModal from "../../components/Modals/ReservarModal/ReservarModal";
 import EditarDepartamentoModal from "../../components/Modals/EditarDepartamentoModal/EditarDepartamentoModal";
@@ -56,6 +57,7 @@ const Departamentos = () => {
           data: { rol: auth?.usuario?.rol },
         });
         setdepartamentos(response?.data.postDepto);
+        console.log(response?.data.postDepto)
         setIsLoading(false);
       }
       fetchDepartamentos();
@@ -73,14 +75,16 @@ const Departamentos = () => {
         <Tab eventKey="departamentos" title="Departamentos">
           {!isLoading ? (
             <Fragment>
-              <Button
+              { auth?.usuario?.rol === "Administrador" ? 
+              <Fragment>
+                <Button
                 className="ms-2 me-2 mt-2 mb-2"
                 onClick={(e) => handleClickAddDepartment(e)}
                 variant="primary"
               >
                 Añadir Departamento
               </Button>
-              <TablaDepartamentos
+                 <TablaDepartamentos
                 array={departamentos}
                 handleOpenEdit={handleOpenEdit}
                 handleOpenEditInventory={handleOpenEditInventory}
@@ -90,6 +94,18 @@ const Departamentos = () => {
                 window="departamentos"
                 disponible="si"
               />
+              </Fragment>
+              : 
+              <TablaDepartamentosCliente
+                array={departamentos}
+                handleOpenEdit={handleOpenEdit}
+                handleOpenEditInventory={handleOpenEditInventory}
+                handleOpenReserve={handleOpenReserve}
+                setSelectedDepto={setSelectedDepto}
+                setIsLoading={setIsLoading}
+                window="departamentos"
+                disponible="si"
+              />}
               <ReservarModal
                 show={modalReservas}
                 handleClose={handleClose}

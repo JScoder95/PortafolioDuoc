@@ -4,7 +4,7 @@
     font-weight: 600;
 }
 .navbar__page {
-    z-index: 0;
+    z-index: 1;
     height: 100px;
 }
 .navbar-collapse {

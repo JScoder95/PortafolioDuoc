@@ -19,7 +19,7 @@ export function formatDate(fecha) {
   const date = new Date(fecha)
   const formattedDate = date.toLocaleDateString("es-CL", {
     day: "numeric",
-    month: "long",
+    month: "numeric",
     year: "numeric"
   })
 
