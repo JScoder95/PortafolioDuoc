@@ -196,7 +196,7 @@ const DepartamentDetails = () => {
                           <span
                             className="text-muted mb-1"
                             style={{ marginRight: "40px" }}
-                          > <i className="bx bx-location-plus" style={{color:'#D92132'}} ></i>
+                          > <i className="bx bx-map-pin" style={{color:'#D92132'}} ></i>
                             {"Ubicacion: "}{" "}
                             <p style={{paddingLeft:'14px'}} >
                               {" "}
@@ -316,7 +316,7 @@ const DepartamentDetails = () => {
                                 }}
                                 className="btn btn-success"
                                 //  value='Pagar'
-                              ><i className="bx bx-money"></i> Pagar </button> 
+                              ><i className="bx bx-credit-card-alt"></i> Pagar </button> 
                             </form>
                           )}
                         </Form>
