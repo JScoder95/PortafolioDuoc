@@ -31,8 +31,8 @@ function TablaDepartamentosCliente({
                 <Link 
                   to={`/departamentDetails?departamentID=${item._id}`} 
                   className="btn btn-primary"
-                  style={{ cursor: "pointer" }}
-                >Ver</Link>
+                  style={{ cursor: "pointer", width: "100%" }}
+                >Ver más</Link>
               </div>  
             </div>
           </Fragment>
