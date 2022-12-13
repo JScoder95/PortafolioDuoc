@@ -12,7 +12,6 @@ const EmblaCarousel = (props) => {
     containScroll: 'keepSnaps',
     dragFree: true,
   })
-  console.log(slides)
   const onThumbClick = useCallback(
     (index) => {
       if (!emblaMainApi || !emblaThumbsApi) return

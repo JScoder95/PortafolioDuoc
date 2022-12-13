@@ -1,12 +1,13 @@
 import axios from "../api/axios";
 
-export const reserveDepartment = (dptoId, xtoken, valor, diasArriendo,fechaInicio,fechaFin) => {
+export const reserveDepartment = (dptoId, xtoken, valor, diasArriendo,fechaInicio,fechaFin,serviciosContratados) => {
   const body = {
     departamento: dptoId,
     valorFinal: valor,
     cantidadDias: diasArriendo,
     fechaInicio: fechaInicio,
     fechaFin: fechaFin,
+    serviciosContratados: serviciosContratados
   };
   const token = {
     headers: {

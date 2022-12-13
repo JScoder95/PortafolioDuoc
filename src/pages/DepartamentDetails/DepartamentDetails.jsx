@@ -41,7 +41,12 @@ const DepartamentDetails = () => {
   const [webpayResponse, setWebpayResponse] = useState();
   const [confirmarReserva, setConfirmarReserva] = useState(true);
   const [departamento, setDepartamento] = useState();
-
+  const [servicios, setServicios] = useState([]);
+  const [addService, setAddService] = useState(false);
+  const [serviceSelected, setServiceSelected] = useState();
+  const [arrayServicesAdd, setArrayServicesAdd] = useState([]);
+  
+  
   const idParams = location.search.slice(
     location.search.lastIndexOf("=") + 1,
     location.search.length
@@ -58,7 +63,7 @@ const DepartamentDetails = () => {
   }, [useLocation]);
   const onChange = (dates) => {
     const [start, end] = dates;
-
+    setAddService(false);
     setDateRange(dates);
     const startD = new Date(start).getTime();
     const endD = new Date(end).getTime();
@@ -103,6 +108,21 @@ const DepartamentDetails = () => {
     }
     fetchReservas();
   }, []);
+  useEffect(() => {
+    async function fetchServicios() {
+      const token = {
+        headers: {
+          "Content-Type": "application/json",
+          "x-token": auth?.token,
+        },
+      };
+      const response = await axios.get(`/servicio`, token);
+      console.log(response.data);
+      setServicios(response.data.servicios);
+    }
+    fetchServicios();
+  }, []);
+  console.log(servicios);
 
   reservas.map((reserva) => {
     const inicio = new Date(reserva.fechaInicio);
@@ -124,7 +144,8 @@ const DepartamentDetails = () => {
       valorFinal,
       dias,
       startDate,
-      endDate === null ? startDate : endDate
+      endDate === null ? startDate : endDate,
+      arrayServicesAdd
     )
       .then((res) => {
         setConfirmarReserva(true);
@@ -145,6 +166,16 @@ const DepartamentDetails = () => {
     fetchWebpay();
   }, [valorFinal]);
 
+  const handleSwitch = (e) => {
+    setAddService(e.target.checked);
+    if (!e.target.checked) {
+      setValorFinal(departamento?.valorArriendo * dias);
+      setArrayServicesAdd([]);
+    }
+  };
+  console.log(valorFinal);
+  console.log(serviceSelected);
+  console.log(arrayServicesAdd);
   return (
     <React.Fragment>
       <div style={{ background: "#eeeeee", padding: "15px" }}>
@@ -196,9 +227,14 @@ const DepartamentDetails = () => {
                           <span
                             className="text-muted mb-1"
                             style={{ marginRight: "40px" }}
-                          > <i className="bx bx-map-pin" style={{color:'#D92132'}} ></i>
+                          >
+                            {" "}
+                            <i
+                              className="bx bx-map-pin"
+                              style={{ color: "#D92132" }}
+                            ></i>
                             {"Ubicacion: "}{" "}
-                            <p style={{paddingLeft:'14px'}} >
+                            <p style={{ paddingLeft: "14px" }}>
                               {" "}
                               {departamento?.direccion}{" "}
                               {departamento?.ubicacion}{" "}
@@ -207,15 +243,28 @@ const DepartamentDetails = () => {
                           <span
                             className="text-muted mb-1"
                             style={{ marginRight: "35px" }}
-                          ><i className="bx bx-check-circle" style={{color:'#2ED73F'}} ></i>
-                            {"Disponible: "} <p style={{paddingLeft:'14px'}}> {departamento?.disponible} </p>
+                          >
+                            <i
+                              className="bx bx-check-circle"
+                              style={{ color: "#2ED73F" }}
+                            ></i>
+                            {"Disponible: "}{" "}
+                            <p style={{ paddingLeft: "14px" }}>
+                              {" "}
+                              {departamento?.disponible}{" "}
+                            </p>
                           </span>
                           <span
                             className="text-muted mb-1"
                             style={{ marginRight: "15px" }}
-                          > <i className="bx bx-calendar" style={{color:'#1441DD'}} ></i>
+                          >
+                            {" "}
+                            <i
+                              className="bx bx-calendar"
+                              style={{ color: "#1441DD" }}
+                            ></i>
                             {"Fecha de Publicacion: "}{" "}
-                            <p style={{paddingLeft:'14px'}}>
+                            <p style={{ paddingLeft: "14px" }}>
                               {" "}
                               {formatDate(departamento?.fechaPublicacion)}{" "}
                             </p>
@@ -279,9 +328,43 @@ const DepartamentDetails = () => {
 
                           <Form.Group className="mb-3">
                             <Form.Check
-                              type="checkbox"
+                              type="switch"
                               label="Añadir Servicios Extra"
+                              variant="danger"
+                              onChange={handleSwitch}
+                              disabled={startDate === null}
+                              checked={addService}
                             />
+                            {addService
+                              ? servicios.map((servicio) => (
+                                  <>
+                                    <Form.Check
+                                      type="checkbox"
+                                      label={
+                                        servicio.nombreServicio +
+                                        " - " +
+                                        MoneyFormatter(servicio.valorServicio)
+                                      }
+                                      value={servicio._id}
+                                      onChange={(e) => {
+                                        setServiceSelected(e.target.value);
+                                        if (e.target.checked) {
+                                          
+                                          setArrayServicesAdd([ ...arrayServicesAdd , servicio._id])
+                                          setValorFinal(
+                                            valorFinal + servicio.valorServicio
+                                          );
+                                        } else {
+                                          setArrayServicesAdd (arrayServicesAdd.filter(id => id !== servicio._id))
+                                          setValorFinal(
+                                            valorFinal - servicio.valorServicio
+                                          );
+                                        }
+                                      }}
+                                    />
+                                  </>
+                                ))
+                              : null}
                           </Form.Group>
                           <Form.Group className="mb-3">
                             <Form.Label htmlFor="precio">Precio</Form.Label>
@@ -293,11 +376,15 @@ const DepartamentDetails = () => {
                             />
                           </Form.Group>
                           {!confirmarReserva ? (
-                            <Button variant="primary" style={{
-                              width: "100%",
-                              border: "none",
-                              height: "40px",
-                            }} onClick={handleSubmit}>
+                            <Button
+                              variant="primary"
+                              style={{
+                                width: "100%",
+                                border: "none",
+                                height: "40px",
+                              }}
+                              onClick={handleSubmit}
+                            >
                               <i className="bx bx-hotel"></i> Confirmar Reserva
                             </Button>
                           ) : (
@@ -316,7 +403,9 @@ const DepartamentDetails = () => {
                                 }}
                                 className="btn btn-success"
                                 //  value='Pagar'
-                              ><i className="bx bx-credit-card-alt"></i> Pagar </button> 
+                              >
+                                <i className="bx bx-credit-card-alt"></i> Pagar{" "}
+                              </button>
                             </form>
                           )}
                         </Form>
