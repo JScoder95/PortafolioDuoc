@@ -39,7 +39,7 @@ const DepartamentDetails = () => {
   const [valorFinal, setValorFinal] = useState(0);
   const [reservas, setReservas] = useState([]);
   const [webpayResponse, setWebpayResponse] = useState();
-  const [confirmarReserva, setConfirmarReserva] = useState(false);
+  const [confirmarReserva, setConfirmarReserva] = useState(true);
   const [departamento, setDepartamento] = useState();
 
   const idParams = location.search.slice(
@@ -196,7 +196,7 @@ const DepartamentDetails = () => {
                           <span
                             className="text-muted mb-1"
                             style={{ marginRight: "35px" }}
-                          >
+                          > <i className="bx bx-location-plus" ></i>
                             {"Ubicacion: "}{" "}
                             <p>
                               {" "}
@@ -213,7 +213,7 @@ const DepartamentDetails = () => {
                           <span
                             className="text-muted mb-1"
                             style={{ marginRight: "15px" }}
-                          >
+                          > <i className="bx bx-calendar" ></i>
                             {"Fecha de Publicacion: "}{" "}
                             <p>
                               {" "}
@@ -307,11 +307,16 @@ const DepartamentDetails = () => {
                                 name="token_ws"
                                 value={webpayResponse?.token}
                               />
-                              <input
+                              <button
                                 type="submit"
+                                style={{
+                                  width: "100%",
+                                  border: "none",
+                                  height: "40px",
+                                }}
                                 className="btn btn-success"
-                                value="Pagar"
-                              />
+                                //  value='Pagar'
+                              ><i className="bx bx-money"></i> Pagar </button> 
                             </form>
                           )}
                         </Form>
