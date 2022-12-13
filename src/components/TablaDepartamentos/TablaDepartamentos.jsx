@@ -1,5 +1,8 @@
 import React, { Fragment, useEffect } from "react";
 import Table from "react-bootstrap/Table";
+
+import { Link } from "react-router-dom";
+
 import {
   capitalizeFirstLetter,
   formatDate,
@@ -55,7 +58,7 @@ function TablaDepartamentos({
         console.log(err);
       });
   };
-
+console.log(array)
   return (
     <Table striped bordered hover>
       <thead>
@@ -121,12 +124,17 @@ function TablaDepartamentos({
                       </Button>
                     </Fragment>
                   ) : (
-                    <Button
-                      onClick={(e) => handleClickReservar(e, item)}
-                      variant="primary"
-                    >
-                      Reservar
-                    </Button>
+                    // {/* <Button
+                    //   onClick={(e) => handleClickReservar(e, item)}
+                    //   variant="primary"
+                    // >
+                    //   Reservar
+                    // </Button> */}
+                    <Link
+                          to={`/departamentDetails?departamentID=${item._id}`}
+                          className="btn btn-primary"
+                          style={{ cursor: "pointer" }}
+                    ></Link>
                   )}
                 </div>
               </td>
