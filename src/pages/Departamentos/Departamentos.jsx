@@ -84,7 +84,7 @@ const Departamentos = () => {
               >
                 Añadir Departamento
               </Button>
-                 <TablaDepartamentos
+              <TablaDepartamentos
                 array={departamentos}
                 handleOpenEdit={handleOpenEdit}
                 handleOpenEditInventory={handleOpenEditInventory}
