@@ -6,10 +6,10 @@ export const EmblaCarousel = ({ imgs }) => {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false })
 
   return (
-    <div className="embla" ref={emblaRef}>
-      <div className="embla__container">
+    <div className="emblaa" ref={emblaRef}>
+      <div className="emblaa__container">
         {
-            imgs.map((image) => <img className="embla__slide" alt="image__slider" src={image}></img>)
+            imgs.map((image) => <img className="emblaa__slide" alt="image__slider" src={image}></img>)
         }
       </div>
     </div>

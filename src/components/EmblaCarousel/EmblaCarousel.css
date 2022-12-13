@@ -1,13 +1,13 @@
-.embla {
+.emblaa {
     overflow: hidden;
   }
-.embla__container {
+.emblaa__container {
     display: flex;
     height: 200px;
     z-index: 0;
     margin-right: 20px;
 }
-.embla__slide {
+.emblaa__slide {
     flex: 0 0 230px;
     min-width: 0;
 }
