@@ -11,7 +11,7 @@
     border-radius: 2rem;
 }
 .department__container {
-    width: 80%;
+    width: 90%;
     margin: auto;
     display: flex;
     flex-direction: row;
@@ -20,6 +20,7 @@
     align-items: center;
     overflow-y: auto;
     margin-bottom: 70px;
+    min-width: 500px;
 }
 .department__card {
     width: 250px;

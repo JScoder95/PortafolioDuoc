@@ -28,15 +28,6 @@ function TablaDepartamentosCliente({
               <div>Baños: {item.banos} Habitaciones: {item.habitaciones}</div>
               <div>{MoneyFormatter(item.valorArriendo)}</div>
               <div>{formatDate(item.fechaPublicacion)}</div>
-              <div className="available__department">
-                <div
-                  style={{
-                    backgroundColor:
-                      item.disponible === "si" ? "#009906" : "#ef2522",
-                  }}
-                  className="available__color"
-                ></div>
-              </div>
               <div>
                 <Link 
                   to={`/departamentDetails?departamentID=${item._id}`} 
