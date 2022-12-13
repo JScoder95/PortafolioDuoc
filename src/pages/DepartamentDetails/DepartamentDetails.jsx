@@ -196,7 +196,7 @@ const DepartamentDetails = () => {
                           <span
                             className="text-muted mb-1"
                             style={{ marginRight: "40px" }}
-                          > <i className="bx bx-location-plus" ></i>
+                          > <i className="bx bx-location-plus" style={{color:'#D92132'}} ></i>
                             {"Ubicacion: "}{" "}
                             <p style={{paddingLeft:'14px'}} >
                               {" "}
@@ -207,13 +207,13 @@ const DepartamentDetails = () => {
                           <span
                             className="text-muted mb-1"
                             style={{ marginRight: "35px" }}
-                          ><i className="bx bx-check-circle" ></i>
+                          ><i className="bx bx-check-circle" style={{color:'#2ED73F'}} ></i>
                             {"Disponible: "} <p style={{paddingLeft:'14px'}}> {departamento?.disponible} </p>
                           </span>
                           <span
                             className="text-muted mb-1"
                             style={{ marginRight: "15px" }}
-                          > <i className="bx bx-calendar" ></i>
+                          > <i className="bx bx-calendar" style={{color:'#1441DD'}} ></i>
                             {"Fecha de Publicacion: "}{" "}
                             <p style={{paddingLeft:'14px'}}>
                               {" "}
