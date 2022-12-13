@@ -4,7 +4,7 @@ import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import axios from "../../api/axios";
 import TablaDepartamentos from "../../components/TablaDepartamentos/TablaDepartamentos";
-import TablaDepartamentosCliente from "../../components/TablaDepartamentosCliente/TablaDepartamentosClientes";
+import TablaDepartamentosCliente from "../../components/TablaDepartamentosCliente/TablaDepartamentosCliente";
 import Spiner from "../../components/Spiner/Spiner";
 import ReservarModal from "../../components/Modals/ReservarModal/ReservarModal";
 import EditarDepartamentoModal from "../../components/Modals/EditarDepartamentoModal/EditarDepartamentoModal";
