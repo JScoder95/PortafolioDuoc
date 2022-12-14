@@ -15,3 +15,17 @@ export const updateUser = (Name, Rut, Telefono, Correo, Id, xtoken) => {
     };
     return axios.post(`/user/update/usuarios`, body, token);
   };
+
+  export const updateMultasyReparaciones = (id, multa, reparacion, xtoken) => {
+    const body = { 
+        id: id,
+        multas: multa,
+        costosReparaciones: reparacion
+       };
+    const token = {
+      headers: {
+        'x-token': xtoken,
+      },
+    };
+    return axios.post(`/user/update/multas`, body, token);
+  };

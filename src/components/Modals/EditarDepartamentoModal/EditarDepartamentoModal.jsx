@@ -187,7 +187,6 @@ const EditarDepartamentoModal = ({
             required
           />
         </Form.Group>
-
         <Button variant="primary" type="submit">
           Editar
         </Button>

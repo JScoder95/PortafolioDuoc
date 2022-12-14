@@ -108,8 +108,6 @@ function Login(props) {
         <Modal.Title id="contained-modal-title-vcenter">Ingresar</Modal.Title>
       </Modal.Header>
       {isLoading ? <Spiner /> : (
-
-
       <Form className="login__form" onSubmit={handleSubmit}>
         <Form.Group className="mb-3">
           <Form.Label htmlFor="username">Usuario</Form.Label>

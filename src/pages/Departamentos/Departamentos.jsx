@@ -6,7 +6,6 @@ import axios from "../../api/axios";
 import TablaDepartamentos from "../../components/TablaDepartamentos/TablaDepartamentos";
 import TablaDepartamentosCliente from "../../components/TablaDepartamentosCliente/TablaDepartamentosCliente";
 import Spiner from "../../components/Spiner/Spiner";
-import ReservarModal from "../../components/Modals/ReservarModal/ReservarModal";
 import EditarDepartamentoModal from "../../components/Modals/EditarDepartamentoModal/EditarDepartamentoModal";
 import EditarInventarioDepartamentoModal from '../../components/Modals/EditarInventarioDepartamentoModal/EditarInventarioDepartamentoModal'
 import Button from "react-bootstrap/Button";
@@ -18,20 +17,15 @@ const Departamentos = () => {
   const [key, setKey] = useState("departamentos");
   const [departamentos, setdepartamentos] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [modalReservas, setModalReservas] = React.useState(false);
   const [modalEditar, setModalEditar] = React.useState(false);
   const [modalEditarInventario, setModalEditarInventario] = React.useState(false);
   const [modalAñadir, setModalAñadir] = React.useState(false);
   const [selectedDepto, setSelectedDepto] = React.useState("");
 
-  const handleClose = () => {
-    setModalReservas(false);
+  const handleClose = () => {;
     setModalEditar(false);
     setModalAñadir(false);
     setModalEditarInventario(false);
-  };
-  const handleOpenReserve = () => {
-    setModalReservas(true);
   };
   const handleOpenEdit = () => {
     setModalEditar(true);
@@ -88,7 +82,6 @@ const Departamentos = () => {
                 array={departamentos}
                 handleOpenEdit={handleOpenEdit}
                 handleOpenEditInventory={handleOpenEditInventory}
-                handleOpenReserve={handleOpenReserve}
                 setSelectedDepto={setSelectedDepto}
                 setIsLoading={setIsLoading}
                 window="departamentos"
@@ -100,18 +93,11 @@ const Departamentos = () => {
                 array={departamentos}
                 handleOpenEdit={handleOpenEdit}
                 handleOpenEditInventory={handleOpenEditInventory}
-                handleOpenReserve={handleOpenReserve}
                 setSelectedDepto={setSelectedDepto}
                 setIsLoading={setIsLoading}
                 window="departamentos"
                 disponible="si"
               />}
-              <ReservarModal
-                show={modalReservas}
-                handleClose={handleClose}
-                selectedDepto={selectedDepto}
-                setIsLoading={setIsLoading}
-              />
               <AñadirDepartamentoModal
                 show={modalAñadir}
                 handleClose={handleClose}
@@ -143,17 +129,10 @@ const Departamentos = () => {
                 array={departamentos}
                 handleOpenEdit={handleOpenEdit}
                 handleOpenEditInventory={handleOpenEditInventory}
-                handleOpenReserve={handleOpenReserve}
                 setSelectedDepto={setSelectedDepto}
                 setIsLoading={setIsLoading}
                 window="mantenciones"
                 disponible="no"
-              />
-              <ReservarModal
-                show={modalReservas}
-                handleClose={handleClose}
-                selectedDepto={selectedDepto}
-                setIsLoading={setIsLoading}
               />
               <AñadirDepartamentoModal
                 show={modalAñadir}

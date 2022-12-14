@@ -106,10 +106,11 @@ export const cancelReserve = (dptoId, xtoken) => {
   return axios.delete(`/reservas/${dptoId}`, token);
 };
 
-export const doCheckIn = (idReserva, xtoken) => {
+export const doCheckIn = (idReserva, xtoken, listaChequeo) => {
   const body = {
     id: idReserva,
     checkIn: true,
+    estado: listaChequeo,
   };
   const token = {
     headers: {
@@ -118,11 +119,12 @@ export const doCheckIn = (idReserva, xtoken) => {
   };
   return axios.post(`/reservas/update/check`, body, token);
 };
-export const doCheckOut = (idReserva, xtoken) => {
+export const doCheckOut = (idReserva, xtoken, listaChequeo) => {
   const body = {
     id: idReserva,
-    checkIn: false,
+    checkIn: true,
     checkOut: true,
+    estado: listaChequeo,
   };
   const token = {
     headers: {
