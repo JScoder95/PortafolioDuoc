@@ -4,6 +4,8 @@ import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import axios from "../../api/axios";
 import TablaReservas from "../../components/TablaReservas/TablaReservas";
+import CheckOutModal from "../../components/Modals/CheckOutModal/CheckOutModal";
+import CheckInModal from "../../components/Modals/CheckInModal/CheckInModal";
 const GET_RESERVAS_URL = "/reservas/";
 
 const Reservas = () => {
@@ -11,6 +13,26 @@ const Reservas = () => {
   const [key, setKey] = useState("reservas");
   const [reservas, setReservas] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [modalCheckIn, setModalCheckIn] = useState(false)
+  const [modalCheckOut, setModalCheckOut] = useState(false)
+  const [selectedDepto, setSelectedDepto] = useState("")
+
+  const handleClose = () => {
+    setModalCheckIn(false);
+    setModalCheckOut(false);
+  };
+  const handleOpenCheckIn = (e, item) => {
+    e.preventDefault()
+    setModalCheckIn(true);
+    setSelectedDepto(item)
+    console.log(item);
+  };
+  const handleOpenCheckOut = (e, item) => {
+    e.preventDefault()
+    setModalCheckOut(true);
+    setSelectedDepto(item)
+    console.log(item);
+  };
 
   React.useEffect(() => {
     if (key === "reservas") {
@@ -41,6 +63,20 @@ const Reservas = () => {
           array={reservas}
           setIsLoading={setIsLoading}
           isLoading={isLoading}
+          handleOpenCheckIn={handleOpenCheckIn}
+          handleOpenCheckOut={handleOpenCheckOut}
+        />
+        <CheckOutModal 
+          show={modalCheckOut}
+          setIsLoading={setIsLoading}
+          handleClose={handleClose}
+          selectedDepto={selectedDepto}
+        />
+        <CheckInModal  
+          show={modalCheckIn}
+          setIsLoading={setIsLoading}
+          handleClose={handleClose}
+          selectedDepto={selectedDepto}
         />
       </Tab>
       {auth?.usuario?.rol === "Administrador" ? (

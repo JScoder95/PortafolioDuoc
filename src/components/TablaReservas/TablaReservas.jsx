@@ -1,15 +1,11 @@
 import React, { Fragment } from "react";
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
-import {
-  cancelReserve,
-  doCheckIn,
-  doCheckOut,
-} from "../../actions/departamentos";
+import { cancelReserve } from "../../actions/departamentos";
 import useAuth from "../../hooks/useAuth";
 import "./TablaReservas.css";
 
-function TablaReservas({ array, setIsLoading }) {
+function TablaReservas({ array, setIsLoading, handleOpenCheckIn, handleOpenCheckOut }) {
   const { auth } = useAuth();
 
   const handleClickCancelarReserva = (e, id) => {
@@ -22,36 +18,6 @@ function TablaReservas({ array, setIsLoading }) {
       })
       .catch((err) => {
         console.log(err);
-      });
-  };
-  const handleClickCheckIn = (e, id) => {
-    e.preventDefault();
-    setIsLoading(true);
-    console.log(auth?.token);
-    doCheckIn(id, auth?.token)
-      .then((res) => {
-        setIsLoading(false);
-        console.log(res);
-        console.log("CHECKIN HECHO");
-      })
-      .catch((err) => {
-        console.log(err.response);
-        console.log("NOPE");
-      });
-  };
-  const handleClickCheckOut = (e, id) => {
-    e.preventDefault();
-    setIsLoading(true);
-    console.log(auth?.token);
-    doCheckOut(id, auth?.token)
-      .then((res) => {
-        setIsLoading(false);
-        console.log(res);
-        console.log("CHECKOUT HECHO");
-      })
-      .catch((err) => {
-        console.log(err.response);
-        console.log("NOPE");
       });
   };
 
@@ -73,21 +39,23 @@ function TablaReservas({ array, setIsLoading }) {
               <td className="action__section">
                 <div className="action__container">
                   {auth?.usuario?.rol === "Funcionario" ? (
-                    !item?.checkIn ? (
+                    <Fragment>
                       <Button
-                        onClick={(e) => handleClickCheckIn(e, item?._id)}
+                        onClick={(e) => handleOpenCheckIn(e, item)}
                         variant="primary"
+                        disabled={(item.checkIn === true && item.checkOut === true) || (item.checkIn === true && item.checkOut === false) ? true : false}
                       >
                         Check In
                       </Button>
-                    ) : (
                       <Button
-                        onClick={(e) => handleClickCheckOut(e, item?._id)}
+                        onClick={(e) => handleOpenCheckOut(e, item)}
                         variant="primary"
+                        style={{ marginLeft: "10px" }}
+                        disabled={((item.checkOut === true && item.checkIn === true) || (item.checkOut === true && item.checkIn === false)) || (!item.checkIn && !item.checkOut) ? true : false}
                       >
                         Check Out
                       </Button>
-                    )
+                    </Fragment>
                   ) : (
                     <Button
                       onClick={(e) => handleClickCancelarReserva(e, item?._id)}

@@ -25,7 +25,6 @@ import useAuth from "../../hooks/useAuth";
 //CSS
 import "react-inner-image-zoom/lib/InnerImageZoom/styles.css";
 import "./EmblaCarouselThumbs.css";
-//import "./ReservarModal.css";
 
 const DepartamentDetails = () => {
   let fechasReservadas = [];
