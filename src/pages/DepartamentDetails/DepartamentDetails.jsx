@@ -53,7 +53,7 @@ const DepartamentDetails = () => {
   );
 
   useEffect(() => {
-    console.log(idParams);
+    
     async function getDepartamento() {
       await axios
         .get(`/depto/${idParams}`)
@@ -63,11 +63,14 @@ const DepartamentDetails = () => {
   }, [useLocation]);
   const onChange = (dates) => {
     const [start, end] = dates;
+    if(start == null && end == null){
+      setValorFinal(0)
+    }
     setAddService(false);
     setDateRange(dates);
     const startD = new Date(start).getTime();
     const endD = new Date(end).getTime();
-    console.log(startD, start);
+    
     setDias(0);
     if (end === null && start !== null) {
       setDias(1);
@@ -84,7 +87,7 @@ const DepartamentDetails = () => {
 
   const handleSetPersonas = (event) => {
     setPersonas(event.target.value);
-    console.log(personas);
+    
   };
   useEffect(() => {
     setValorFinal(0);
@@ -92,9 +95,15 @@ const DepartamentDetails = () => {
     setDateRange([null, null]);
     setDias(0);
   }, []);
+  
   useEffect(() => {
-    setValorFinal(departamento?.valorArriendo * dias);
+    if(startDate !== null || endDate !== null){
+      setValorFinal(departamento?.valorArriendo * dias);
+    }
+
   }, [startDate, endDate]);
+
+
   useEffect(() => {
     async function fetchReservas() {
       const token = {
@@ -117,18 +126,18 @@ const DepartamentDetails = () => {
         },
       };
       const response = await axios.get(`/servicio`, token);
-      console.log(response.data);
+      
       setServicios(response.data.servicios);
     }
     fetchServicios();
   }, []);
-  console.log(servicios);
+  
 
   reservas.map((reserva) => {
     const inicio = new Date(reserva.fechaInicio);
     const fin = new Date(reserva.fechaFin);
     if (reserva.fechaInicio !== undefined && reserva.fechaFin !== undefined) {
-      console.log("entre aqui");
+      
       fechasReservadas.push({ start: inicio, end: fin });
     } else {
       return [];
@@ -150,7 +159,7 @@ const DepartamentDetails = () => {
       .then((res) => {
         setConfirmarReserva(true);
         // handleClose();
-        console.log(res);
+        
         localStorage.setItem("reservaID", res.data?.reserva?._id);
       })
       .catch((err) => {
@@ -159,9 +168,12 @@ const DepartamentDetails = () => {
   };
   useEffect(() => {
     async function fetchWebpay() {
-      const responseWP = await axios.get(`/webpay_plus/pay/${valorFinal}`);
-      console.log(responseWP);
-      setWebpayResponse(responseWP?.data);
+      console.log('dentro del useeffect', valorFinal)
+      if(valorFinal !== 0 && valorFinal !== NaN){
+        const responseWP = await axios.get(`/webpay_plus/pay/${valorFinal}`);
+        
+        setWebpayResponse(responseWP?.data);
+      }
     }
     fetchWebpay();
   }, [valorFinal]);
@@ -173,9 +185,7 @@ const DepartamentDetails = () => {
       setArrayServicesAdd([]);
     }
   };
-  console.log(valorFinal);
-  console.log(serviceSelected);
-  console.log(arrayServicesAdd);
+  
   return (
     <React.Fragment>
       <div style={{ background: "#eeeeee", padding: "15px" }}>
