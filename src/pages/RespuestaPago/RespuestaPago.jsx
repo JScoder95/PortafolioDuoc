@@ -46,14 +46,10 @@ export const RespuestaPago = () => {
             setWebpayResonse(res.data);
             if(res.data?.viewData?.commitResponse?.status === "FAILED"){
             setStatusCompra('Pago Fallido')
-            setMensajeStatusCompra('Su pago no se ha realizado correctamente, por favor intente nuevamente')
-            }else{
-            setStatusCompra('Pago Exitoso');
-            setMensajeStatusCompra('Su pago se ha realizado correctamente, puede revisar su estado en el historial de reservas')
-            }
+            setMensajeStatusCompra('Su pago no se ha realizado correctamente, por favor intente nuevamente');
             const body = {
               id: localStorage.getItem("reservaID"),
-              statusPago: res.data?.viewData?.commitRespone?.status,
+              statusPago: 'Pago Fallido',
             };
 
             const config = {
@@ -64,6 +60,24 @@ export const RespuestaPago = () => {
             };
             const update = axios.post("reservas/update/status", body, config);
             console.log(update);
+            }else{
+            setStatusCompra('Pago Exitoso');
+            setMensajeStatusCompra('Su pago se ha realizado correctamente, puede revisar su estado en el historial de reservas');
+            const body = {
+              id: localStorage.getItem("reservaID"),
+              statusPago: 'Pago Exitoso',
+            };
+
+            const config = {
+              headers: {
+                "Content-Type": "application/json",
+                "x-token": authLocal?.token,
+              },
+            };
+            const update = axios.post("reservas/update/status", body, config);
+            console.log(update);
+            }
+            
           });
       } else {
         const response = await axios
