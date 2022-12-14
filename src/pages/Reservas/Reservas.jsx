@@ -10,6 +10,7 @@ const GET_RESERVAS_URL = "/reservas/";
 
 const Reservas = () => {
   const { auth } = useAuth();
+  const authLocal = ( auth=={} ? auth : JSON.parse(localStorage.getItem("auth"))  ) ;
   const [key, setKey] = useState("reservas");
   const [reservas, setReservas] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -40,7 +41,7 @@ const Reservas = () => {
         const token = {
           headers: {
             "Content-Type": "application/json",
-            "x-token": auth?.token,
+            "x-token": authLocal?.token,
           },
         };
         const response = await axios.get(GET_RESERVAS_URL, token);
@@ -79,7 +80,7 @@ const Reservas = () => {
           selectedDepto={selectedDepto}
         />
       </Tab>
-      {auth?.usuario?.rol === "Administrador" ? (
+      {authLocal?.usuario?.rol === "Administrador" ? (
         <Tab eventKey="transporte" title="Asignar Transporte"></Tab>
       ) : null}
     </Tabs>

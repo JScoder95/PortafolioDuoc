@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment,useEffect } from "react";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
@@ -21,7 +21,14 @@ const NavScrollExample = () => {
     localStorage.removeItem("reservaID");
     navigate("/departamentos");
   };
-  const localAuth = JSON.parse(localStorage.getItem("auth"));
+  useEffect(() => {
+    setAuth(JSON.parse(localStorage.getItem("auth")));
+  
+ 
+  }, [])
+  
+  const authLocal = ( auth=={} ? auth : JSON.parse(localStorage.getItem("auth"))  ) ;
+  // const localAuth = JSON.parse(localStorage.getItem("auth"));
   return (
     <Navbar className="navbar__page" sticky="top" bg="light" expand="lg">
       <Container fluid>
@@ -35,11 +42,11 @@ const NavScrollExample = () => {
             style={{ maxHeight: "100px" }}
             navbarScroll
           >
-            {auth?.usuario?.rol === "Funcionario" ? (
+            {authLocal?.usuario?.rol === "Funcionario" ? (
               <Nav.Link as={NavLink} to="reservas">
                 Reservas
               </Nav.Link>
-            ) : auth?.usuario?.rol === "Administrador" ? (
+            ) : authLocal?.usuario?.rol === "Administrador" ? (
               <Fragment>
                 <Nav.Link as={NavLink} to="reservas">
                   Reservas
@@ -66,7 +73,7 @@ const NavScrollExample = () => {
             )}
           </Nav>
         </Navbar.Collapse>
-        {auth?.usuario?._id ? (
+        {authLocal?.usuario?._id ? (
           <Fragment>
             <Navbar.Text className="me-4">
               {auth ? `Bienvenido ${auth?.usuario?.nombre}` : null}
@@ -75,10 +82,10 @@ const NavScrollExample = () => {
               Cerrar Sesion
             </Button>
           </Fragment>
-        )  : localAuth?.usuario?._id ?(
+        )  : authLocal?.usuario?._id ?(
           <Fragment>
             <Navbar.Text className="me-4">
-              {localAuth ? `Bienvenido ${localAuth?.usuario?.nombre}` : null}
+              {authLocal ? `Bienvenido ${authLocal?.usuario?.nombre}` : null}
             </Navbar.Text>
             <Button variant="primary" onClick={handleLogOut}>
               Cerrar Sesion
