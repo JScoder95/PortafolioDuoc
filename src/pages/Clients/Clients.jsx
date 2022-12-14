@@ -9,7 +9,8 @@ import Spiner from '../../components/Spiner/Spiner';
 const GET_USUARIOS_URL = '/user/usuariosCreados'
 
 const Clients = () => {
-  const { auth } = useAuth(); 
+  const { auth } = useAuth();
+  const authLocal = ( auth=={} ? auth : JSON.parse(localStorage.getItem("auth"))  ) ;
   const [key, setKey] = useState('usuarios');
   const [isLoading, setIsLoading] = useState(true);
   const [usuarios, setUsuarios] = useState([])
@@ -34,7 +35,7 @@ const Clients = () => {
       const token = {
         headers: {
           'Content-Type': 'application/json',
-          'x-token': auth?.token,
+          'x-token': authLocal?.token,
         },
       };
       const response = await axios.get(GET_USUARIOS_URL, token);

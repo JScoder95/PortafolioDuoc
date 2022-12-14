@@ -14,6 +14,7 @@ const AñadirDepartamentoModal = ({ show, handleClose, setIsLoading }) => {
   const [valorArriendo, setValorArriendo] = useState(null);
   const [disponible, setDisponible] = useState(null);
   const { auth } = useAuth();
+  const authLocal = ( auth=={} ? auth : JSON.parse(localStorage.getItem("auth"))  ) ;
 
   React.useEffect(() => {}, []);
 

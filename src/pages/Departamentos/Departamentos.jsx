@@ -14,6 +14,7 @@ const GET_DEPARTAMENTOS_URL = "/depto/";
 
 const Departamentos = () => {
   const { auth } = useAuth();
+  const authLocal = ( auth=={} ? auth : JSON.parse(localStorage.getItem("auth"))  ) ;
   const [key, setKey] = useState("departamentos");
   const [departamentos, setdepartamentos] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -44,11 +45,11 @@ const Departamentos = () => {
         const token = {
           headers: {
             "Content-Type": "application/json",
-            "x-token": auth?.token,
+            "x-token": authLocal?.token,
           },
         };
         const response = await axios.get(GET_DEPARTAMENTOS_URL, token, {
-          data: { rol: auth?.usuario?.rol },
+          data: { rol: authLocal?.usuario?.rol },
         });
         setdepartamentos(response?.data.postDepto);
         console.log(response?.data.postDepto)
@@ -65,11 +66,11 @@ const Departamentos = () => {
       onSelect={(k) => setKey(k)}
       className="mb-3"
     >
-      {auth ? (
+      {authLocal ? (
         <Tab eventKey="departamentos" title="Departamentos">
           {!isLoading ? (
             <Fragment>
-              { auth?.usuario?.rol === "Administrador" ? 
+              { authLocal?.usuario?.rol === "Administrador" ? 
               <Fragment>
                 <Button
                 className="ms-2 me-2 mt-2 mb-2"
@@ -121,7 +122,7 @@ const Departamentos = () => {
           )}
         </Tab>
       ) : null}
-      {auth?.usuario?.rol === "Administrador" ? (
+      {authLocal?.usuario?.rol === "Administrador" ? (
         <Tab eventKey="mantenciones" title="Mantenciones">
            {!isLoading ? (
             <Fragment>

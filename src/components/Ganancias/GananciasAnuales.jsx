@@ -83,7 +83,7 @@ export const GananciasAnuales = ({ arrayZona, arrayDepto }) => {
                         <td style={{ justifyItems: "center" }}>
                           {item.fecha}{" "}
                         </td>
-                        <td> {capitalizeFirstLetter(item.deptoInfo)} </td>
+                        <td> {item.deptoInfo} </td>
                         <td> {item.TotalReservas} </td>
                         <td> {MoneyFormatter(item.valor)} </td>
                       </tr>
@@ -109,7 +109,7 @@ export const GananciasAnuales = ({ arrayZona, arrayDepto }) => {
                         <td style={{ justifyItems: "center" }}>
                           {item.fecha}{" "}
                         </td>
-                        <td> {capitalizeFirstLetter(item.zona)} </td>
+                        <td> {item.zona} </td>
                         <td> {item.TotalReservas} </td>
                         <td> {MoneyFormatter(item.valor)} </td>
                       </tr>

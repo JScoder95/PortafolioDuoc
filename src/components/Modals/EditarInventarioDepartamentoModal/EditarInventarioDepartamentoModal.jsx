@@ -19,6 +19,7 @@ const EditarInventarioDepartamentoModal = ({
   const [Sillas, setSillas] = useState(false);
   
   const { auth, setAuth } = useAuth();
+  const authLocal = ( auth=={} ? auth : JSON.parse(localStorage.getItem("auth"))  ) ;
 
   React.useEffect(() => {
    if(inventario.includes("Mesas")){
@@ -69,7 +70,7 @@ const EditarInventarioDepartamentoModal = ({
     setIsLoading(true);
     editInventoryDepartment(
       selectedDepto._id,
-      auth?.token,
+      authLocal?.token,
       inventario,
     )
       .then((res) => {

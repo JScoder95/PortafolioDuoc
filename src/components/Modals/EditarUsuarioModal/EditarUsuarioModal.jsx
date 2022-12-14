@@ -8,6 +8,7 @@ import useAuth from '../../../hooks/useAuth';
 
 const EditarUsuarioModal = ({ show, handleClose, selectedUsuario, setIsLoading, setSelectedUsuario }) => {
     const { auth } = useAuth();
+    const authLocal = ( auth=={} ? auth : JSON.parse(localStorage.getItem("auth"))  ) ;
     const [nombre, setNombre] = useState();
     const [rut, setRut] = useState();
     const [telefono, setTelefono] = useState();
@@ -44,7 +45,7 @@ const EditarUsuarioModal = ({ show, handleClose, selectedUsuario, setIsLoading, 
     const handleSubmit = (e) => {
         e.preventDefault();
         setIsLoading(true);
-        updateUser(nombre, rut, telefono, correo, id, auth?.token).then((res) => {
+        updateUser(nombre, rut, telefono, correo, id, authLocal?.token).then((res) => {
             setIsLoading(false);
             handleClose();
             setSelectedUsuario('');
