@@ -21,84 +21,87 @@ const NavScrollExample = () => {
   };
   return (
     <Navbar className="navbar__page" sticky="top" bg="light" expand="lg">
-      <Container fluid>
-        <Nav.Link className="brand__link" as={NavLink} to="/">
-          TurismoReal
-        </Nav.Link>
-        <Navbar.Toggle aria-controls="navbarScroll" />
-        <Navbar.Collapse id="navbarScroll">
-          <Nav
-            className="me-auto my-2 my-lg-0"
-            style={{ maxHeight: "100px" }}
-            navbarScroll
-          >
-            {auth?.usuario?.rol === "Funcionario" ? (
-              <Nav.Link as={NavLink} to="reservas">
-                Reservas
-              </Nav.Link>
-            ) : auth?.usuario?.rol === "Administrador" ? (
-              <Fragment>
-                <Nav.Link as={NavLink} to="reservas">
+      <Container fluid className="header">
+        <div className="left">
+          <Navbar.Toggle aria-controls="navbarScroll" />
+          <Nav.Link className="brand__link" as={NavLink} to="/">
+            TurismoReal
+          </Nav.Link>
+          <Navbar.Collapse id="navbarScroll">
+            <Nav
+              className="me-auto my-2 my-lg-0"
+              navbarScroll
+            >
+              {auth?.usuario?.rol === "Funcionario" ? (
+                <Nav.Link as={NavLink} className="nav-link" to="reservas">
                   Reservas
                 </Nav.Link>
-                <Nav.Link as={NavLink} to="clients">
-                  Usuarios
-                </Nav.Link>
-                <Nav.Link as={NavLink} to="departamentos">
-                  Departamentos
-                </Nav.Link>
-                <Nav.Link as={NavLink} to="informes">
-                  Informes
-                </Nav.Link>
-              </Fragment>
-            ) : (
-              <Fragment>
-                <Nav.Link as={NavLink} to="reservas">
-                  Reservas
-                </Nav.Link>
-                <Nav.Link as={NavLink} to="departamentos">
-                  Departamentos
-                </Nav.Link>
-              </Fragment>
+              ) : auth?.usuario?.rol === "Administrador" ? (
+                <Fragment>
+                  <Nav.Link as={NavLink} className="nav-link" to="reservas">
+                    Reservas
+                  </Nav.Link>
+                  <Nav.Link as={NavLink} className="nav-link" to="clients">
+                    Usuarios
+                  </Nav.Link>
+                  <Nav.Link as={NavLink} className="nav-link" to="departamentos">
+                    Departamentos
+                  </Nav.Link>
+                  <Nav.Link as={NavLink} className="nav-link" to="informes">
+                    Informes
+                  </Nav.Link>
+                </Fragment>
+              ) : (
+                <div>
+                  <Nav.Link as={NavLink} className="nav-link" to="reservas">
+                    Reservas
+                  </Nav.Link>
+                  <Nav.Link as={NavLink} className="nav-link" to="departamentos">
+                    Departamentos
+                  </Nav.Link>
+        </div>
             )}
           </Nav>
         </Navbar.Collapse>
-        {auth?.usuario?._id ? (
-          <Fragment>
-            <Navbar.Text className="me-4">
-              {auth ? `Bienvenido ${auth?.usuario?.nombre}` : null}
-            </Navbar.Text>
-            <Button variant="primary" onClick={handleLogOut}>
-              Cerrar Sesion
-            </Button>
-          </Fragment>
-        ) : (
-          <Fragment>
-            <Button
-              className="me-2"
-              variant="primary"
-              onClick={() => setModalLogin(true)}
-            >
-              Ingresar
-            </Button>
-            <Button
-              variant="secondary"
-              onClick={() => setModalCreateAccount(true)}
-            >
-              Crear Cuenta
-            </Button>
-          </Fragment>
-        )}
-        <Login
-          show={modalLogin}
-          setModalShow={setModalLogin}
-          onHide={() => setModalLogin(false)}
-        />
-        <CreateAccount
-          show={modalCreateAccount}
-          setModalCreateAccount={setModalCreateAccount}
-          onHide={() => setModalCreateAccount(false)}
-        />
+        </div>
+        <div className="right">
+            {auth?.usuario?._id ? (
+              <Fragment>
+                <Navbar.Text className="navbar-me">
+                  {auth ? `Bienvenido ${auth?.usuario?.nombre}` : null}
+                </Navbar.Text>
+                <Button variant="primary" onClick={handleLogOut}>
+                  Cerrar Sesion
+                </Button>
+              </Fragment>
+            ) : (
+              <Fragment>
+                <Button
+                  className="me-2"
+                  variant="primary"
+                  onClick={() => setModalLogin(true)}
+                >
+                  Ingresar
+                </Button>
+                <Button
+                  variant="secondary"
+                  onClick={() => setModalCreateAccount(true)}
+                >
+                  Crear Cuenta
+                </Button>
+              </Fragment>
+            )}
+            <Login
+              show={modalLogin}
+              setModalShow={setModalLogin}
+              onHide={() => setModalLogin(false)}
+            />
+            <CreateAccount
+              show={modalCreateAccount}
+              setModalCreateAccount={setModalCreateAccount}
+              onHide={() => setModalCreateAccount(false)}
+            />
+        </div>
       </Container>
     </Navbar>
   );

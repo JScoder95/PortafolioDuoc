@@ -5,8 +5,75 @@
 }
 .navbar__page {
     z-index: 0;
-    height: 100px;
+    height: auto;
+    padding: 15px 0 15px;
+    width: 100%;
 }
 .navbar-collapse {
     font-size: 20px;
+    
+
 }
+
+.navbar-me{
+    margin-right: 1.5rem;
+}
+
+.nav-link {
+    display: inline;
+}
+
+.left {
+    width: 65%;
+    display: flex;
+    flex-wrap: inherit;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.right {
+    width: 35%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+@media (max-width: 991px) {
+    .navbar-collapse {
+        background-color: rgba(var(--bs-light-rgb),var(--bs-bg-opacity));
+        font-size: 15px;
+    }
+
+    .navbar-me{
+        display: none;
+    }
+
+    .header {
+        display: none;
+     }
+
+    .left {
+        width: 65%;
+        display: flex;
+    }
+    
+    .right {
+        width: 35%;
+        position:fixed;
+        top: 17px;
+        right: 12px;        
+    }
+
+    .brand__link {
+        font-size: 20px;
+        font-weight: 600;
+        display: flex;
+    }
+
+    .nav-link {
+        display: block;
+    }
+
+
+
+ }
+
