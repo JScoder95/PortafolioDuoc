@@ -78,7 +78,7 @@ const NavScrollExample = () => {
             <Navbar.Text className="me-4">
               {auth ? `Bienvenido ${auth?.usuario?.nombre}` : null}
             </Navbar.Text>
-            <Button variant="primary" onClick={handleLogOut}>
+            <Button variant="danger" onClick={handleLogOut}>
               Cerrar Sesion
             </Button>
           </Fragment>
