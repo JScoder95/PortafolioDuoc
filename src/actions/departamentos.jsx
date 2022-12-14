@@ -14,7 +14,7 @@ export const reserveDepartment = (dptoId, xtoken, valor, diasArriendo,fechaInici
       "x-token": xtoken,
     },
   };
-  axios.post(`/reservas/`, body, token).then((res)=>localStorage.setItem("reservaID",res.data?.reserva?._id));
+  
   localStorage.setItem('token', xtoken);
   return axios.post(`/reservas/`, body, token);
 };
