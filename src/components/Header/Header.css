@@ -4,10 +4,13 @@
     font-weight: 600;
 }
 .navbar__page {
-    z-index: 0;
-    height: auto;
+
+    z-index: 1;
+     height: auto;
     padding: 15px 0 15px;
     width: 100%;
+    
+
 }
 .navbar-collapse {
     font-size: 20px;

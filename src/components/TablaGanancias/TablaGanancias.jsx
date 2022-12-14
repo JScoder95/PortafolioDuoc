@@ -25,6 +25,7 @@ export const TablaGanancias = () => {
   const { auth } = useAuth();
   const [reservas, setReservas] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const authLocal = ( auth=={} ? auth : JSON.parse(localStorage.getItem("auth"))  ) ;
 
   React.useEffect(() => {
     if (key === "gananciaDiaria") {
@@ -32,7 +33,7 @@ export const TablaGanancias = () => {
         const config  = {
           headers: {
             "Content-Type": "application/json",
-            "x-token": auth?.token,
+            "x-token": authLocal?.token,
           },
         }
         const { data } = await axios.get(URL_RESERVAS,config);
@@ -48,7 +49,7 @@ export const TablaGanancias = () => {
     return {
       fecha: formatDateInventory(item.created),
       TotalReservas: 1,
-      deptoInfo: item.departamento.nombre,
+      deptoInfo: item.departamento?.nombre,
       valor : item.valorFinal
       
     };
@@ -58,7 +59,7 @@ export const TablaGanancias = () => {
     return {
       fecha: formatDateInventory(item.created),
       TotalReservas: 1,
-      zona: item.departamento.ubicacion,
+      zona: item.departamento?.ubicacion,
       valor : item.valorFinal
       
     };

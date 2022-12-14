@@ -1,0 +1,36 @@
+.available__department {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 55px;
+}
+.available__color {
+    width: 30px;
+    height: 30px;
+    border-radius: 2rem;
+}
+.department__container {
+    width: 90%;
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+    overflow-y: auto;
+    margin-bottom: 70px;
+    min-width: 500px;
+}
+.department__card {
+    width: 250px;
+    height: 450px;
+    padding: 10px 20px;
+    border: 2px solid #0d6efd;
+    margin: 10px;
+    border-radius: 2rem;
+}
+.department__card:hover {
+    box-shadow: 10px 12px 12px 6px rgba(0,0,0,0.15);
+    transform: scale(1.01);
+}

@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment,useEffect } from "react";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
@@ -17,10 +17,21 @@ const NavScrollExample = () => {
   const navigate = useNavigate();
   const handleLogOut = () => {
     setAuth(null);
+    localStorage.removeItem("auth");
+    localStorage.removeItem("reservaID");
     navigate("/departamentos");
   };
+  useEffect(() => {
+    setAuth(JSON.parse(localStorage.getItem("auth")));
+  
+ 
+  }, [])
+  
+  const authLocal = ( auth=={} ? auth : JSON.parse(localStorage.getItem("auth"))  ) ;
+  // const localAuth = JSON.parse(localStorage.getItem("auth"));
   return (
     <Navbar className="navbar__page" sticky="top" bg="light" expand="lg">
+
       <Container fluid className="header">
         <div className="left">
           <Navbar.Toggle aria-controls="navbarScroll" />
@@ -32,8 +43,13 @@ const NavScrollExample = () => {
               className="me-auto my-2 my-lg-0"
               navbarScroll
             >
-              {auth?.usuario?.rol === "Funcionario" ? (
-                <Nav.Link as={NavLink} className="nav-link" to="reservas">
+            {authLocal?.usuario?.rol === "Funcionario" ? (
+              <Nav.Link as={NavLink} to="reservas">
+                Reservas
+              </Nav.Link>
+            ) : authLocal?.usuario?.rol === "Administrador" ? (
+              <Fragment>
+                <Nav.Link as={NavLink} to="reservas">
                   Reservas
                 </Nav.Link>
               ) : auth?.usuario?.rol === "Administrador" ? (
@@ -91,17 +107,55 @@ const NavScrollExample = () => {
                 </Button>
               </Fragment>
             )}
-            <Login
-              show={modalLogin}
-              setModalShow={setModalLogin}
-              onHide={() => setModalLogin(false)}
-            />
-            <CreateAccount
-              show={modalCreateAccount}
-              setModalCreateAccount={setModalCreateAccount}
-              onHide={() => setModalCreateAccount(false)}
-            />
-        </div>
+
+          </Nav>
+        </Navbar.Collapse>
+        {authLocal?.usuario?._id ? (
+          <Fragment>
+            <Navbar.Text className="me-4">
+              {auth ? `Bienvenido ${auth?.usuario?.nombre}` : null}
+            </Navbar.Text>
+            <Button variant="danger" onClick={handleLogOut}>
+              Cerrar Sesion
+            </Button>
+          </Fragment>
+        )  : authLocal?.usuario?._id ?(
+          <Fragment>
+            <Navbar.Text className="me-4">
+              {authLocal ? `Bienvenido ${authLocal?.usuario?.nombre}` : null}
+            </Navbar.Text>
+            <Button variant="primary" onClick={handleLogOut}>
+              Cerrar Sesion
+            </Button>
+          </Fragment>
+        ): (
+          <Fragment>
+            <Button
+              className="me-2"
+              variant="primary"
+              onClick={() => setModalLogin(true)}
+            >
+              Ingresar
+            </Button>
+            <Button
+              variant="secondary"
+              onClick={() => setModalCreateAccount(true)}
+            >
+              Crear Cuenta
+            </Button>
+          </Fragment>
+        )}
+        <Login
+          show={modalLogin}
+          setModalShow={setModalLogin}
+          onHide={() => setModalLogin(false)}
+        />
+        <CreateAccount
+          show={modalCreateAccount}
+          setModalCreateAccount={setModalCreateAccount}
+          onHide={() => setModalCreateAccount(false)}
+        />
+         </div>
       </Container>
     </Navbar>
   );

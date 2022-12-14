@@ -1,18 +1,21 @@
 import axios from "../api/axios";
 
-export const reserveDepartment = (dptoId, xtoken, valor, diasArriendo,fechaInicio,fechaFin) => {
+export const reserveDepartment = (dptoId, xtoken, valor, diasArriendo,fechaInicio,fechaFin,serviciosContratados) => {
   const body = {
     departamento: dptoId,
     valorFinal: valor,
     cantidadDias: diasArriendo,
     fechaInicio: fechaInicio,
     fechaFin: fechaFin,
+    serviciosContratados: serviciosContratados
   };
   const token = {
     headers: {
       "x-token": xtoken,
     },
   };
+  
+  localStorage.setItem('token', xtoken);
   return axios.post(`/reservas/`, body, token);
 };
 
@@ -104,10 +107,11 @@ export const cancelReserve = (dptoId, xtoken) => {
   return axios.delete(`/reservas/${dptoId}`, token);
 };
 
-export const doCheckIn = (idReserva, xtoken) => {
+export const doCheckIn = (idReserva, xtoken, listaChequeo) => {
   const body = {
     id: idReserva,
     checkIn: true,
+    estado: listaChequeo,
   };
   const token = {
     headers: {
@@ -116,11 +120,12 @@ export const doCheckIn = (idReserva, xtoken) => {
   };
   return axios.post(`/reservas/update/check`, body, token);
 };
-export const doCheckOut = (idReserva, xtoken) => {
+export const doCheckOut = (idReserva, xtoken, listaChequeo) => {
   const body = {
     id: idReserva,
-    checkIn: false,
+    checkIn: true,
     checkOut: true,
+    estado: listaChequeo,
   };
   const token = {
     headers: {

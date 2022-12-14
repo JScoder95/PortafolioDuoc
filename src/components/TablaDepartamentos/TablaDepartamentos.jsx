@@ -1,5 +1,8 @@
 import React, { Fragment, useEffect } from "react";
 import Table from "react-bootstrap/Table";
+
+import { Link } from "react-router-dom";
+
 import {
   capitalizeFirstLetter,
   formatDate,
@@ -21,6 +24,7 @@ function TablaDepartamentos({
   window
 }) {
   const { auth } = useAuth();
+  const authLocal = ( auth=={} ? auth : JSON.parse(localStorage.getItem("auth"))  ) ;
 
   const handleClickReservar = (e, id, price) => {
     handleOpenReserve();
@@ -46,7 +50,7 @@ function TablaDepartamentos({
     e.preventDefault();
     console.log(item._id);
     setIsLoading(true);
-    deleteDepartment(item._id, auth?.token)
+    deleteDepartment(item._id, authLocal?.token)
       .then((res) => {
         console.log(res);
         setIsLoading(false);
@@ -55,7 +59,7 @@ function TablaDepartamentos({
         console.log(err);
       });
   };
-
+console.log(array)
   return (
     <Table striped bordered hover>
       <thead>
@@ -93,7 +97,7 @@ function TablaDepartamentos({
               </td>
               <td className="action__section">
                 <div className="action__container">
-                  {auth?.usuario?.rol === "Administrador" ? (
+                  {authLocal?.usuario?.rol === "Administrador" ? (
                     <Fragment>
                       <Button
                         className="me-4"
@@ -121,12 +125,17 @@ function TablaDepartamentos({
                       </Button>
                     </Fragment>
                   ) : (
-                    <Button
-                      onClick={(e) => handleClickReservar(e, item)}
-                      variant="primary"
-                    >
-                      Reservar
-                    </Button>
+                    // {/* <Button
+                    //   onClick={(e) => handleClickReservar(e, item)}
+                    //   variant="primary"
+                    // >
+                    //   Reservar
+                    // </Button> */}
+                    <Link
+                          to={`/departamentDetails?departamentID=${item._id}`}
+                          className="btn btn-primary"
+                          style={{ cursor: "pointer" }}
+                    ></Link>
                   )}
                 </div>
               </td>

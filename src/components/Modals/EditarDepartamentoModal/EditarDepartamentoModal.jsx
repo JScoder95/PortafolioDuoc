@@ -22,6 +22,7 @@ const EditarDepartamentoModal = ({
   const [fechaPublicacion, setFechaPublicacion] = useState(0);
   const [disponible, setDisponible] = useState(0);
   const { auth, setAuth } = useAuth();
+  const authLocal = ( auth=={} ? auth : JSON.parse(localStorage.getItem("auth"))  ) ;
 
   React.useEffect(() => {
     if (selectedDepto) {
@@ -66,7 +67,7 @@ const EditarDepartamentoModal = ({
     setIsLoading(true);
     editDepartment(
       selectedDepto._id,
-      auth?.token,
+      authLocal?.token,
       nombre,
       direccion,
       ubicacion,
@@ -187,7 +188,6 @@ const EditarDepartamentoModal = ({
             required
           />
         </Form.Group>
-
         <Button variant="primary" type="submit">
           Editar
         </Button>

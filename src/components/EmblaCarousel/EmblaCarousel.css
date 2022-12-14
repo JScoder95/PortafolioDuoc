@@ -1,0 +1,135 @@
+.emblaa {
+    overflow: hidden;
+  }
+.emblaa__container {
+    display: flex;
+    height: 200px;
+    z-index: 0;
+    margin-right: 20px;
+}
+.emblaa__slide {
+    flex: 0 0 230px;
+    min-width: 0;
+}
+.emblaa {
+    position: relative;
+    background-color: #f7f7f7;
+    padding: 20px;
+    max-width: 670px;
+    margin-left: auto;
+    margin-right: auto;
+}
+  
+.emblaa__viewport {
+    overflow: hidden;
+    width: 100%;
+}
+
+.emblaa__viewport.is-draggable {
+    cursor: move;
+    cursor: grab;
+}
+
+.emblaa__viewport.is-dragging {
+    cursor: grabbing;
+}
+
+.emblaa__container {
+    display: flex;
+    user-select: none;
+    -webkit-touch-callout: none;
+    -khtml-user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    margin-left: -10px;
+}
+
+.emblaa__slide {
+    position: relative;
+    min-width: 100%;
+    padding-left: 10px;
+}
+
+.emblaa__slide__inner {
+    position: relative;
+    overflow: hidden;
+    height: 190px;
+}
+
+.emblaa__slide__img {
+    position: absolute;
+    display: block;
+    top: 50%;
+    left: 50%;
+    width: auto;
+    min-height: 100%;
+    min-width: 100%;
+    max-width: none;
+    transform: translate(-50%, -50%);
+}
+
+.emblaa__button {
+    outline: 0;
+    cursor: pointer;
+    background-color: transparent;
+    touch-action: manipulation;
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    transform: translateY(-50%);
+    border: 0;
+    width: 30px;
+    height: 30px;
+    justify-content: center;
+    align-items: center;
+    fill: #fff;
+    padding: 0;
+}
+
+.emblaa__button:disabled {
+    cursor: default;
+    opacity: 0.3;
+}
+
+.emblaa__button__svg {
+    width: 100%;
+    height: 100%;
+}
+
+.emblaa__button--prev {
+    left: 10px;
+}
+.emblaa__button--next {
+    right: 10px;
+}
+.emblaa__dots {
+    display: flex;
+    list-style: none;
+    justify-content: center;
+    padding-top: 10px;
+}
+.emblaa__dot {
+    background-color: transparent;
+    cursor: pointer;
+    position: relative;
+    padding: 0;
+    outline: 0;
+    border: 0;
+    width: 30px;
+    height: 30px;
+    margin-right: 7.5px;
+    margin-left: 7.5px;
+    display: flex;
+    align-items: center;
+}
+.emblaa__dot:after {
+    background-color: #efefef;
+    width: 100%;
+    height: 4px;
+    border-radius: 2px;
+    content: "";
+}
+
+.emblaa__dot.is-selected:after {
+    background-color: #000;
+    opacity: 1;
+}

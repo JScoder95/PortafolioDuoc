@@ -4,8 +4,8 @@ import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import axios from "../../api/axios";
 import TablaDepartamentos from "../../components/TablaDepartamentos/TablaDepartamentos";
+import TablaDepartamentosCliente from "../../components/TablaDepartamentosCliente/TablaDepartamentosCliente";
 import Spiner from "../../components/Spiner/Spiner";
-import ReservarModal from "../../components/Modals/ReservarModal/ReservarModal";
 import EditarDepartamentoModal from "../../components/Modals/EditarDepartamentoModal/EditarDepartamentoModal";
 import EditarInventarioDepartamentoModal from '../../components/Modals/EditarInventarioDepartamentoModal/EditarInventarioDepartamentoModal'
 import Button from "react-bootstrap/Button";
@@ -14,23 +14,19 @@ const GET_DEPARTAMENTOS_URL = "/depto/";
 
 const Departamentos = () => {
   const { auth } = useAuth();
+  const authLocal = ( auth=={} ? auth : JSON.parse(localStorage.getItem("auth"))  ) ;
   const [key, setKey] = useState("departamentos");
   const [departamentos, setdepartamentos] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [modalReservas, setModalReservas] = React.useState(false);
   const [modalEditar, setModalEditar] = React.useState(false);
   const [modalEditarInventario, setModalEditarInventario] = React.useState(false);
   const [modalAñadir, setModalAñadir] = React.useState(false);
   const [selectedDepto, setSelectedDepto] = React.useState("");
 
-  const handleClose = () => {
-    setModalReservas(false);
+  const handleClose = () => {;
     setModalEditar(false);
     setModalAñadir(false);
     setModalEditarInventario(false);
-  };
-  const handleOpenReserve = () => {
-    setModalReservas(true);
   };
   const handleOpenEdit = () => {
     setModalEditar(true);
@@ -49,13 +45,14 @@ const Departamentos = () => {
         const token = {
           headers: {
             "Content-Type": "application/json",
-            "x-token": auth?.token,
+            "x-token": authLocal?.token,
           },
         };
         const response = await axios.get(GET_DEPARTAMENTOS_URL, token, {
-          data: { rol: auth?.usuario?.rol },
+          data: { rol: authLocal?.usuario?.rol },
         });
         setdepartamentos(response?.data.postDepto);
+        console.log(response?.data.postDepto)
         setIsLoading(false);
       }
       fetchDepartamentos();
@@ -69,11 +66,13 @@ const Departamentos = () => {
       onSelect={(k) => setKey(k)}
       className="mb-3"
     >
-      {auth ? (
+      {authLocal ? (
         <Tab eventKey="departamentos" title="Departamentos">
           {!isLoading ? (
             <Fragment>
-              <Button
+              { authLocal?.usuario?.rol === "Administrador" ? 
+              <Fragment>
+                <Button
                 className="ms-2 me-2 mt-2 mb-2"
                 onClick={(e) => handleClickAddDepartment(e)}
                 variant="primary"
@@ -84,18 +83,22 @@ const Departamentos = () => {
                 array={departamentos}
                 handleOpenEdit={handleOpenEdit}
                 handleOpenEditInventory={handleOpenEditInventory}
-                handleOpenReserve={handleOpenReserve}
                 setSelectedDepto={setSelectedDepto}
                 setIsLoading={setIsLoading}
                 window="departamentos"
                 disponible="si"
               />
-              <ReservarModal
-                show={modalReservas}
-                handleClose={handleClose}
-                selectedDepto={selectedDepto}
+              </Fragment>
+              : 
+              <TablaDepartamentosCliente
+                array={departamentos}
+                handleOpenEdit={handleOpenEdit}
+                handleOpenEditInventory={handleOpenEditInventory}
+                setSelectedDepto={setSelectedDepto}
                 setIsLoading={setIsLoading}
-              />
+                window="departamentos"
+                disponible="si"
+              />}
               <AñadirDepartamentoModal
                 show={modalAñadir}
                 handleClose={handleClose}
@@ -119,7 +122,7 @@ const Departamentos = () => {
           )}
         </Tab>
       ) : null}
-      {auth?.usuario?.rol === "Administrador" ? (
+      {authLocal?.usuario?.rol === "Administrador" ? (
         <Tab eventKey="mantenciones" title="Mantenciones">
            {!isLoading ? (
             <Fragment>
@@ -127,17 +130,10 @@ const Departamentos = () => {
                 array={departamentos}
                 handleOpenEdit={handleOpenEdit}
                 handleOpenEditInventory={handleOpenEditInventory}
-                handleOpenReserve={handleOpenReserve}
                 setSelectedDepto={setSelectedDepto}
                 setIsLoading={setIsLoading}
                 window="mantenciones"
                 disponible="no"
-              />
-              <ReservarModal
-                show={modalReservas}
-                handleClose={handleClose}
-                selectedDepto={selectedDepto}
-                setIsLoading={setIsLoading}
               />
               <AñadirDepartamentoModal
                 show={modalAñadir}
