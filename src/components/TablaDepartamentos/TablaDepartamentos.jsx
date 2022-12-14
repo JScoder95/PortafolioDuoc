@@ -24,6 +24,7 @@ function TablaDepartamentos({
   window
 }) {
   const { auth } = useAuth();
+  const authLocal = ( auth=={} ? auth : JSON.parse(localStorage.getItem("auth"))  ) ;
 
   const handleClickReservar = (e, id, price) => {
     handleOpenReserve();
@@ -49,7 +50,7 @@ function TablaDepartamentos({
     e.preventDefault();
     console.log(item._id);
     setIsLoading(true);
-    deleteDepartment(item._id, auth?.token)
+    deleteDepartment(item._id, authLocal?.token)
       .then((res) => {
         console.log(res);
         setIsLoading(false);
@@ -96,7 +97,7 @@ console.log(array)
               </td>
               <td className="action__section">
                 <div className="action__container">
-                  {auth?.usuario?.rol === "Administrador" ? (
+                  {authLocal?.usuario?.rol === "Administrador" ? (
                     <Fragment>
                       <Button
                         className="me-4"
