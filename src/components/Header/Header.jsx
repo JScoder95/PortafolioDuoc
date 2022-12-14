@@ -31,7 +31,6 @@ const NavScrollExample = () => {
   // const localAuth = JSON.parse(localStorage.getItem("auth"));
   return (
     <Navbar className="navbar__page" sticky="top" bg="light" expand="lg">
-
       <Container fluid className="header">
         <div className="left">
           <Navbar.Toggle aria-controls="navbarScroll" />
@@ -43,13 +42,8 @@ const NavScrollExample = () => {
               className="me-auto my-2 my-lg-0"
               navbarScroll
             >
-            {authLocal?.usuario?.rol === "Funcionario" ? (
-              <Nav.Link as={NavLink} to="reservas">
-                Reservas
-              </Nav.Link>
-            ) : authLocal?.usuario?.rol === "Administrador" ? (
-              <Fragment>
-                <Nav.Link as={NavLink} to="reservas">
+              {auth?.usuario?.rol === "Funcionario" ? (
+                <Nav.Link as={NavLink} className="nav-link" to="reservas">
                   Reservas
                 </Nav.Link>
               ) : auth?.usuario?.rol === "Administrador" ? (
@@ -107,55 +101,17 @@ const NavScrollExample = () => {
                 </Button>
               </Fragment>
             )}
-
-          </Nav>
-        </Navbar.Collapse>
-        {authLocal?.usuario?._id ? (
-          <Fragment>
-            <Navbar.Text className="me-4">
-              {auth ? `Bienvenido ${auth?.usuario?.nombre}` : null}
-            </Navbar.Text>
-            <Button variant="danger" onClick={handleLogOut}>
-              Cerrar Sesion
-            </Button>
-          </Fragment>
-        )  : authLocal?.usuario?._id ?(
-          <Fragment>
-            <Navbar.Text className="me-4">
-              {authLocal ? `Bienvenido ${authLocal?.usuario?.nombre}` : null}
-            </Navbar.Text>
-            <Button variant="primary" onClick={handleLogOut}>
-              Cerrar Sesion
-            </Button>
-          </Fragment>
-        ): (
-          <Fragment>
-            <Button
-              className="me-2"
-              variant="primary"
-              onClick={() => setModalLogin(true)}
-            >
-              Ingresar
-            </Button>
-            <Button
-              variant="secondary"
-              onClick={() => setModalCreateAccount(true)}
-            >
-              Crear Cuenta
-            </Button>
-          </Fragment>
-        )}
-        <Login
-          show={modalLogin}
-          setModalShow={setModalLogin}
-          onHide={() => setModalLogin(false)}
-        />
-        <CreateAccount
-          show={modalCreateAccount}
-          setModalCreateAccount={setModalCreateAccount}
-          onHide={() => setModalCreateAccount(false)}
-        />
-         </div>
+            <Login
+              show={modalLogin}
+              setModalShow={setModalLogin}
+              onHide={() => setModalLogin(false)}
+            />
+            <CreateAccount
+              show={modalCreateAccount}
+              setModalCreateAccount={setModalCreateAccount}
+              onHide={() => setModalCreateAccount(false)}
+            />
+        </div>
       </Container>
     </Navbar>
   );
