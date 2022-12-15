@@ -8,6 +8,8 @@ import TablaAsignarTransporte from "../../components/TablaAsignarTransporte/Tabl
 import AsignarTransporteModal from "../../components/Modals/AsignarTransporteModal/AsignarTransporteModal";
 import CheckOutModal from "../../components/Modals/CheckOutModal/CheckOutModal";
 import CheckInModal from "../../components/Modals/CheckInModal/CheckInModal";
+import PagoModalFuncionario from "../../components/Modals/PagoModalFuncionario/PagoModalFuncionario";
+
 const GET_RESERVAS_URL = "/reservas/";
 const GET_TRANSPORTE_URL = "/reservas/transporte/63995b8dc0e9b97cbe72feff";
 
@@ -22,12 +24,14 @@ const Reservas = () => {
   const [modalCheckIn, setModalCheckIn] = useState(false);
   const [modalCheckOut, setModalCheckOut] = useState(false);
   const [modalTransporte, setModalTransporte] = useState(false);
+  const [modalPago, setModalPago] = useState(false);
   const [selectedDepto, setSelectedDepto] = useState("");
-
+  localStorage.removeItem("reservaID");
   const handleClose = () => {
     setModalCheckIn(false);
     setModalCheckOut(false);
     setModalTransporte(false);
+    setModalPago(false);
   };
   const handleOpenCheckIn = (e, item) => {
     e.preventDefault();
@@ -45,6 +49,12 @@ const Reservas = () => {
   const handleOpenAsignarTransporte = (e, item) => {
     e.preventDefault();
     setModalTransporte(true)
+    setSelectedDepto(item);
+    console.log(item);
+  }
+  const handleOpenPago = (e, item) => {
+    e.preventDefault();
+    setModalPago(true)
     setSelectedDepto(item);
     console.log(item);
   }
@@ -96,6 +106,7 @@ const Reservas = () => {
           isLoading={isLoading}
           handleOpenCheckIn={handleOpenCheckIn}
           handleOpenCheckOut={handleOpenCheckOut}
+          handleOpenPago={handleOpenPago}
         />
         <CheckOutModal
           show={modalCheckOut}
@@ -105,6 +116,12 @@ const Reservas = () => {
         />
         <CheckInModal
           show={modalCheckIn}
+          setIsLoading={setIsLoading}
+          handleClose={handleClose}
+          selectedDepto={selectedDepto}
+        />
+        <PagoModalFuncionario
+          show={modalPago}
           setIsLoading={setIsLoading}
           handleClose={handleClose}
           selectedDepto={selectedDepto}

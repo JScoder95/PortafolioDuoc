@@ -1,14 +1,23 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
+import axios from "../../api/axios";
+
 import { cancelReserve } from "../../actions/departamentos";
 import useAuth from "../../hooks/useAuth";
 import { message } from "antd";
 import { formatDate } from "../../common/utils";
 import "./TablaReservas.css";
 
-function TablaReservas({ array, setIsLoading, handleOpenCheckIn, handleOpenCheckOut }) {
+function TablaReservas({
+  array,
+  setIsLoading,
+  handleOpenCheckIn,
+  handleOpenCheckOut,
+  handleOpenPago,
+}) {
   const { auth } = useAuth();
+  const [webpayResponse, setWebpayResponse] = useState();
 
   const success = () => {
     message.success("Has Cancelado la reserva Satisfactoriamente");
@@ -31,7 +40,19 @@ function TablaReservas({ array, setIsLoading, handleOpenCheckIn, handleOpenCheck
         console.log(err);
       });
   };
+  useEffect(() => {
+    async function fetchWebpay() {
+      const valorFinal = array.map((reserva) => reserva.filter());
+      console.log("dentro del useeffect", valorFinal);
+      if (valorFinal !== 0 && valorFinal !== NaN) {
+        const responseWP = await axios.get(`/webpay_plus/pay/${valorFinal}`);
 
+        setWebpayResponse(responseWP?.data);
+      }
+    }
+    fetchWebpay();
+  }, []);
+  console.log("fuera del useeffect", webpayResponse);
   return (
     <Table striped bordered hover>
       <thead>
@@ -48,19 +69,64 @@ function TablaReservas({ array, setIsLoading, handleOpenCheckIn, handleOpenCheck
         {array?.map((item, index) => (
           <Fragment key={`item-${index}`}>
             <tr>
-              <td> <i className="bx bx-building-house" style={{ color: 'RGB(96 154 212)'}} ></i> {item?.departamento?.nombre}</td>
-              <td> <i className="bx bx-user" style={{ color: 'RGB(134 96 212)'}} ></i> {item?.usuario?.nombre}</td>
-              <td> <i className="bx bx-calendar-check" style={{ color: 'RGB(80 197 45)'}} ></i> {formatDate (item?.fechaInicio)}</td>
-              <td><i className="bx bx-calendar-x" style={{ color: 'RGB(197 45 45)'}} ></i> {formatDate (item?.fechaFin)}</td>
-              <td> <i className="bx bx-credit-card-alt" style={{ color: item.statusPago === 'Pago Exitoso'? "#2BB313" :"#CE1111" }} ></i> {item?.statusPago}</td>
+              <td>
+                {" "}
+                <i
+                  className="bx bx-building-house"
+                  style={{ color: "RGB(96 154 212)" }}
+                ></i>{" "}
+                {item?.departamento?.nombre}
+              </td>
+              <td>
+                {" "}
+                <i
+                  className="bx bx-user"
+                  style={{ color: "RGB(134 96 212)" }}
+                ></i>{" "}
+                {item?.usuario?.nombre}
+              </td>
+              <td>
+                {" "}
+                <i
+                  className="bx bx-calendar-check"
+                  style={{ color: "RGB(80 197 45)" }}
+                ></i>{" "}
+                {formatDate(item?.fechaInicio)}
+              </td>
+              <td>
+                <i
+                  className="bx bx-calendar-x"
+                  style={{ color: "RGB(197 45 45)" }}
+                ></i>{" "}
+                {formatDate(item?.fechaFin)}
+              </td>
+              <td>
+                {" "}
+                <i
+                  className="bx bx-credit-card-alt"
+                  style={{
+                    color:
+                      item.statusPago === "Pago Exitoso"
+                        ? "#2BB313"
+                        : "#CE1111",
+                  }}
+                ></i>{" "}
+                {item?.statusPago}
+              </td>
               <td className="action__section">
                 <div className="action__container">
-                  {auth?.usuario?.rol === "Funcionario" ? (
+                  {auth?.usuario?.rol === "Funcionario" &&
+                  item.statusPago === "Pago Exitoso" ? (
                     <Fragment>
                       <Button
                         onClick={(e) => handleOpenCheckIn(e, item)}
                         variant="primary"
-                        disabled={(item.checkIn === true && item.checkOut === true) || (item.checkIn === true && item.checkOut === false) ? true : false}
+                        disabled={
+                          (item.checkIn === true && item.checkOut === true) ||
+                          (item.checkIn === true && item.checkOut === false)
+                            ? true
+                            : false
+                        }
                       >
                         Check In
                       </Button>
@@ -68,15 +134,41 @@ function TablaReservas({ array, setIsLoading, handleOpenCheckIn, handleOpenCheck
                         onClick={(e) => handleOpenCheckOut(e, item)}
                         variant="primary"
                         style={{ marginLeft: "10px" }}
-                        disabled={((item.checkOut === true && item.checkIn === true) || (item.checkOut === true && item.checkIn === false)) || (!item.checkIn && !item.checkOut) ? true : false}
+                        disabled={
+                          (item.checkOut === true && item.checkIn === true) ||
+                          (item.checkOut === true && item.checkIn === false) ||
+                          (!item.checkIn && !item.checkOut)
+                            ? true
+                            : false
+                        }
                       >
                         Check Out
                       </Button>
                     </Fragment>
+                  ) : auth?.usuario?.rol === "Funcionario" &&
+                    (item.statusPago === "Pago Fallido" ||
+                      item.statusPago === undefined) ? null : auth?.usuario
+                      ?.rol === "Administrador" ? (
+                    <Button
+                      onClick={(e) => handleClickCancelarReserva(e, item?._id)}
+                      variant="danger"
+                    >
+                      Cancelar
+                    </Button>
+                  ) : auth?.usuario?.rol === "Cliente" &&
+                    (item.statusPago === "Pago Fallido" ||
+                      item.statusPago === undefined) ? (
+                    <Button
+                      onClick={(e) => handleOpenPago(e, item)}
+                      variant="primary"
+                    >
+                      {" "}
+                      Pagar{" "}
+                    </Button>
                   ) : (
                     <Button
                       onClick={(e) => handleClickCancelarReserva(e, item?._id)}
-                      variant="primary"
+                      variant="danger"
                     >
                       Cancelar
                     </Button>

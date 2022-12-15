@@ -8,7 +8,7 @@ import { doCheckIn } from "../../../actions/departamentos";
 import jsPDF from "jspdf";
 import "./CheckInModal.css";
 import "antd/dist/antd.css";
-import { formatDateInventory } from "../../../common/utils";
+import { formatDateInventory,formatDate } from "../../../common/utils";
 
 function CheckInModal(props) {
   const { auth } = useAuth();
@@ -144,10 +144,10 @@ function CheckInModal(props) {
               <Form.Label >{`Valor Final:   $${valorFinal}`}</Form.Label>
             </Form.Group>
             <Form.Group className="mb-1">
-              <Form.Label >{`Fecha Inicio:   ${fechaInicio}`}</Form.Label>
+              <Form.Label >{`Fecha Inicio:   ${formatDate(fechaInicio)}`}</Form.Label>
             </Form.Group>
             <Form.Group className="mb-1">
-              <Form.Label >{`Fecha Fin:   ${fechaFin}`}</Form.Label>
+              <Form.Label >{`Fecha Fin:   ${formatDate (fechaFin)}`}</Form.Label>
             </Form.Group>
             <Form.Group className="mb-1">
               <Form.Label >{`Cantidad Total Dias:   ${cantidadDias}`}</Form.Label>
