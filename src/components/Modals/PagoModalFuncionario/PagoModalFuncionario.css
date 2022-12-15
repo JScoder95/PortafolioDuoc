@@ -1,0 +1,6 @@
+.login__form {
+    padding: 10px;
+}
+.ant-message {
+   z-index: 99;
+}
