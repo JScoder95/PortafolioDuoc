@@ -134,3 +134,17 @@ export const doCheckOut = (idReserva, xtoken, listaChequeo) => {
   };
   return axios.post(`/reservas/update/check`, body, token);
 };
+
+export const toAssignTransport = (idReserva, transporte,xtoken) => {
+  const body = {
+    id: idReserva,
+    transporte: transporte,
+  };
+  const token = {
+    headers: {
+      "x-token": xtoken,
+    },
+  };
+ 
+  return axios.post(`/reservas/transporte`, body, token);
+}

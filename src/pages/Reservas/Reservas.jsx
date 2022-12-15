@@ -121,6 +121,7 @@ const Reservas = () => {
           <AsignarTransporteModal 
             show={modalTransporte}
             handleClose={handleClose}
+            selectedDepto={selectedDepto}
           />
         </Tab>
       ) : null}

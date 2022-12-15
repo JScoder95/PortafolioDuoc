@@ -9,7 +9,7 @@ import { formatDate } from "../../common/utils";
 function TablaAsignarTransporte({
   array,
   setIsLoading,
-  handleOpenAsignarTransporte
+  handleOpenAsignarTransporte,
 }) {
   const { auth } = useAuth();
 
@@ -60,11 +60,32 @@ function TablaAsignarTransporte({
                 ></i>{" "}
                 {formatDate(item?.fechaFin)}
               </td>
-              {item?.transporte?.conductor?.length >=0 ? 
-              (<td> <div> <i className="bx bx-face" style={{ color: "RGB(193 128 43)" }}  ></i> {item?.transporte?.conductor} </div><div> <i className="bx bx-car" style={{ color: "RGB(193 128 43)" }} ></i> {item?.transporte?.patente}</div> </td>):(<td> {' '} </td>)}
+              {item?.transporte?.conductor?.length >= 0 ? (
+                <td>
+                  {" "}
+                  <div>
+                    {" "}
+                    <i
+                      className="bx bx-face"
+                      style={{ color: "RGB(193 128 43)" }}
+                    ></i>{" "}
+                    {item?.transporte?.conductor}{" "}
+                  </div>
+                  <div>
+                    {" "}
+                    <i
+                      className="bx bx-car"
+                      style={{ color: "RGB(193 128 43)" }}
+                    ></i>{" "}
+                    {item?.transporte?.patente}
+                  </div>{" "}
+                </td>
+              ) : (
+                <td> </td>
+              )}
               <td className="action__section">
                 <div className="action__container">
-                  {auth?.usuario?.rol === "Administrador" ? (
+                  {auth?.usuario?.rol === "Administrador" && item?.transporte?.conductor?.length === undefined ? (
                     <Button
                       onClick={(e) => handleOpenAsignarTransporte(e, item)}
                       variant="primary"
@@ -72,7 +93,12 @@ function TablaAsignarTransporte({
                       Asignar Transporte
                     </Button>
                   ) : (
-                    null
+                    <Button
+                      onClick={(e) => handleOpenAsignarTransporte(e, item)}
+                      variant="primary"
+                    >
+                      Actualizar Transporte
+                    </Button>
                   )}
                 </div>
               </td>
