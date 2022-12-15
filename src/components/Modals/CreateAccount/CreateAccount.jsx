@@ -44,10 +44,10 @@ function CreateAccount(props) {
   };
 
   const success = () => {
-    message.success("Has ingresado correctamente");
+    message.success("¡Felicidades, Tu cuenta se ha creado exitosamente!");
   };
   const error = () => {
-    message.error("Ha ocurrido un error, verifica tu contraseña");
+    message.error("Ha ocurrido un error, verifica los datos.");
   };
 
   const handleClose = () => setModalCreateAccount(false);

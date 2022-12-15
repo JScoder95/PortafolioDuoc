@@ -4,7 +4,7 @@ import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 import { editDepartment, editInventoryDepartment } from "../../../actions/departamentos";
 import useAuth from "../../../hooks/useAuth";
-import { Checkbox } from 'antd';
+import { Checkbox, message } from 'antd'
 import "./EditarInventarioDepartamentoModal.css";
 import 'antd/dist/antd.css';
 
@@ -65,6 +65,14 @@ const EditarInventarioDepartamentoModal = ({
     console.log(e.target.checked);
   };
 
+  const success = () => {
+    message.success("Has Editado el Inventario Correctamente");
+  };
+
+  const error = () => {
+    message.error("Ha ocurrido un error, intentalo nuevamente");
+  };
+
   const handleClickEditar = (e) => {
     e.preventDefault();
     setIsLoading(true);
@@ -76,9 +84,11 @@ const EditarInventarioDepartamentoModal = ({
       .then((res) => {
         setIsLoading(false);
         handleClose();
+        success();
         console.log(res);
       })
       .catch((err) => {
+        error();
         console.log(err);
       });
   };

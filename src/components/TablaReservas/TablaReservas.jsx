@@ -3,14 +3,19 @@ import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
 import { cancelReserve } from "../../actions/departamentos";
 import useAuth from "../../hooks/useAuth";
-
+import { message } from "antd";
 import { formatDate } from "../../common/utils";
-
 import "./TablaReservas.css";
-
 
 function TablaReservas({ array, setIsLoading, handleOpenCheckIn, handleOpenCheckOut }) {
   const { auth } = useAuth();
+
+  const success = () => {
+    message.success("Has Cancelado la reserva Satisfactoriamente");
+  };
+  const error = () => {
+    message.error("Ha ocurrido un error, intentalo nuevamente");
+  };
 
   const handleClickCancelarReserva = (e, id) => {
     e.preventDefault();
@@ -18,9 +23,11 @@ function TablaReservas({ array, setIsLoading, handleOpenCheckIn, handleOpenCheck
     cancelReserve(id, auth?.token)
       .then((res) => {
         setIsLoading(false);
+        success();
         console.log(res);
       })
       .catch((err) => {
+        error();
         console.log(err);
       });
   };
