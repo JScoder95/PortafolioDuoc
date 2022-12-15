@@ -5,6 +5,7 @@ import Tabs from "react-bootstrap/Tabs";
 import axios from "../../api/axios";
 import TablaReservas from "../../components/TablaReservas/TablaReservas";
 import TablaAsignarTransporte from "../../components/TablaAsignarTransporte/TablaAsignarTransporte";
+import AsignarTransporteModal from "../../components/Modals/AsignarTransporteModal/AsignarTransporteModal";
 import CheckOutModal from "../../components/Modals/CheckOutModal/CheckOutModal";
 import CheckInModal from "../../components/Modals/CheckInModal/CheckInModal";
 const GET_RESERVAS_URL = "/reservas/";
@@ -20,11 +21,13 @@ const Reservas = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [modalCheckIn, setModalCheckIn] = useState(false);
   const [modalCheckOut, setModalCheckOut] = useState(false);
+  const [modalTransporte, setModalTransporte] = useState(false);
   const [selectedDepto, setSelectedDepto] = useState("");
 
   const handleClose = () => {
     setModalCheckIn(false);
     setModalCheckOut(false);
+    setModalTransporte(false);
   };
   const handleOpenCheckIn = (e, item) => {
     e.preventDefault();
@@ -38,6 +41,13 @@ const Reservas = () => {
     setSelectedDepto(item);
     console.log(item);
   };
+
+  const handleOpenAsignarTransporte = (e, item) => {
+    e.preventDefault();
+    setModalTransporte(true)
+    setSelectedDepto(item);
+    console.log(item);
+  }
 
   React.useEffect(() => {
     if (key === "reservas") {
@@ -106,8 +116,11 @@ const Reservas = () => {
             array={transporte}
             setIsLoading={setIsLoading}
             isLoading={isLoading}
-            handleOpenCheckIn={handleOpenCheckIn}
-            handleOpenCheckOut={handleOpenCheckOut}
+            handleOpenAsignarTransporte={handleOpenAsignarTransporte}
+          />
+          <AsignarTransporteModal 
+            show={modalTransporte}
+            handleClose={handleClose}
           />
         </Tab>
       ) : null}
