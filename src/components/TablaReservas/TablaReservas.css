@@ -11,6 +11,10 @@
     width: 100%;
 }
 
+.action__button {
+    width: 90px;
+}
+
 @media (max-width: 991px) {
     .table {
         font-size: 12px;

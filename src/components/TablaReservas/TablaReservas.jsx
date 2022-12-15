@@ -143,6 +143,7 @@ function TablaReservas({
                     <Button
                       onClick={(e) => handleClickCancelarReserva(e, item?._id)}
                       variant="danger"
+                      className="action__button"
                     >
                       Cancelar
                     </Button>
@@ -152,6 +153,7 @@ function TablaReservas({
                     <Button
                       onClick={(e) => handleOpenPago(e, item)}
                       variant="primary"
+                      className="action__button"
                     >
                       {" "}
                       Pagar{" "}
