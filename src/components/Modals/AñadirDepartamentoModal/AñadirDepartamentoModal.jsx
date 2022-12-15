@@ -4,6 +4,7 @@ import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 import { addDepartment } from "../../../actions/departamentos";
 import useAuth from "../../../hooks/useAuth";
+import { message } from "antd";
 
 const AñadirDepartamentoModal = ({ show, handleClose, setIsLoading }) => {
   const [nombre, setNombre] = useState(null);
@@ -40,6 +41,13 @@ const AñadirDepartamentoModal = ({ show, handleClose, setIsLoading }) => {
     setDisponible(event.target.value);
   };
 
+  const success = () => {
+    message.success("Has Añadido el departamento correctamente");
+  };
+  const error = () => {
+    message.error("Ha ocurrido un error, intentalo denuevo");
+  };
+
   const handleClickAddDepartment = (e) => {
     e.preventDefault();
     setIsLoading(true);
@@ -56,9 +64,11 @@ const AñadirDepartamentoModal = ({ show, handleClose, setIsLoading }) => {
       .then((res) => {
         setIsLoading(false);
         handleClose();
+        success();
         console.log(res);
       })
       .catch((err) => {
+        error();
         console.log(err);
       });
   };

@@ -1,15 +1,13 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment } from "react";
 import Table from "react-bootstrap/Table";
 import {
   capitalizeFirstLetter,
-  formatDate,
   MoneyFormatter,
 } from "../../common/utils";
 import useAuth from "../../hooks/useAuth";
-import { deleteDepartment } from "../../actions/departamentos";
 import { Link } from "react-router-dom";
-import "./TablaDepartamentosCliente.css";
 import { EmblaCarousel } from "../EmblaCarousel/EmblaCarousel";
+import "./TablaDepartamentosCliente.css";
 
 function TablaDepartamentosCliente({
   array,

@@ -1,8 +1,6 @@
 import React, { Fragment, useEffect } from "react";
 import Table from "react-bootstrap/Table";
-
 import { Link } from "react-router-dom";
-
 import {
   capitalizeFirstLetter,
   formatDate,
@@ -10,8 +8,9 @@ import {
 } from "../../common/utils";
 import Button from "react-bootstrap/Button";
 import useAuth from "../../hooks/useAuth";
-import "./TablaDepartamentos.css";
 import { deleteDepartment } from "../../actions/departamentos";
+import { message } from "antd";
+import "./TablaDepartamentos.css";
 
 function TablaDepartamentos({
   array,
@@ -19,18 +18,17 @@ function TablaDepartamentos({
   setIsLoading,
   handleOpenEdit,
   handleOpenEditInventory,
-  handleOpenReserve,
   disponible,
   window
 }) {
   const { auth } = useAuth();
   const authLocal = ( auth=={} ? auth : JSON.parse(localStorage.getItem("auth"))  ) ;
 
-  const handleClickReservar = (e, id, price) => {
-    handleOpenReserve();
-    setSelectedDepto(id);
-    console.log(id, price);
-    e.preventDefault();
+  const success = () => {
+    message.success("Se ha eliminado el departamento correctamente");
+  };
+  const error = () => {
+    message.error("Ha ocurrido un error, intentalo nuevamente");
   };
 
   const handleClickEditDepartment = (e, id) => {
@@ -54,12 +52,13 @@ function TablaDepartamentos({
       .then((res) => {
         console.log(res);
         setIsLoading(false);
+        success();
       })
       .catch((err) => {
         console.log(err);
+        error();
       });
   };
-console.log(array)
   return (
     <Table striped bordered hover>
       <thead>
@@ -125,13 +124,7 @@ console.log(array)
                         Eliminar
                       </Button>
                     </Fragment>
-                  ) : (
-                    // {/* <Button
-                    //   onClick={(e) => handleClickReservar(e, item)}
-                    //   variant="primary"
-                    // >
-                    //   Reservar
-                    // </Button> */}
+                  ) : (                   
                     <Link
                           to={`/departamentDetails?departamentID=${item._id}`}
                           className="btn btn-primary"

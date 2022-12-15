@@ -4,6 +4,7 @@ import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import { updateUser } from '../../../actions/users';
 import useAuth from '../../../hooks/useAuth';
+import { message } from "antd";
 
 
 const EditarUsuarioModal = ({ show, handleClose, selectedUsuario, setIsLoading, setSelectedUsuario }) => {
@@ -25,6 +26,13 @@ const EditarUsuarioModal = ({ show, handleClose, selectedUsuario, setIsLoading, 
         }
     }, [selectedUsuario])
     
+    const success = () => {
+        message.success("Se ha actualizado el Usuario Correctamente");
+    };
+
+    const error = () => {
+        message.error("Ha ocurrido un error, Intenta nuevamente");
+    };
 
     const handleSetNombre = (event) => {
         setNombre(event.target.value)
@@ -49,9 +57,11 @@ const EditarUsuarioModal = ({ show, handleClose, selectedUsuario, setIsLoading, 
             setIsLoading(false);
             handleClose();
             setSelectedUsuario('');
+            success();
             console.log(res);
         }).catch((err) => {
             console.log(err.response);
+            error();
         })
     }
 

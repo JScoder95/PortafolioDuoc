@@ -4,6 +4,7 @@ import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 import { editDepartment } from "../../../actions/departamentos";
 import useAuth from "../../../hooks/useAuth";
+import { message } from "antd";
 import "./EditarDepartamentoModal.css";
 
 const EditarDepartamentoModal = ({
@@ -62,6 +63,13 @@ const EditarDepartamentoModal = ({
     setDisponible(event.target.value);
   };
 
+  const success = () => {
+    message.success("Has Editado el departamento Correctamente");
+  };
+  const error = () => {
+    message.error("Ha ocurrido un error, intentalo nuevamente");
+  };
+
   const handleClickEditar = (e) => {
     e.preventDefault();
     setIsLoading(true);
@@ -80,11 +88,13 @@ const EditarDepartamentoModal = ({
       .then((res) => {
         setIsLoading(false);
         handleClose();
-        setKey("departamentos")
+        setKey("departamentos");
+        success();
         console.log(res);
       })
       .catch((err) => {
         console.log(err);
+        error();
       });
   };
 
