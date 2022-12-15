@@ -17,3 +17,9 @@
     align-self: flex-end;
     color: #fff;
 }
+
+@media (max-width: 350px){
+    .footer__section {
+        height: 60px;
+    }
+}

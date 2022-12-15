@@ -34,9 +34,11 @@ const NavScrollExample = () => {
       <Container fluid className="header">
         <div className="left">
           <Navbar.Toggle aria-controls="navbarScroll" />
-          <Nav.Link className="brand__link" as={NavLink} to="/">
+        <div className="title">
+            <Nav.Link className="brand__link" as={NavLink} to="/">
             TurismoReal
-          </Nav.Link>
+            </Nav.Link>
+        </div>
           <Navbar.Collapse id="navbarScroll">
             <Nav
               className="me-auto my-2 my-lg-0"
@@ -80,14 +82,14 @@ const NavScrollExample = () => {
                 <Navbar.Text className="navbar-me">
                   {auth ? `Bienvenido ${auth?.usuario?.nombre}` : null}
                 </Navbar.Text>
-                <Button variant="primary" onClick={handleLogOut}>
-                  Cerrar Sesion
+                <Button variant="primary" onClick={handleLogOut} className="button-header">
+                  Cerrar Sesión
                 </Button>
               </Fragment>
             ) : (
               <Fragment>
                 <Button
-                  className="me-2"
+                  className="button-header"
                   variant="primary"
                   onClick={() => setModalLogin(true)}
                 >
@@ -96,6 +98,7 @@ const NavScrollExample = () => {
                 <Button
                   variant="secondary"
                   onClick={() => setModalCreateAccount(true)}
+                  className="button-header"
                 >
                   Crear Cuenta
                 </Button>

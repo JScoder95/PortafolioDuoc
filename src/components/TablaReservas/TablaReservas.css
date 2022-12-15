@@ -6,3 +6,28 @@
     display: flex;
     justify-content: center;
 }
+
+.table {
+    width: 100%;
+}
+
+@media (max-width: 991px) {
+    .table {
+        font-size: 12px;
+        min-width: 940px;
+        width: 100%;
+        margin-bottom: 50px;
+    }
+
+    .action__button {
+        font-size: 12px;
+    }
+
+    .tab-content {
+        overflow-x: scroll;
+    }
+
+    .table-bordered>:not(caption)>*>* {
+        width: auto;
+    }
+}

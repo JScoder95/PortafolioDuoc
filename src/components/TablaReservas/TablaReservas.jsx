@@ -26,15 +26,15 @@ function TablaReservas({ array, setIsLoading, handleOpenCheckIn, handleOpenCheck
   };
 
   return (
-    <Table striped bordered hover>
+    <Table striped bordered hover className="table">
       <thead>
         <tr>
           <th>Departamento</th>
-          <th>A Nombre de</th>
+          <th>Reservado Por</th>
           <th>Fecha Inicio</th>
           <th>Fecha Termino</th>
           <th>Estado Pago</th>
-          <th>Accion</th>
+          <th>Acción</th>
         </tr>
       </thead>
       <tbody>
@@ -54,6 +54,7 @@ function TablaReservas({ array, setIsLoading, handleOpenCheckIn, handleOpenCheck
                         onClick={(e) => handleOpenCheckIn(e, item)}
                         variant="primary"
                         disabled={(item.checkIn === true && item.checkOut === true) || (item.checkIn === true && item.checkOut === false) ? true : false}
+                        className="action__button"
                       >
                         Check In
                       </Button>
@@ -61,6 +62,7 @@ function TablaReservas({ array, setIsLoading, handleOpenCheckIn, handleOpenCheck
                         onClick={(e) => handleOpenCheckOut(e, item)}
                         variant="primary"
                         style={{ marginLeft: "10px" }}
+                        className="action__button"
                         disabled={((item.checkOut === true && item.checkIn === true) || (item.checkOut === true && item.checkIn === false)) || (!item.checkIn && !item.checkOut) ? true : false}
                       >
                         Check Out
@@ -70,6 +72,7 @@ function TablaReservas({ array, setIsLoading, handleOpenCheckIn, handleOpenCheck
                     <Button
                       onClick={(e) => handleClickCancelarReserva(e, item?._id)}
                       variant="primary"
+                      className="action__button"
                     >
                       Cancelar
                     </Button>

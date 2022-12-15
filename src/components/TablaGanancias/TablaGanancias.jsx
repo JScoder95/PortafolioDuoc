@@ -13,6 +13,7 @@ import { GananciasDiarias } from "../Ganancias/GananciasDiarias";
 import { GananciasSemanales } from "../Ganancias/GananciasSemanales";
 import { GananciasMensuales } from "../Ganancias/GananciasMensuales";
 import { GananciasAnuales } from "../Ganancias/GananciasAnuales";
+import './TablaGanancias.css';
 
 
 
@@ -314,8 +315,8 @@ export const TablaGanancias = () => {
 
 
   return (
-    <Tabs activeKey={key} onSelect={(k) => setKey(k)} className="mb-1">
-      <Tab eventKey="gananciaDiaria" title="Ganancia Diaria">
+    <Tabs activeKey={key} onSelect={(k) => setKey(k)} className="mb-1" >
+      <Tab eventKey="gananciaDiaria" title="Ganancia Diaria" >
         <GananciasDiarias arrayZona ={resultadoDiaZona} arrayDepto={resultadoDiaDepto} />
       </Tab>
       <Tab eventKey='gananciaSemanal' title='Ganancia Semanal'>

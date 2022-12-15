@@ -73,7 +73,8 @@ const Departamentos = () => {
               { authLocal?.usuario?.rol === "Administrador" ? 
               <Fragment>
                 <Button
-                className="ms-2 me-2 mt-2 mb-2"
+                className="action__button"
+                style={{ margin: "8px" }}
                 onClick={(e) => handleClickAddDepartment(e)}
                 variant="primary"
               >

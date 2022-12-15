@@ -100,7 +100,7 @@ console.log(array)
                   {authLocal?.usuario?.rol === "Administrador" ? (
                     <Fragment>
                       <Button
-                        className="me-4"
+                        className='action__button'
                         onClick={(e) => handleClickEditDepartment(e, item)}
                         variant="primary"
                       >
@@ -109,7 +109,7 @@ console.log(array)
                       {
                         window === "departamentos" && 
                         <Button
-                          className="me-4"
+                        className='action__button'
                           onClick={(e) => handleClickEditInventoryDepartment(e, item)}
                           variant="primary"
                       >
@@ -120,6 +120,7 @@ console.log(array)
                       <Button
                         onClick={(e) => handleClickDeleteDepartment(e, item)}
                         variant="primary"
+                        className='action__button'
                       >
                         Eliminar
                       </Button>
