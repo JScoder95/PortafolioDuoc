@@ -35,7 +35,7 @@ function TablaUsuarios({ array, setIsLoading, handleOpenPopUp, setSelectedUsuari
                 <td>{(item.correo)}</td>
                 <td className='action__section'>
                   <div className='action__container'>
-                    <Button onClick={ (e) => handleClickEditarUsuario(e, item)} variant="primary">Editar</Button>
+                    <Button onClick={ (e) => handleClickEditarUsuario(e, item)} variant="primary" className='action__button'>Editar</Button>
                   </div>
                 </td> 
               </tr>

@@ -99,7 +99,7 @@ function TablaDepartamentos({
                   {authLocal?.usuario?.rol === "Administrador" ? (
                     <Fragment>
                       <Button
-                        className="me-4"
+                        className='action__button'
                         onClick={(e) => handleClickEditDepartment(e, item)}
                         variant="primary"
                       >
@@ -108,7 +108,7 @@ function TablaDepartamentos({
                       {
                         window === "departamentos" && 
                         <Button
-                          className="me-4"
+                        className='action__button'
                           onClick={(e) => handleClickEditInventoryDepartment(e, item)}
                           variant="primary"
                       >
@@ -119,6 +119,7 @@ function TablaDepartamentos({
                       <Button
                         onClick={(e) => handleClickDeleteDepartment(e, item)}
                         variant="primary"
+                        className='action__button'
                       >
                         Eliminar
                       </Button>

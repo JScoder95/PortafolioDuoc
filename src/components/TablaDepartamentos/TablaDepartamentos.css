@@ -3,7 +3,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 55px;
+    height: 90px;
 }
 .available__color {
     width: 30px;
@@ -16,4 +16,10 @@
 .action__container {
     display: flex;
     justify-content: center;
+}
+
+@media (max-width: 991px) {
+    .action__button {
+        font-size: 12px;
+    }
 }

@@ -33,4 +33,37 @@
 .department__card:hover {
     box-shadow: 10px 12px 12px 6px rgba(0,0,0,0.15);
     transform: scale(1.01);
+    cursor: pointer;
 }
+
+@media (max-width: 1272px) {
+    .available__department {
+        height: 80px;
+    }
+    .available__color {
+        width: 20px;
+        height: 20px;
+        border-radius: 2rem;
+    }
+}
+
+@media (max-width: 991px) {
+    .table-department {
+      min-width: 260px !important;
+      justify-content: center;
+    }
+    .available__department {
+        height: 70px;
+    }
+}
+
+@media (max-width: 600px) {
+    .department__container {
+        justify-content: center;
+        align-items: center;
+        min-width: auto;
+    }
+}
+
+
+

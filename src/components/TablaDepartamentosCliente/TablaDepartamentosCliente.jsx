@@ -16,7 +16,7 @@ function TablaDepartamentosCliente({
   const { auth } = useAuth();
 
   return (
-    <Table striped hover>
+    <Table striped hover className="table-department">
       <div className="department__container">
         {array?.filter(item =>  item.disponible === disponible).map((item, index) => (
           <Fragment key={`item-${index}`}>
