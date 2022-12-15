@@ -210,7 +210,7 @@ const DepartamentDetails = () => {
           </div>
           <div className="row">
             <div className="col">
-              <div className="card" style={{ border: "none" }}>
+              <div className="card" style={{ border: "none", marginBottom: "50px" }}>
                 <div className="card-body">
                   <div className="row">
                     <div className="col-xl-6">

@@ -74,7 +74,7 @@ const Departamentos = () => {
               <Fragment>
                 <Button
                 className="action__button"
-                style={{ margin: "8px" }}
+                style={{ margin: "8px", width: "auto" }}
                 onClick={(e) => handleClickAddDepartment(e)}
                 variant="primary"
               >
