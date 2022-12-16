@@ -1,7 +1,8 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { Fragment, useCallback, useEffect, useState } from 'react'
 import useEmblaCarousel from 'embla-carousel-react'
 import { DotButton, PrevButton, NextButton } from "./EmblaCarouselButtons";
 import './EmblaCarousel.css';
+import { IMAGE, IMAGE1 } from '../../common/constants';
 
 export const EmblaCarousel = ({ imgs }) => {
   const [viewportRef, embla] = useEmblaCarousel({ skipSnaps: false });
@@ -36,7 +37,7 @@ export const EmblaCarousel = ({ imgs }) => {
       <div className="emblaa">
         <div className="emblaa__viewport" ref={viewportRef}>
           <div className="emblaa__container">
-            {imgs.map((index) => (
+            { imgs.length > 0 ? imgs.map((index) => (
               <div className="emblaa__slide" key={index}>
                 <div className="emblaa__slide__inner">
                   <img
@@ -46,7 +47,27 @@ export const EmblaCarousel = ({ imgs }) => {
                   />
                 </div>
               </div>
-            ))}
+            )) : <Fragment>
+              <div className="emblaa__slide">
+                <div className="emblaa__slide__inner">
+                  <img
+                    className="emblaa__slide__img"
+                    src={IMAGE}
+                    alt="A cool cat."
+                  />
+                </div>
+              </div>
+              <div className="emblaa__slide">
+              <div className="emblaa__slide__inner">
+                <img
+                  className="emblaa__slide__img"
+                  src={IMAGE1}
+                  alt="A cool cat."
+                />
+              </div>
+            </div>
+            </Fragment>
+            }
           </div>
         </div>
         <PrevButton onClick={scrollPrev} enabled={prevBtnEnabled} />

@@ -8,6 +8,7 @@ import useAuth from "../../hooks/useAuth";
 import { Link } from "react-router-dom";
 import { EmblaCarousel } from "../EmblaCarousel/EmblaCarousel";
 import "./TablaDepartamentosCliente.css";
+import { IMAGE } from "../../common/constants";
 
 function TablaDepartamentosCliente({
   array,
