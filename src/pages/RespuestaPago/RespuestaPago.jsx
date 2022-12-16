@@ -168,7 +168,7 @@ export const RespuestaPago = () => {
 
         <div className="row mt-3">
           <div className="col-md-12 order-md-12 mb-12">
-            <div className="text-sm-center">
+            <div className="text-sm-center" style={{marginBottom: "50px"}}>
               <Link to="/reservas" className="btn btn-success">
                 <i className="mdi mdi-truck-fast me-1" /> {`Volver al inicio`}{" "}
               </Link>
