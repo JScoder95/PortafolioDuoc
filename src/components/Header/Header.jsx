@@ -116,11 +116,13 @@ const NavScrollExample = () => {
             show={modalLogin}
             setModalShow={setModalLogin}
             onHide={() => setModalLogin(false)}
+            setModalCreateAccount={setModalCreateAccount}
           />
           <CreateAccount
             show={modalCreateAccount}
             setModalCreateAccount={setModalCreateAccount}
             onHide={() => setModalCreateAccount(false)}
+            setModalLogin={setModalLogin}
           />
         </div>
       </Container>

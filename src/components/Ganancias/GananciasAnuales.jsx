@@ -67,7 +67,7 @@ export const GananciasAnuales = ({ arrayZona, arrayDepto }) => {
                   </div>
                 ) : (
                   <div>
-                    <h4>Para poder vizualizar y generar un informe debe seleccionar una opcion en el menu de la izquierdo</h4>
+                    <h4>Para poder vizualizar y generar un informe debe seleccionar una opción en el menu de la izquierda</h4>
                   </div>
                 )}
                 <Tab.Pane eventKey="Departamentos">

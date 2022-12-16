@@ -6,11 +6,10 @@ import useAuth from "../../../hooks/useAuth";
 import axios from "../../../api/axios";
 import { message } from "antd";
 import { useNavigate } from "react-router-dom";
+import Spiner from "../../Spiner/Spiner";
+import { Link } from "react-router-dom";
 import "./Login.css";
 import "antd/dist/antd.css";
-import Spiner from "../../Spiner/Spiner";
-import CreateAccount from "../CreateAccount/CreateAccount";
-import { Link } from "react-router-dom";
 
 const LOGIN_URL = "/user/login";
 const GET_USERS = "/user/";
@@ -19,14 +18,13 @@ const GET_USERS = "/user/";
 
 function Login(props) {
   const { setAuth } = useAuth();
-  const { setModalShow, show } = props;
+  const { setModalShow, show, setModalCreateAccount } = props;
   const navigate = useNavigate();
   const [rut, setRut] = useState("");
   const [password, setPwd] = useState("");
   const [errMsg, setErrMsg] = useState("");
   const [isValid, setIsValid] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [modalCreateAccount, setModalCreateAccount] = useState(false);
 
   useEffect(() => {
     setErrMsg("");
@@ -146,16 +144,10 @@ function Login(props) {
             {/*put router link here*/}
             <Link onClick={() => setModalCreateAccount(true)} >Crea una Cuenta</Link>
           </span>
-          <CreateAccount
-            show={modalCreateAccount}
-            setModalCreateAccount={setModalCreateAccount}
-            onHide={() => setModalCreateAccount(false)}
-          />
         </p>
         <Button variant="primary" type="submit">
           Ingresar
         </Button>
-
         </div>
       </Form>
     )}

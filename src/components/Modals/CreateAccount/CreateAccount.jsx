@@ -13,7 +13,7 @@ const GET_USERS = "/user/";
 
 function CreateAccount(props) {
   const { setAuth } = useAuth();
-  const { setModalCreateAccount, show } = props;
+  const { setModalCreateAccount, show, setModalLogin } = props;
   const navigate = useNavigate();
   const [correo, setCorreo] = useState("");
   const [password, setPwd] = useState("");
@@ -50,7 +50,10 @@ function CreateAccount(props) {
     message.error("Ha ocurrido un error, verifica los datos.");
   };
 
-  const handleClose = () => setModalCreateAccount(false);
+  const handleClose = () => {
+    setModalCreateAccount(false);
+    setModalLogin(false);
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();

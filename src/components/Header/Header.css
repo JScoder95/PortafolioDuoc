@@ -5,7 +5,6 @@
 }
 .navbar__page {
     z-index: 1;
-    height: auto;
     padding: 15px 0 15px;
     width: 100%;
 }
