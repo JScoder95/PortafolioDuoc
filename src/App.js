@@ -18,20 +18,16 @@ function App() {
   return (
     <BrowserRouter>
       <AuthProvider>
-        <div className="wrapper">
           <Header />
-          <div className="baselayout__container">
-            <Routes>
-              <Route path="/clients" element={<Clients />} />
-              <Route path="/departamentos" element={<Departamentos />} />
-              <Route path="/reservas" element={<Reservas />} />
-              <Route path="/informes" element={<Informes />} />
-              <Route path='/webpay_plus/commit' element={<RespuestaPago />} />
-              <Route path="/departamentDetails" element={<DepartamentDetails />}/>
-            </Routes>
-          </div>
+          <Routes>
+            <Route path="/clients" element={<Clients />} />
+            <Route path="/departamentos" element={<Departamentos />} />
+            <Route path="/reservas" element={<Reservas />} />
+            <Route path="/informes" element={<Informes />} />
+            <Route path='/webpay_plus/commit' element={<RespuestaPago />} />
+            <Route path="/departamentDetails" element={<DepartamentDetails />}/>
+          </Routes>
           <Footer />
-        </div>
       </AuthProvider>
     </BrowserRouter>
   );

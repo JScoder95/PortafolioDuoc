@@ -6,6 +6,7 @@
 .navbar__page {
     z-index: 1;
     padding: 15px 0 15px;
+    height: 80px;
     width: 100%;
 }
 

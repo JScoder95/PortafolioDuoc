@@ -6,11 +6,3 @@
   height: 40vmin;
   pointer-events: none;
 }
-.wrapper {
-  display: grid;
-  grid-template-rows: 80px 1fr 50px;
-  height: 100vh;
-  overflow: auto;
-}
-.baselayout__container {
-}
