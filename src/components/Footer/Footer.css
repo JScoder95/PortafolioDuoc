@@ -2,6 +2,7 @@
     width: 100%;
     background-color: #353535;
     bottom: 0;
+    position: fixed;
 }
 .footer__container {
     width: 80%;
