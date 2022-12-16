@@ -65,7 +65,6 @@ const AñadirDepartamentoModal = ({ show, handleClose, setIsLoading }) => {
         setIsLoading(false);
         handleClose();
         success();
-        console.log(res);
       })
       .catch((err) => {
         error();

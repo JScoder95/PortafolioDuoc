@@ -11,6 +11,7 @@ import {
   formatDateInventory,
   MoneyFormatter,
 } from "../../common/utils";
+import './Ganancias.css';
 
 export const GananciasMensuales = ({ arrayZona, arrayDepto }) => {
   const pdfRef = useRef(null);
@@ -34,23 +35,28 @@ export const GananciasMensuales = ({ arrayZona, arrayDepto }) => {
   return (
     <Tab.Container id="left-tabs-example" defaultActiveKey="first">
       <Row>
-        <Col sm={2}>
-          <Nav
-            variant="pills"
-            className="flex-column"
-            onSelect={(k) => setKey(k)}
-          >
-            <Nav.Item>
-              <Nav.Link eventKey="Departamentos">
-                Departamentos
-              </Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link eventKey="Zonas">Zonas</Nav.Link>
-            </Nav.Item>
-          </Nav>
-        </Col>
-        <Col sm={10}>
+        <div className="rows">
+          <div>
+            <Col sm={2} className="left-col">
+              <Nav
+                variant="pills"
+                className="flex-column"
+                onSelect={(k) => setKey(k)}
+                style={{ margin: "5px" }}
+              >
+                <Nav.Item className="button">
+                  <Nav.Link eventKey="Departamentos" style={{display: "block"}}>
+                    Departamentos
+                  </Nav.Link>
+                </Nav.Item>
+                <Nav.Item className="button">
+                  <Nav.Link eventKey="Zonas" style={{display: "block"}}>Zonas</Nav.Link>
+                </Nav.Item>
+              </Nav>
+            </Col>
+          </div>
+          <div className="cols">
+          <Col sm={10} style={{marginBottom: "60px"}}>
           <Tab.Content
             ref={pdfRef}
             style={{ marginLeft: "20px", marginRight: "20px" }}
@@ -61,7 +67,7 @@ export const GananciasMensuales = ({ arrayZona, arrayDepto }) => {
               </div>
             ) : (
               <div>
-                <h4>Para poder vizualizar y generar un informe debe seleccionar una opcion en el menu de la izquierdo</h4>
+                <h4>Para poder vizualizar y generar un informe debe seleccionar una opción en el menu de la izquierda</h4>
               </div>
             )}
             <Tab.Pane eventKey="Departamentos">
@@ -117,17 +123,19 @@ export const GananciasMensuales = ({ arrayZona, arrayDepto }) => {
               </Table>
             </Tab.Pane>
           </Tab.Content>
-          <div className="text-sm-end m-2">
-            {key !== "" ? (
-              <Button
-                style={{ marginTop: "20px", justifyContent: "end" }}
-                onClick={generarPDF}
-              >
-                Obtener Informe
-              </Button>
-            ) : null}
+              <div className="text-sm-end m-2">
+                {key !== "" ? (
+                  <Button
+                    style={{ marginTop: "20px", justifyContent: "end" }}
+                    onClick={generarPDF}
+                  >
+                    Obtener Informe
+                  </Button>
+                ) : null}
+              </div>
+            </Col>
           </div>
-        </Col>
+        </div>
       </Row>
     </Tab.Container>
   );

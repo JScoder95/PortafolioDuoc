@@ -10,12 +10,9 @@ import { GananciasDiarias } from "../Ganancias/GananciasDiarias";
 import { GananciasSemanales } from "../Ganancias/GananciasSemanales";
 import { GananciasMensuales } from "../Ganancias/GananciasMensuales";
 import { GananciasAnuales } from "../Ganancias/GananciasAnuales";
-
-
-
+import './TablaGanancias.css';
 
 const URL_RESERVAS= '/reservas/'
-
 
 export const TablaGanancias = () => {
   const [key, setKey] = useState("gananciaDiaria");
@@ -61,8 +58,7 @@ export const TablaGanancias = () => {
       
     };
   });
-  console.log('reservaZona' , reservaDiaZona);
-
+  
 //venta diaria por departamento
   const resultadoDiaDepto = [];
   reservaDiaDepto.reduce(function(res, value) {
@@ -311,19 +307,46 @@ export const TablaGanancias = () => {
 
 
   return (
-    <Tabs activeKey={key} onSelect={(k) => setKey(k)} className="mb-1">
-      <Tab eventKey="gananciaDiaria" title="Ganancia Diaria">
-        <GananciasDiarias arrayZona ={resultadoDiaZona} arrayDepto={resultadoDiaDepto} />
+    <Tabs 
+      activeKey={key} 
+      onSelect={(k) => setKey(k)} 
+      className="mb-1" 
+    >
+      <Tab 
+        eventKey="gananciaDiaria" 
+        title="Ganancia Diaria" 
+      >
+        <GananciasDiarias 
+          arrayZona={resultadoDiaZona} 
+          arrayDepto={resultadoDiaDepto} 
+        />
       </Tab>
-      <Tab eventKey='gananciaSemanal' title='Ganancia Semanal'>
-        <GananciasSemanales arrayZona ={resultadoSemanaZona} arrayDepto={resultadoSemanaDepto} />
-
+      <Tab 
+        eventKey='gananciaSemanal' 
+        title='Ganancia Semanal'
+      >
+        <GananciasSemanales 
+          arrayZona={resultadoSemanaZona} 
+          arrayDepto={resultadoSemanaDepto} 
+        />
       </Tab>
-      <Tab eventKey='gananciaMensual' title='Ganancia Mensual'>
-        <GananciasMensuales arrayZona ={resultadoMesZona} arrayDepto={resultadoMesDepto} />
+      <Tab 
+        eventKey='gananciaMensual' 
+        title='Ganancia Mensual'
+      >
+        <GananciasMensuales 
+          arrayZona={resultadoMesZona} 
+          arrayDepto={resultadoMesDepto} 
+        />
       </Tab>
-      <Tab eventKey='gananciaAnual' title='Ganancia Anual'>
-        <GananciasAnuales arrayZona ={resultadoAnualZona} arrayDepto={resultadoAnualDepto} />
+      <Tab 
+        eventKey='gananciaAnual' 
+        title='Ganancia Anual'
+      >
+        <GananciasAnuales 
+          arrayZona={resultadoAnualZona} 
+          arrayDepto={resultadoAnualDepto} 
+        />
       </Tab>
     </Tabs>
   );

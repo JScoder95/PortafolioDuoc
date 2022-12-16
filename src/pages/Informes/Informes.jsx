@@ -18,7 +18,6 @@ const Informes = () => {
       <Tab eventKey="estadisticas" title="Informes y Estadisticas">
         <TablaGanancias/>
       </Tab>
-      <Tab eventKey="pagos" title="Pagos"></Tab>
     </Tabs>
   );
 };

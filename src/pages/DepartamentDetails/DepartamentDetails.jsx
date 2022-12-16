@@ -168,7 +168,6 @@ const DepartamentDetails = () => {
   };
   useEffect(() => {
     async function fetchWebpay() {
-      console.log('dentro del useeffect', valorFinal)
       if(valorFinal !== 0 && valorFinal !== NaN){
         const responseWP = await axios.get(`/webpay_plus/pay/${valorFinal}`);
         
@@ -210,7 +209,7 @@ const DepartamentDetails = () => {
           </div>
           <div className="row">
             <div className="col">
-              <div className="card" style={{ border: "none" }}>
+              <div className="card" style={{ border: "none", marginBottom: "50px" }}>
                 <div className="card-body">
                   <div className="row">
                     <div className="col-xl-6">

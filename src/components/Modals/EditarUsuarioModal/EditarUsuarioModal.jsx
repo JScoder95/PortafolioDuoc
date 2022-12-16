@@ -58,7 +58,6 @@ const EditarUsuarioModal = ({ show, handleClose, selectedUsuario, setIsLoading, 
             handleClose();
             setSelectedUsuario('');
             success();
-            console.log(res);
         }).catch((err) => {
             console.log(err.response);
             error();

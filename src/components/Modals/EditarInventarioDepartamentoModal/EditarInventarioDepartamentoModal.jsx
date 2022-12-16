@@ -44,25 +44,20 @@ const EditarInventarioDepartamentoModal = ({
     if(!inventario.includes("Mesas")) {
       inventario.push("Mesas")
       setMesas(true);
-      console.log(inventario)
     } else {
       let arr = inventario.filter(e => e !== "Mesas");
       setInventario(arr)
-      console.log("nuevo inventario", arr);
     }
-    console.log(e.target.checked);
+
   };
   const handleAddSillas = (e) => {
     if(!inventario.includes("Sillas")) {
       inventario.push("Sillas")
       setSillas(true);
-      console.log(inventario)
     } else {
       let arr = inventario.filter(e => e !== "Sillas");
       setInventario(arr)
-      console.log("nuevo inventario", arr);
     }
-    console.log(e.target.checked);
   };
 
   const success = () => {
@@ -85,14 +80,12 @@ const EditarInventarioDepartamentoModal = ({
         setIsLoading(false);
         handleClose();
         success();
-        console.log(res);
       })
       .catch((err) => {
         error();
         console.log(err);
       });
   };
-  console.log(inventario);
 
   return (
     <Modal

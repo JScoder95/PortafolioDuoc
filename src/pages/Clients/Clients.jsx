@@ -25,11 +25,6 @@ const Clients = () => {
   }
 
   React.useEffect(() => {
-    console.log(selectedUsuario);
-  })
-  
-
-  React.useEffect(() => {
     if( key === 'usuarios'){
       async function fetchUsuarios() {
       const token = {

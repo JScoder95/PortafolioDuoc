@@ -6,9 +6,10 @@ import useAuth from "../../../hooks/useAuth";
 import axios from "../../../api/axios";
 import { message } from "antd";
 import { useNavigate } from "react-router-dom";
+import Spiner from "../../Spiner/Spiner";
+import { Link } from "react-router-dom";
 import "./Login.css";
 import "antd/dist/antd.css";
-import Spiner from "../../Spiner/Spiner";
 
 const LOGIN_URL = "/user/login";
 const GET_USERS = "/user/";
@@ -17,7 +18,7 @@ const GET_USERS = "/user/";
 
 function Login(props) {
   const { setAuth } = useAuth();
-  const { setModalShow, show } = props;
+  const { setModalShow, show, setModalCreateAccount } = props;
   const navigate = useNavigate();
   const [rut, setRut] = useState("");
   const [password, setPwd] = useState("");
@@ -110,7 +111,7 @@ function Login(props) {
       {isLoading ? <Spiner /> : (
       <Form className="login__form" onSubmit={handleSubmit}>
         <Form.Group className="mb-3">
-          <Form.Label htmlFor="username">Usuario</Form.Label>
+          <Form.Label htmlFor="username">RUT</Form.Label>
           <Form.Control
             type="text"
             id="username"
@@ -118,10 +119,9 @@ function Login(props) {
             onChange={handlesetRut}
             value={rut}
             required
-            placeholder="Enter user"
+            placeholder="Ingresa tu Rut"
           />
           <Form.Text className="text-muted">
-            We'll never share your email with anyone else.
           </Form.Text>
         </Form.Group>
         <Form.Group className="mb-3">
@@ -135,17 +135,19 @@ function Login(props) {
             required
           />
         </Form.Group>
-        <Button variant="primary" type="submit">
-          Submit
-        </Button>
+        <div  style={{ justifyContent:"space-between", display:'flex' }} >
         <p>
-          Need an Account?
+          Necesitas una cuenta?
           <br />
           <span className="line">
             {/*put router link here*/}
-            <a href="#">Sign Up</a>
+            <Link onClick={() => setModalCreateAccount(true)} >Crea una Cuenta</Link>
           </span>
         </p>
+        <Button variant="primary" type="submit">
+          Ingresar
+        </Button>
+        </div>
       </Form>
     )}
     </Modal>

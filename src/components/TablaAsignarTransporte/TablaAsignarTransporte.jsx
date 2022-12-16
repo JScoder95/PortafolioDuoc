@@ -89,6 +89,8 @@ function TablaAsignarTransporte({
                     <Button
                       onClick={(e) => handleOpenAsignarTransporte(e, item)}
                       variant="primary"
+                      className="action__button"
+                      style={{ width: "80%"}}
                     >
                       Asignar Transporte
                     </Button>
@@ -96,6 +98,8 @@ function TablaAsignarTransporte({
                     <Button
                       onClick={(e) => handleOpenAsignarTransporte(e, item)}
                       variant="primary"
+                      className="action__button"
+                      style={{ width: "80%"}}
                     >
                       Actualizar Transporte
                     </Button>

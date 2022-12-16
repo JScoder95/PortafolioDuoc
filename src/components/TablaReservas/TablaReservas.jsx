@@ -33,7 +33,6 @@ function TablaReservas({
       .then((res) => {
         setIsLoading(false);
         success();
-        console.log(res);
       })
       .catch((err) => {
         error();
@@ -43,7 +42,6 @@ function TablaReservas({
   useEffect(() => {
     async function fetchWebpay() {
       const valorFinal = array.map((reserva) => reserva.filter());
-      console.log("dentro del useeffect", valorFinal);
       if (valorFinal !== 0 && valorFinal !== NaN) {
         const responseWP = await axios.get(`/webpay_plus/pay/${valorFinal}`);
 
@@ -52,17 +50,16 @@ function TablaReservas({
     }
     fetchWebpay();
   }, []);
-  console.log("fuera del useeffect", webpayResponse);
   return (
-    <Table striped bordered hover>
+    <Table striped bordered hover className="table">
       <thead>
         <tr>
           <th>Departamento</th>
-          <th>A Nombre de</th>
+          <th>Reservado Por</th>
           <th>Fecha Inicio</th>
           <th>Fecha Termino</th>
           <th>Estado Pago</th>
-          <th>Accion</th>
+          <th>Acción</th>
         </tr>
       </thead>
       <tbody>
@@ -121,12 +118,8 @@ function TablaReservas({
                       <Button
                         onClick={(e) => handleOpenCheckIn(e, item)}
                         variant="primary"
-                        disabled={
-                          (item.checkIn === true && item.checkOut === true) ||
-                          (item.checkIn === true && item.checkOut === false)
-                            ? true
-                            : false
-                        }
+                        disabled={(item.checkIn === true && item.checkOut === true) || (item.checkIn === true && item.checkOut === false) ? true : false}
+                        className="action__button"
                       >
                         Check In
                       </Button>
@@ -134,13 +127,8 @@ function TablaReservas({
                         onClick={(e) => handleOpenCheckOut(e, item)}
                         variant="primary"
                         style={{ marginLeft: "10px" }}
-                        disabled={
-                          (item.checkOut === true && item.checkIn === true) ||
-                          (item.checkOut === true && item.checkIn === false) ||
-                          (!item.checkIn && !item.checkOut)
-                            ? true
-                            : false
-                        }
+                        className="action__button"
+                        disabled={((item.checkOut === true && item.checkIn === true) || (item.checkOut === true && item.checkIn === false)) || (!item.checkIn && !item.checkOut) ? true : false}
                       >
                         Check Out
                       </Button>
@@ -152,6 +140,7 @@ function TablaReservas({
                     <Button
                       onClick={(e) => handleClickCancelarReserva(e, item?._id)}
                       variant="danger"
+                      className="action__button"
                     >
                       Cancelar
                     </Button>
@@ -161,6 +150,7 @@ function TablaReservas({
                     <Button
                       onClick={(e) => handleOpenPago(e, item)}
                       variant="primary"
+                      className="action__button"
                     >
                       {" "}
                       Pagar{" "}
@@ -169,6 +159,7 @@ function TablaReservas({
                     <Button
                       onClick={(e) => handleClickCancelarReserva(e, item?._id)}
                       variant="danger"
+                      className="action__button"
                     >
                       Cancelar
                     </Button>
