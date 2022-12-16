@@ -14,7 +14,7 @@ function TablaDepartamentosCliente({
   disponible
 }) {
   const { auth } = useAuth();
-
+console.log(array)
   return (
     <Table striped hover className="table-department">
       <div className="department__container">

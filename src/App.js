@@ -27,7 +27,7 @@ function App() {
             <Route path='/webpay_plus/commit' element={<RespuestaPago />} />
             <Route path="/departamentDetails" element={<DepartamentDetails />}/>
           </Routes>
-          <Footer />
+          
       </AuthProvider>
     </BrowserRouter>
   );
