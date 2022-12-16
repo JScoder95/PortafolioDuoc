@@ -24,6 +24,12 @@ const NavScrollExample = () => {
   useEffect(() => {
     setAuth(JSON.parse(localStorage.getItem("auth")));
   }, []);
+  React.useEffect(() => {
+    if(auth.usuario === undefined && localStorage.getItem("auth") !== null){
+    setAuth(JSON.parse(localStorage.getItem("auth")));
+    }
+ 
+  }, [])
 
   const authLocal =
     auth == {} ? auth : JSON.parse(localStorage.getItem("auth"));

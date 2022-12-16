@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import Alert from "react-bootstrap/Alert";
 import Modal from "react-bootstrap/Modal";
 import useAuth from "../../../hooks/useAuth";
 import axios from "../../../api/axios";
@@ -21,8 +22,18 @@ function CreateAccount(props) {
   const [rut, setRut] = useState("");
   const [rol, setRol] = useState("Cliente");
   const [telefono, setTelefono] = useState("");
-  const [errMsg, setErrMsg] = useState("");
+  const [errMsg, setErrMsg] = useState([]);
   const [isValid, setIsValid] = useState(false);
+
+
+  const [visibleAlert, setVisibleAlert] = useState(false); 
+
+  const handleVisible = () => { 
+    setVisibleAlert(true)
+    setTimeout(() => { 
+      setVisibleAlert(false)
+    }, 5000);
+} 
 
   const handleSetCorreo = (event) => {
     setCorreo(event.target.value);
@@ -83,22 +94,18 @@ function CreateAccount(props) {
           usuario: response2.data.usuario,
           token: accessToken,
         };
+        localStorage.setItem("auth", JSON.stringify(dataInfo));
         setAuth(dataInfo);
-        navigate("/reservas");
+        navigate("/departamentos");
       } else {
         error();
         setModalCreateAccount(false);
       }
     } catch (err) {
-      if (!err?.response) {
-        setErrMsg("No Server Response");
-      } else if (err.response?.status === 400) {
-        setErrMsg("Missing Username or Password");
-      } else if (err.response?.status === 401) {
-        setErrMsg("Unauthorized");
-      } else {
-        setErrMsg("Login Failed");
-      }
+      const errorResponse = err?.response.data.errors.map((error) => error.msg);
+      error();
+      setErrMsg(errorResponse);
+      handleVisible();
     }
   };
 
@@ -179,6 +186,11 @@ function CreateAccount(props) {
           Crear Cuenta
         </Button>
       </Form>
+      {errMsg.length > 0 ?(
+        errMsg.map((error) => (
+          <Alert variant="danger" show={visibleAlert} className="mt-3"> {error} </Alert>
+        ))
+      ): null}
     </Modal>
   );
 }
