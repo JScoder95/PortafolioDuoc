@@ -33,7 +33,6 @@ function TablaReservas({
       .then((res) => {
         setIsLoading(false);
         success();
-        console.log(res);
       })
       .catch((err) => {
         error();
@@ -43,7 +42,6 @@ function TablaReservas({
   useEffect(() => {
     async function fetchWebpay() {
       const valorFinal = array.map((reserva) => reserva.filter());
-      console.log("dentro del useeffect", valorFinal);
       if (valorFinal !== 0 && valorFinal !== NaN) {
         const responseWP = await axios.get(`/webpay_plus/pay/${valorFinal}`);
 
@@ -52,7 +50,6 @@ function TablaReservas({
     }
     fetchWebpay();
   }, []);
-  console.log("fuera del useeffect", webpayResponse);
   return (
     <Table striped bordered hover className="table">
       <thead>

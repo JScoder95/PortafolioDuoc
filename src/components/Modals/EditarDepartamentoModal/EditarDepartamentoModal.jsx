@@ -90,7 +90,6 @@ const EditarDepartamentoModal = ({
         handleClose();
         setKey("departamentos");
         success();
-        console.log(res);
       })
       .catch((err) => {
         console.log(err);

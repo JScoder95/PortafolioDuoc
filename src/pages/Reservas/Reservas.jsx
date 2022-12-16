@@ -37,26 +37,22 @@ const Reservas = () => {
     e.preventDefault();
     setModalCheckIn(true);
     setSelectedDepto(item);
-    console.log(item);
   };
   const handleOpenCheckOut = (e, item) => {
     e.preventDefault();
     setModalCheckOut(true);
     setSelectedDepto(item);
-    console.log(item);
   };
 
   const handleOpenAsignarTransporte = (e, item) => {
     e.preventDefault();
     setModalTransporte(true)
     setSelectedDepto(item);
-    console.log(item);
   }
   const handleOpenPago = (e, item) => {
     e.preventDefault();
     setModalPago(true)
     setSelectedDepto(item);
-    console.log(item);
   }
 
   React.useEffect(() => {

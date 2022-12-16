@@ -33,7 +33,7 @@ export const GananciasAnuales = ({ arrayZona, arrayDepto }) => {
       html2canvas: { scale: 0.38 },
     });
   };
-  console.log(key);
+  
   return (
     <Tab.Container id="left-tabs-example" defaultActiveKey="first">
       <Row>

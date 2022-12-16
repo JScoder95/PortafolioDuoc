@@ -52,7 +52,6 @@ const Departamentos = () => {
           data: { rol: authLocal?.usuario?.rol },
         });
         setdepartamentos(response?.data.postDepto);
-        console.log(response?.data.postDepto)
         setIsLoading(false);
       }
       fetchDepartamentos();
@@ -67,7 +66,7 @@ const Departamentos = () => {
       className="mb-3"
     >
       {authLocal ? (
-        <Tab eventKey="departamentos" title="Departamentos">
+        <Tab eventKey="departamentos" title="Departamentos" style={{marginBottom: "90px"}}>
           {!isLoading ? (
             <Fragment>
               { authLocal?.usuario?.rol === "Administrador" ? 

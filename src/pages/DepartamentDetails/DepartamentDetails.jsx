@@ -168,7 +168,6 @@ const DepartamentDetails = () => {
   };
   useEffect(() => {
     async function fetchWebpay() {
-      console.log('dentro del useeffect', valorFinal)
       if(valorFinal !== 0 && valorFinal !== NaN){
         const responseWP = await axios.get(`/webpay_plus/pay/${valorFinal}`);
         
