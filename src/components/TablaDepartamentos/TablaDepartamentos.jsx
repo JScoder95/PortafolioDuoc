@@ -65,7 +65,7 @@ function TablaDepartamentos({
         <tr>
           <th>Nombre</th>
           <th>Dirección</th>
-          <th>Ubicación</th>
+
           <th>Baños</th>
           <th>Habitaciones</th>
           <th>Valor Arriendo</th>
@@ -78,13 +78,31 @@ function TablaDepartamentos({
         {array?.filter(item =>  item.disponible === disponible).map((item, index) => (
           <Fragment key={`item-${index}`}>
             <tr>
-              <td>{capitalizeFirstLetter(item.nombre)}</td>
-              <td>{capitalizeFirstLetter(item.direccion)}</td>
-              <td>{capitalizeFirstLetter(item.ubicacion)}</td>
-              <td>{item.banos}</td>
-              <td>{item.habitaciones}</td>
-              <td>{MoneyFormatter(item.valorArriendo)}</td>
-              <td>{formatDate(item.fechaPublicacion)}</td>
+              <td> <i
+                  className="bx bx-building-house"
+                  style={{ color: "RGB(159 12 192)" }}
+                ></i> {capitalizeFirstLetter(item.nombre)}</td>
+              <td> <i
+                  className="bx bx-map-pin"
+                  style={{ color: "RGB(192 23 12)" }}
+                ></i> {capitalizeFirstLetter(item.direccion)}{', '}{capitalizeFirstLetter(item.ubicacion)}</td>
+
+              <td> <i
+                  className="bx bx-bath"
+                  style={{ color: "RGB(96 154 212)" }}
+                ></i>{'  '} {item.banos}</td>
+              <td><i
+                  className="bx bx-hotel"
+                  style={{ color: "RGB(12 163 192)" }}
+                ></i> {'  '} {item.habitaciones}</td>
+              <td> <i
+                  className="bx bx-money"
+                  style={{ color: "RGB(80 197 45)" }}
+                ></i> {MoneyFormatter(item.valorArriendo)}</td>
+              <td> <i
+                  className="bx bx-calendar-check"
+                  style={{ color: "RGB(80 197 45)" }}
+                ></i> {formatDate(item.fechaPublicacion)}</td>
               <td className="available__department">
                 <div
                   style={{

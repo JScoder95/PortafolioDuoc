@@ -29,10 +29,22 @@ function TablaUsuarios({ array, setIsLoading, handleOpenPopUp, setSelectedUsuari
           { array?.map((item, index) => (
             <Fragment key={`item-${index}`}>
               <tr>
-                <td>{(item.nombre)}</td>
-                <td>{(item.rut)}</td>
-                <td>{(item.telefono)}</td>
-                <td>{(item.correo)}</td>
+                <td>  <i
+                  className="bx bx-user"
+                  style={{ color: "RGB(134 96 212)" }}
+                ></i> {(item.nombre)}</td>
+                <td> <i
+                  className="bx bx-id-card"
+                  style={{ color: "RGB(124 183 81)" }}
+                ></i> {(item.rut)}</td>
+                <td> <i
+                  className="bx bx-phone"
+                  style={{ color: "RGB(9 169 177)" }}
+                ></i> {(item.telefono)}</td>
+                <td> <i
+                  className="bx bx-mail-send"
+                  style={{ color: "RGB(197 45 45)" }}
+                ></i>{(item.correo)}</td>
                 <td className='action__section'>
                   <div className='action__container'>
                     <Button onClick={ (e) => handleClickEditarUsuario(e, item)} variant="primary" className='action__button'>Editar</Button>

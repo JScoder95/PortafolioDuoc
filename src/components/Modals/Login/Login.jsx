@@ -9,6 +9,8 @@ import { useNavigate } from "react-router-dom";
 import "./Login.css";
 import "antd/dist/antd.css";
 import Spiner from "../../Spiner/Spiner";
+import CreateAccount from "../CreateAccount/CreateAccount";
+import { Link } from "react-router-dom";
 
 const LOGIN_URL = "/user/login";
 const GET_USERS = "/user/";
@@ -24,6 +26,7 @@ function Login(props) {
   const [errMsg, setErrMsg] = useState("");
   const [isValid, setIsValid] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [modalCreateAccount, setModalCreateAccount] = useState(false);
 
   useEffect(() => {
     setErrMsg("");
@@ -135,17 +138,25 @@ function Login(props) {
             required
           />
         </Form.Group>
-        <Button variant="primary" type="submit">
-          Submit
-        </Button>
+        <div  style={{ justifyContent:"space-between", display:'flex' }} >
         <p>
-          Need an Account?
+          Necesitas una cuenta?
           <br />
           <span className="line">
             {/*put router link here*/}
-            <a href="#">Sign Up</a>
+            <Link onClick={() => setModalCreateAccount(true)} >Crea una Cuenta</Link>
           </span>
+          <CreateAccount
+            show={modalCreateAccount}
+            setModalCreateAccount={setModalCreateAccount}
+            onHide={() => setModalCreateAccount(false)}
+          />
         </p>
+        <Button variant="primary" type="submit">
+          Ingresar
+        </Button>
+
+        </div>
       </Form>
     )}
     </Modal>
