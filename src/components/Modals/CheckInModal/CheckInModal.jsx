@@ -87,12 +87,10 @@ function CheckInModal(props) {
     doCheckIn(selectedDepto._id, auth?.token, listaChequeo)
     .then((res) => {
       setIsLoading(false);
-      console.log(res);
       success();
     })
     .catch((err) => {
       console.log(err.response);
-      console.log("NOPE");
       error()
     });
   };

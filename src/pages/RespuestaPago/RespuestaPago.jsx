@@ -59,7 +59,7 @@ export const RespuestaPago = () => {
               },
             };
             const update = axios.post("reservas/update/status", body, config);
-            console.log(update);
+            
             }else{
             setStatusCompra('Pago Exitoso');
             setMensajeStatusCompra('Su pago se ha realizado correctamente, puede revisar su estado en el historial de reservas');
@@ -75,7 +75,7 @@ export const RespuestaPago = () => {
               },
             };
             const update = axios.post("reservas/update/status", body, config);
-            console.log(update);
+            
             }
             
           });
@@ -101,7 +101,7 @@ export const RespuestaPago = () => {
               },
             };
             const update = axios.post("reservas/update/status", body, config);
-            console.log(update);
+            
           });
       }
     }
@@ -109,8 +109,6 @@ export const RespuestaPago = () => {
     fetchWebpay();
   }, []);
 
-  console.log(webpayResonse);
-  console.log(reserva);
   return (
     <div className="maincontainer">
       <div className="container">

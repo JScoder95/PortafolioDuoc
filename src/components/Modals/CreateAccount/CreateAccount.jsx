@@ -62,9 +62,7 @@ function CreateAccount(props) {
           "Content-Type": "application/json",
         },
       };
-      console.log(body)
       const response = await axios.post(CREATE_URL, body, config);
-      console.log(response)
       if (response?.data.ok === true) {
         success();
         const accessToken = response?.data?.token;

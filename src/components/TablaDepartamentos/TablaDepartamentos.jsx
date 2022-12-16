@@ -35,22 +35,18 @@ function TablaDepartamentos({
     e.preventDefault();
     handleOpenEdit();
     setSelectedDepto(id);
-    console.log(id);
   };
   const handleClickEditInventoryDepartment = (e, id) => {
     e.preventDefault();
     handleOpenEditInventory();
     setSelectedDepto(id);
-    console.log(id);
   };
 
   const handleClickDeleteDepartment = (e, item) => {
     e.preventDefault();
-    console.log(item._id);
     setIsLoading(true);
     deleteDepartment(item._id, authLocal?.token)
       .then((res) => {
-        console.log(res);
         setIsLoading(false);
         success();
       })

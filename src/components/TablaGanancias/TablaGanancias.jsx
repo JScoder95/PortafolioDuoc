@@ -62,8 +62,7 @@ export const TablaGanancias = () => {
       
     };
   });
-  console.log('reservaZona' , reservaDiaZona);
-
+  
 //venta diaria por departamento
   const resultadoDiaDepto = [];
   reservaDiaDepto.reduce(function(res, value) {

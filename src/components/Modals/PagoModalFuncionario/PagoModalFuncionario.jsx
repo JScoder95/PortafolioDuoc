@@ -51,7 +51,6 @@ function PagoModalFuncionario(props) {
 
   useEffect(() => {
     async function fetchWebpay() {
-      console.log("dentro del useeffect", valorFinal);
       if (valorFinal !== 0 && valorFinal !== NaN && valorFinal !== undefined )   {
         const responseWP = await axios.get(`/webpay_plus/pay/${valorFinal}`);
 
@@ -61,7 +60,6 @@ function PagoModalFuncionario(props) {
     fetchWebpay();
   },[valorFinal]);
 
-  console.log("webpayResponse", webpayResponse);
   const success = () => {
     message.success("Has Hecho el Check Out Correctamente");
   };

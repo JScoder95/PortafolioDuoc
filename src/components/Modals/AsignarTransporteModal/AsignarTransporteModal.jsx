@@ -70,7 +70,6 @@ function AsignarTransporteModal(props) {
     e.preventDefault();
 
     const response = await toAssignTransport(selectedDepto._id, transporteSelected,  authLocal?.token);
-    console.log(response)
     if (response.data.ok) {
       success();
       handleClose();

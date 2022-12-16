@@ -43,11 +43,9 @@ function CheckOutModal(props) {
     setIsLoading(true);
     doCheckOut(selectedDepto._id, auth?.token, listaChequeo)
     .then((res) => {
-      console.log('Exito checkout ', res)
       updateMultasyReparaciones(selectedDepto.usuario._id, multas, reparacion, auth?.token)
         .then((res) => {
           setIsLoading(false);
-          console.log('Exito UpdateMultayReparaciones ', res);
           success();
           handleClose();
           setListaChequeo("");
@@ -57,7 +55,7 @@ function CheckOutModal(props) {
     })
     .catch((err) => {
       console.log(err.response);
-      console.log("NOPE");
+
       error()
     });
   };
