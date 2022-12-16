@@ -111,7 +111,7 @@ function Login(props) {
       {isLoading ? <Spiner /> : (
       <Form className="login__form" onSubmit={handleSubmit}>
         <Form.Group className="mb-3">
-          <Form.Label htmlFor="username">Usuario</Form.Label>
+          <Form.Label htmlFor="username">RUT</Form.Label>
           <Form.Control
             type="text"
             id="username"
@@ -119,10 +119,9 @@ function Login(props) {
             onChange={handlesetRut}
             value={rut}
             required
-            placeholder="Enter user"
+            placeholder="Ingresa tu Rut"
           />
           <Form.Text className="text-muted">
-            We'll never share your email with anyone else.
           </Form.Text>
         </Form.Group>
         <Form.Group className="mb-3">
