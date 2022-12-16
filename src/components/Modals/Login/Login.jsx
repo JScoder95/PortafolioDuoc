@@ -17,7 +17,7 @@ const GET_USERS = "/user/";
 
 
 function Login(props) {
-  const { setAuth } = useAuth();
+  const { auth,setAuth } = useAuth();
   const { setModalShow, show, setModalCreateAccount } = props;
   const navigate = useNavigate();
   const [rut, setRut] = useState("");
@@ -29,6 +29,7 @@ function Login(props) {
   useEffect(() => {
     setErrMsg("");
   }, [rut, password]);
+
 
   const handlesetRut = (event) => {
     setRut(event.target.value);
@@ -79,7 +80,7 @@ function Login(props) {
         };
         localStorage.setItem("auth", JSON.stringify(dataInfo));
         setAuth(dataInfo);
-        navigate("/reservas");
+        navigate("/departamentos");
       } else {
         error();
         setModalShow(false);
